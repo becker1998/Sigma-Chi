@@ -1,0 +1,110 @@
+
+.top-panel{
+	margin-bottom: 0rem;
+	background-color: #81B29A;
+}
+.nopadding{
+	padding: 0 !important;
+	margin: 0 !important;
+	margin-bottom: 0rem;
+}
+.side-panel{
+	margin-bottom: 0rem;
+	margin-right: 0rem;
+	width: 25%;
+	background-color: #F2CC8F;
+
+}
+.middle-row{
+	height: 5000px;
+}
+.main-panel{
+	background-color: #FFFCF2;
+	margin-bottom: 0rem;
+	margin-right: 0rem;
+	width: 75%;
+	height: 310px !important;
+}
+.logo{
+	width: 800px;
+	height: 800px;
+}
+.btn{
+	padding: 10px;
+	margin: 10px;
+	background-color: #E07A5F !important;
+	color: white !important;
+}
+.btn:hover{
+	padding: 10px;
+	margin: 10px;
+	background-color: black !important;
+	color: white !important;
+}
+.divider{
+	background-color: #F2CC8F;
+	margin-bottom: 0rem;
+}
+.border{
+	border-color: black !important;
+}
+.top-divider{
+	margin-bottom: 0rem;
+	background-color: #E9AC4A;
+	height: 15px !important;
+}
+.bottom-divider{
+	margin-bottom: 0rem;
+	background-color: #CC7E00;
+	height: 7.5px !important;
+}
+.data-btn{
+	width: 5000px !important;
+	height: 50px !important;
+}
+.nav-item{
+	padding: 5px;
+	margin: 5px;
+	background-color: #E07A5F !important;
+	color: white !important;
+	width: 200px !important; 
+}
+a{
+	text-align: center !important;
+}
+label{
+	text-align: center !important;
+}
+.data{
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-bottom: 2px !important;
+}
+.check{
+	margin-left: 100px !important;
+}
+.data:hover{
+	margin: 0 !important;
+	padding: 0 !important;
+	background-color: black !important;
+	color: white !important;
+	margin-bottom: 2px !important;
+}
+.add{
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-bottom: 2px !important;
+	width: 20px !important;
+}
+.add:hover{
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-bottom: 2px !important;
+	background-color: black !important;
+	color: white !important;
+	width: 20px !important;
+}
+.brand{
+	margin-left: 130px !important;
+	margin-top: 160px !important;
+}
