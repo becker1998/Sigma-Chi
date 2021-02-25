@@ -26,6 +26,11 @@
 	color: white !important;
 	align-content: center !important;
 }
+.input{
+	display: none;
+	width: 5px;
+	height: 5px;
+}
 .bn:hover{
 	padding: 10px;
 	margin: 10px;

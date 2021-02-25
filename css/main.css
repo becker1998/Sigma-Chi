@@ -25,6 +25,11 @@
 	width: 75%;
 	height: 310px !important;
 }
+.input{
+	display: none;
+	width: 5px;
+	height: 5px;
+}
 .logo{
 	width: 800px;
 	height: 800px;
