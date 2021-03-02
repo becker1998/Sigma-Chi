@@ -3,21 +3,24 @@
 	margin-bottom: 0rem;
 	background-color: #81B29A;
 }
+
 .nopadding{
 	padding: 0 !important;
 	margin: 0 !important;
 	margin-bottom: 0rem;
 }
+
 .side-panel{
 	margin-bottom: 0rem;
 	margin-right: 0rem;
 	width: 25%;
 	background-color: #F2CC8F;
-
 }
+
 .middle-row{
 	height: 5000px;
 }
+
 .main-panel{
 	background-color: #FFFCF2;
 	margin-bottom: 0rem;
@@ -25,48 +28,58 @@
 	width: 75%;
 	height: 310px !important;
 }
+
 .input{
 	display: none;
 	width: 5px;
 	height: 5px;
 }
+
 .logo{
 	width: 800px;
 	height: 800px;
 }
+
 .btn{
 	padding: 10px;
 	margin: 10px;
 	background-color: #E07A5F !important;
 	color: white !important;
 }
+
 .btn:hover{
 	padding: 10px;
 	margin: 10px;
 	background-color: black !important;
 	color: white !important;
 }
+
 .divider{
 	background-color: #F2CC8F;
 	margin-bottom: 0rem;
 }
+
 .border{
 	border-color: black !important;
 }
+
 .top-divider{
 	margin-bottom: 0rem;
 	background-color: #E9AC4A;
 	height: 15px !important;
 }
+
 .bottom-divider{
 	margin-bottom: 0rem;
 	background-color: #CC7E00;
 	height: 7.5px !important;
 }
+
 .data-btn{
 	width: 5000px !important;
 	height: 50px !important;
 }
+
 .nav-item{
 	padding: 5px;
 	margin: 5px;
@@ -88,20 +101,25 @@ nav .col {
 a{
 	text-align: center !important;
 }
+
 label{
 	text-align: center !important;
 }
+
 .data{
 	margin-bottom: 2px !important;
 }
+
 .check{
 	margin-left: 100px !important;
 }
+
 .data:hover{
 	background-color: #ffb743 !important;
 	color: white !important;
 	margin-bottom: 2px !important;
 }
+
 .add{
 	background-color: #CC7E00 !important;
 	color: white !important;
@@ -110,6 +128,7 @@ label{
 	width: 40px !important;
 	height: 20px !important;
 }
+
 .add:hover{
 	margin-bottom: 2px !important;
 	background-color: #9e732d !important;
@@ -117,6 +136,7 @@ label{
 	color: white !important;
 	width: 40px !important;
 }
+
 .brand{
 	margin-left: 130px !important;
 	margin-top: 160px !important;
