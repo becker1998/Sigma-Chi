@@ -55,7 +55,7 @@ function weighted_Mean(allData){
   var weightedMean = 0.0;
   var sumOfWeights = 0.0;
   //for each data point
-  for (i = 0; i < data.length; i++){
+  for (i = 0; i < allData.length; i++){
     //sum of all data points * their respective weights
     weightedMean += (allData[i][0] * (allData[i][2] - allData[i][0])); //(allData[i][2] - allData[i][0]) = uncertanty
     sumOfWeights += (allData[i][2] - allData[i][0]); //(allData[i][2] - allData[i][0]) = uncertanty
@@ -75,14 +75,14 @@ function weighted_Mean_Variance(allData){
   var weight = 0.0
   var sumOfWeights = 0.0;
   //for each data point
-  for (i = 0; i < data.length; i++){
+  for (i = 0; i < allData.length; i++){
     //w(x-weightedMean)^2
     weight = (allData[i][2] - allData[i][0]); //(allData[i][2] - allData[i][0]) = uncertanty
     weightedMeanVariance += (weight * ((allData[i][0] - weightedMean(allData)) * (allData[i][0] - weightedMean(allData))));
     sumOfWeights += weight;
   }
   weightedMeanVariance = weightedMeanVariance / sumOfWeights;
-  weightedMeanVariance = weightedMeanVariance * (data.length / (data.length - 1))
+  weightedMeanVariance = weightedMeanVariance * (allData.length / (allData.length - 1))
   return weightedMeanVariance;
 }
 
@@ -94,8 +94,7 @@ function weighted_Mean_Variance(allData){
 //THIS FUNCTION IS CURRENTLY UNTESTED
 function weighted_Mean_Uncertainty(allData){
   var weightedMeanUncertanty = 0.0;
-  Math.sqrt(weighted_Mean_Variance(allData) / allData.length);
-  return;
+  return Math.sqrt(weighted_Mean_Variance(allData) / allData.length);
 }
 
 //function returns the expected value (average)
@@ -141,7 +140,34 @@ function reduced_Chai_Squared(data, rejected){
   return reduced_chi_sqr;
 }
 
-function univariate_Kernel_Density(){
-  alert("Hello World");
+function gaussian(t){
+  return 1.0 / Math.sqrt(2 * Math.PI) * Math.pow(Math.E, -Math.pow(t, 2.0) / 2.0);
+}
 
+function epanechnikov(t){
+  return Math.max(0.0, 3.0 / 4.0 * (1.0 - (1.0 / 5.0 * Math.pow(t, 2.0))) / Math.sqrt(5));
+}
+
+function sumKernel(bandwidth, allData, formulaGaussian, k){
+  var sumKernel = 0.0;
+  var t = 0.0
+  for (i = 0; i < allData.length; i++){
+    t = (k - allData[i][0]) / bandwidth;
+    if (formulaGaussian){
+      sumKernel += gaussian(t);
+    }else{
+      sumKernel += epanechnikov(t);
+    }
+  }
+  return sumKernel;
+}
+
+function univariate_Kernel_Density(bandwidth, allData, formulaGaussian){
+  var densityEstimation = new Array();
+
+  for (i = 0; i < allData.length; i++){
+    densityEstimation[i] = ((1 / (allData.length * bandwidth)) * sumKernel(bandwidth, allData, formulaGaussian, i));
+  }
+
+  return densityEstimation;
 }
