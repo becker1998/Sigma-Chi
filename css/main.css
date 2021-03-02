@@ -70,10 +70,21 @@
 .nav-item{
 	padding: 5px;
 	margin: 5px;
-	background-color: #E07A5F !important;
+	background-color: #E9AC4A !important;
 	color: white !important;
-	width: 200px !important; 
+	width: 100% !important;
+	box-shadow: 0px 5px 0px #CC7E00;
+	padding-top: 10px !important;
 }
+
+.navbar {
+	padding: 0 !important;
+}
+
+nav .col {
+	padding: 0 !important;
+}
+
 a{
 	text-align: center !important;
 }
@@ -81,33 +92,30 @@ label{
 	text-align: center !important;
 }
 .data{
-	margin: 0 !important;
-	padding: 0 !important;
 	margin-bottom: 2px !important;
 }
 .check{
 	margin-left: 100px !important;
 }
 .data:hover{
-	margin: 0 !important;
-	padding: 0 !important;
-	background-color: black !important;
+	background-color: #ffb743 !important;
 	color: white !important;
 	margin-bottom: 2px !important;
 }
 .add{
-	margin: 0 !important;
-	padding: 0 !important;
-	margin-bottom: 2px !important;
-	width: 20px !important;
+	background-color: #CC7E00 !important;
+	color: white !important;
+	box-shadow: 0px 5px 0px #CC7E00;
+	margin-top: 12px !important;
+	width: 40px !important;
+	height: 20px !important;
 }
 .add:hover{
-	margin: 0 !important;
-	padding: 0 !important;
 	margin-bottom: 2px !important;
-	background-color: black !important;
+	background-color: #9e732d !important;
+	box-shadow: 0px 5px 0px #9e732d;
 	color: white !important;
-	width: 20px !important;
+	width: 40px !important;
 }
 .brand{
 	margin-left: 130px !important;
