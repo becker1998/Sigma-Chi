@@ -1,6 +1,26 @@
 
 //Sigma-Chi, written by Connor St. Louis - 2021
 
+//function will retrieve all files inputted from clicking "Import"
+//not complete, currently reads csv as a string
+//need to modify to read into and array (global var)
+//FUNCTION IS CURRENTLY UNTESTED
+function dataFile(input){
+  let file = input.files[0];
+
+  let reader = new FileReader();
+
+  reader.readAsText(file);
+
+  reader.onload = function() {
+    console.log(reader.result);
+  };
+
+  reader.onerror = function() {
+    console.log(reader.error);
+  };
+}
+
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
 //for example, if the customer enters 10, 1.  10 being the data point, 1 being the uncertainty, then array[0] = (10,11,9)
@@ -95,13 +115,13 @@ function Expected_Value(data){
 //FUNCTION IS CURRENTLY UNTESTED
 function chi_squared (data){
   var chi = 0; //place holder for the chi-square value
-  chi-sqr = new Array();
+  chi_sqr = new Array();
   var numerator = 0;
   var ev = Expected_Value(data); //expected value for data
 
   for (i = 0; i < data.length; i++) {
     numerator = Math.pow(data[i][0],ev);
-    chi-sqr[i] = numerator/ev;
+    chi_sqr[i] = numerator/ev;
   }
   return chi-sqr;
 }
@@ -113,12 +133,12 @@ function chi_squared (data){
 //FUNCTION IS CURRENTLY UNTESTED
 function reduced_Chai_Squared(data, rejected){
   var accepted = data.length - rejected;  //accepted = degrees of freedom
-  var reduced-chi-sqr = new Array();
+  var reduced_chi_sqr = new Array();
   var chi = chi_squared(data);
   for (i = 0; i < data.length; i++) {
-    reduced-chi-sqr[i] = chi[i] / accepted;
+    reduced_chi_sqr[i] = chi[i] / accepted;
   }
-  return reduced-chi-sqr;
+  return reduced_chi_sqr;
 }
 
 function univariate_Kernel_Density(){
