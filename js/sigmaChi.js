@@ -72,7 +72,7 @@ function weighted_Mean(allData){
 //THIS FUNCTION IS CURRENTLY UNTESTED
 function weighted_Mean_Variance(allData){
   var weightedMeanVariance = 0.0;
-  var weight = 0.0
+  var weight = 0.0;
   var sumOfWeights = 0.0;
   //for each data point
   for (i = 0; i < allData.length; i++){
@@ -82,7 +82,7 @@ function weighted_Mean_Variance(allData){
     sumOfWeights += weight;
   }
   weightedMeanVariance = weightedMeanVariance / sumOfWeights;
-  weightedMeanVariance = weightedMeanVariance * (allData.length / (allData.length - 1))
+  weightedMeanVariance = weightedMeanVariance * (allData.length / (allData.length - 1));
   return weightedMeanVariance;
 }
 
@@ -150,7 +150,7 @@ function epanechnikov(t){
 
 function sumKernel(bandwidth, allData, formulaGaussian, k){
   var sumKernel = 0.0;
-  var t = 0.0
+  var t = 0.0;
   for (i = 0; i < allData.length; i++){
     t = (k - allData[i][0]) / bandwidth;
     if (formulaGaussian){
@@ -170,4 +170,115 @@ function univariate_Kernel_Density(bandwidth, allData, formulaGaussian){
   }
 
   return densityEstimation;
+}
+
+function rejection(allData, rejection){
+  var rejection = new Array();
+  for (i = 0; i < allData.length; i++){
+    if (){
+      rejection[i] = 0;
+    }else{
+      rejection[i] = 1;
+    }
+  }
+  return rejection;
+}
+
+function numberRejected(allData, rejection){
+  var count = 0;
+  var rejectionData = rejection(allData, rejection);
+  for (i = 0; i < allData.length; i++){
+    if (rejectionData[i] == 1){
+      count++;
+    }
+  }
+  return count;
+}
+
+function SDsum(allData){
+  var standardDeviationSum = 0.0;
+  var mean = weighted_Mean(allData);
+  var power = 0.0;
+  for (i = 0; i < allData.length; i++){
+    power = allData[i] - mean;
+    standardDeviationSum += Math.pow(power, 2);
+  }
+  return standardDeviationSum;
+}
+
+function standardDeviation(allData, isPopulation){
+  var standardDeviation = 0.0;
+  if(isPopulation){
+    Math.sqrt(SDsum(allData) / allData.length);
+  } else {
+    Math.sqrt(SDsum(allData) / (allData.length - 1));
+  }
+  return standardDeviation;
+}
+
+function differentNumbers(allData){
+  var oneOfEach = new Array();
+  oneOfEach[0] = allData[0][0];
+  var isIn = false;
+  for (i = 0; i < allData.length; i++){
+    isIn = false;
+    for (z = 0; z < oneOfEach.length; z++){
+      if (allData[i][0] == oneOfEach[z]){
+        isIn = true;
+      }
+    }
+    if (!isIn){
+      oneOfEach[i] = allData[i][0];
+    }
+  }
+  return oneOfEach;
+}
+
+function kernelMode(allData){
+  var oneOfEach = differentNumbers(allData);
+  var largest = new Array();
+  largestOne = 0;
+  for (z = 0; z < oneOfEach.length; z++){
+    largest[z] = 0;
+  }
+  for (i = 0; i < allData.length; i++){
+    for (z = 0; z < oneOfEach.length; z++){
+      if (oneOfEach[z] == allData[i][0]){
+        largest[z] += 1;
+      }
+    }
+  }
+  for (z = 0; z < oneOfEach.length; z++){
+    if (largest[z] > largestOne){
+      largestOne = z;
+    }
+  }
+  return largest[largestOne];
+}
+
+function kernelMedian(allData){
+  if(allData.length === 0) return 0;
+
+    allData.sort(function(a,b){
+      return a-b;
+    });
+
+    var half = Math.floor(allData.length / 2);
+
+    if (allData.length % 2)
+      return allData[half];
+
+    return (allData[half - 1] + allData[half]) / 2.0;
+}
+
+function kernelSkewness(allData, isMode, isPopulation){
+  var skewness = 0.0;
+  var mean = weighted_Mean(allData);
+  if (isMode){
+    skewness = (mean - kernelMode(allData)) / standardDeviation(allData, isPopulation);
+  } else {
+    skewness = (3*(mean - kernelMedian(allData))) / standardDeviation(allData, isPopulation);
+  }
+
+  return skewness;
 }
