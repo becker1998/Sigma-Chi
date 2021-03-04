@@ -291,9 +291,9 @@ function kernelMedian(allData){
     var half = Math.floor(allData.length / 2);
 
     if (allData.length % 2)
-      return allData[half];
+      return allData[half][0];
 
-    return (allData[half - 1] + allData[half]) / 2.0;
+    return (allData[half - 1][0] + allData[half][0]) / 2.0;
 }
 
 function kernelSkewness(allData, isMode, isPopulation){
