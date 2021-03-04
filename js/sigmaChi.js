@@ -146,7 +146,7 @@ function chi_squared (data){
     numerator = Math.pow(data[i][0],ev);
     chi_sqr[i] = numerator/ev;
   }
-  return chi-sqr;
+  return chi_sqr;
 }
 
 //function will calculate the reduced chi squared of a dataset
