@@ -46,9 +46,6 @@ function dataFile(input){
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
 //for example, if the customer enters 10, 1.  10 being the data point, 1 being the uncertainty, then array[0] = (10,11,9)
-//THIS FUNCTION IS CURRENTLY UNTESTED
-//THIS FUNCTION IS CURRENTLY UNTESTED
-//THIS FUNCTION IS CURRENTLY UNTESTED
 function Data_Points_With_Uncertainty(data, uncertainties){
   if (data === undefined){
     alert("error using the current dataset");
@@ -58,13 +55,13 @@ function Data_Points_With_Uncertainty(data, uncertainties){
     return null;
   }
 
-  var dataWithUncertanties = new Array();
+  var dataWithUncertainties = new Array();
   for (i = 0; i < data.length; i++) {
-    var uncertantyMax = data[i] + uncertanties[i];
-    var uncertantyMin = data[i] - uncertanties[i];
-    dataWithUncertanties[i] = new Array(data[i], uncertantyMax, uncertantyMin);
+    var uncertaintyMax = data[i] + uncertainties[i];
+    var uncertaintyMin = data[i] - uncertainties[i];
+    dataWithUncertainties[i] = new Array(data[i], uncertaintyMax, uncertaintyMin);
   }
-  return dataWithUncertanties;
+  return dataWithUncertainties;
 }
 
 //function returns the weighted mean based on data points with uncertainty being used as the weight
@@ -79,8 +76,8 @@ function weighted_Mean(allData){
   //for each data point
   for (i = 0; i < allData.length; i++){
     //sum of all data points * their respective weights
-    weightedMean += (allData[i][0] * (allData[i][2] - allData[i][0])); //(allData[i][2] - allData[i][0]) = uncertanty
-    sumOfWeights += (allData[i][2] - allData[i][0]); //(allData[i][2] - allData[i][0]) = uncertanty
+    weightedMean += (allData[i][0] * (allData[i][1] - allData[i][0])); //(allData[i][1] - allData[i][0]) = uncertanty
+    sumOfWeights += (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
   }
   weightedMean = weightedMean / sumOfWeights;
   return weightedMean;
@@ -99,7 +96,7 @@ function weighted_Mean_Variance(allData){
   //for each data point
   for (i = 0; i < allData.length; i++){
     //w(x-weightedMean)^2
-    weight = (allData[i][2] - allData[i][0]); //(allData[i][2] - allData[i][0]) = uncertanty
+    weight = (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
     weightedMeanVariance += (weight * ((allData[i][0] - weightedMean(allData)) * (allData[i][0] - weightedMean(allData))));
     sumOfWeights += weight;
   }
