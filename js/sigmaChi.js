@@ -85,6 +85,7 @@ function weighted_Mean(allData){
     sumOfWeights += (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
   }
   weightedMean = weightedMean / sumOfWeights;
+  return weightedMean;
 }
 
 //function returns the weighted mean variance
@@ -136,7 +137,7 @@ function Expected_Value(data){
 //function reutrns the chi_squared of a dataset
 //function uses Expected_Value(data)
 //FUNCTION IS CURRENTLY UNTESTED
-function chi_squared (data){
+function chi_squared(data){
   var chi = 0; //place holder for the chi-square value
   chi_sqr = new Array();
   var numerator = 0;
