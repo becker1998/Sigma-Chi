@@ -1,6 +1,11 @@
 
 //Sigma-Chi, written by Connor St. Louis - 2021
 
+//GLOBAL VARS
+
+var glData = new Array()
+var glUncer = new Array()
+
 //function will retrieve all files inputted from clicking "Import"
 //not complete, currently reads csv as a string
 //need to modify to read into and array (global var)
@@ -13,7 +18,24 @@ function dataFile(input){
   reader.readAsText(file);
 
   reader.onload = function() {
-    console.log(reader.result);
+    var splt = reader.result.split("\\s+");
+    console.log(splt);
+    var rslt = reader.result.trim().replace(/\s/g,",");
+    var spltStr = rslt.split(",");
+    var fields = new Array (spltStr[0], spltStr[1])
+    spltStr.splice(0,1);
+    spltStr.splice(1,1);
+    console.log(rslt);
+    console.log(rslt.length);
+    for (var i = 0; i < rslt.length; i++) {
+      console.log(rslt[i]);
+    }
+    for (j = 0 ; j < spltStr.length; j= j + 2){
+      if (spltStr[j] != ""){
+
+      }
+    }
+    console.log(spltStr);
   };
 
   reader.onerror = function() {
@@ -175,7 +197,7 @@ function univariate_Kernel_Density(bandwidth, allData, formulaGaussian){
 function rejection(allData, rejection){
   var rejection = new Array();
   for (i = 0; i < allData.length; i++){
-    if (){
+    if (i < 0){
       rejection[i] = 0;
     }else{
       rejection[i] = 1;
