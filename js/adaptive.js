@@ -10,10 +10,14 @@ window.onresize = function(event) {
 var href = window.location.href.split("/")
 var html_location = href[href.length-1]
 
-if (window.innerWidth >= 960 && html_location !== "Index.html") {
+//console.log(window.innerWidth);
+
+// LOAD DESKTOP
+if (document.documentElement.clientWidth >= 450 && html_location !== "Index.html") {
     window.location = "Index.html";
 }
 
-if (window.innerWidth < 960 && html_location !== "mobileIndex.html") {
+// LOAD MOBILE (iPhone 12 Pro Max width = 428)
+if (document.documentElement.clientWidth < 450 && html_location !== "mobileIndex.html") {
     window.location = "mobileIndex.html";
 }

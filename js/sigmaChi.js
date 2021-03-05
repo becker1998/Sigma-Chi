@@ -46,10 +46,7 @@ function dataFile(input){
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
 //for example, if the customer enters 10, 1.  10 being the data point, 1 being the uncertainty, then array[0] = (10,11,9)
-//THIS FUNCTION IS CURRENTLY UNTESTED
-//THIS FUNCTION IS CURRENTLY UNTESTED
-//THIS FUNCTION IS CURRENTLY UNTESTED
-function Data_Points_With_Uncertainty(data, uncertainties){
+function Data_Points_With_Uncertainty(data, uncertainties, twosigma){
   if (data === undefined){
     alert("error using the current dataset");
     return null;
@@ -58,13 +55,18 @@ function Data_Points_With_Uncertainty(data, uncertainties){
     return null;
   }
 
-  var dataWithUncertanties = new Array();
+  var dataWithUncertainties = new Array();
   for (i = 0; i < data.length; i++) {
-    var uncertantyMax = data[i] + uncertanties[i];
-    var uncertantyMin = data[i] - uncertanties[i];
-    dataWithUncertanties[i] = new Array(data[i], uncertantyMax, uncertantyMin);
+    if (twosigma == false){
+      var uncertaintyMax = data[i] + (uncertainties[i] * 2);
+      var uncertaintyMin = data[i] - (uncertainties[i] * 2);
+    }else{
+      var uncertaintyMax = data[i] + uncertainties[i];
+      var uncertaintyMin = data[i] - uncertainties[i];
+    }
+    dataWithUncertainties[i] = new Array(data[i], uncertaintyMax, uncertaintyMin);
   }
-  return dataWithUncertanties;
+  return dataWithUncertainties;
 }
 
 //function returns the weighted mean based on data points with uncertainty being used as the weight
@@ -79,8 +81,8 @@ function weighted_Mean(allData){
   //for each data point
   for (i = 0; i < allData.length; i++){
     //sum of all data points * their respective weights
-    weightedMean += (allData[i][0] * (allData[i][2] - allData[i][0])); //(allData[i][2] - allData[i][0]) = uncertanty
-    sumOfWeights += (allData[i][2] - allData[i][0]); //(allData[i][2] - allData[i][0]) = uncertanty
+    weightedMean += (allData[i][0] * (allData[i][1] - allData[i][0])); //(allData[i][1] - allData[i][0]) = uncertanty
+    sumOfWeights += (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
   }
   weightedMean = weightedMean / sumOfWeights;
   return weightedMean;
@@ -96,11 +98,12 @@ function weighted_Mean_Variance(allData){
   var weightedMeanVariance = 0.0;
   var weight = 0.0;
   var sumOfWeights = 0.0;
+  var weightedMean = weighted_Mean(allData);
   //for each data point
   for (i = 0; i < allData.length; i++){
     //w(x-weightedMean)^2
-    weight = (allData[i][2] - allData[i][0]); //(allData[i][2] - allData[i][0]) = uncertanty
-    weightedMeanVariance += (weight * ((allData[i][0] - weightedMean(allData)) * (allData[i][0] - weightedMean(allData))));
+    weight = (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
+    weightedMeanVariance += (weight * ((allData[i][0] - weightedMean) * (allData[i][0] - weightedMean)));
     sumOfWeights += weight;
   }
   weightedMeanVariance = weightedMeanVariance / sumOfWeights;
@@ -134,7 +137,7 @@ function Expected_Value(data){
 //function reutrns the chi_squared of a dataset
 //function uses Expected_Value(data)
 //FUNCTION IS CURRENTLY UNTESTED
-function chi_squared (data){
+function chi_squared(data){
   var chi = 0; //place holder for the chi-square value
   chi_sqr = new Array();
   var numerator = 0;
@@ -144,7 +147,7 @@ function chi_squared (data){
     numerator = Math.pow(data[i][0],ev);
     chi_sqr[i] = numerator/ev;
   }
-  return chi-sqr;
+  return chi_sqr;
 }
 
 //function will calculate the reduced chi squared of a dataset
@@ -170,17 +173,18 @@ function epanechnikov(t){
   return Math.max(0.0, 3.0 / 4.0 * (1.0 - (1.0 / 5.0 * Math.pow(t, 2.0))) / Math.sqrt(5));
 }
 
-function sumKernel(bandwidth, allData, formulaGaussian, k){
+function sumKernel(bandwidth, allData, formulaGaussian, i){
   var sumKernel = 0.0;
   var t = 0.0;
-  for (i = 0; i < allData.length; i++){
-    t = (k - allData[i][0]) / bandwidth;
+  for (w = 0; w < allData.length; w++){
+    t = (i - allData[w][0]) / bandwidth;
     if (formulaGaussian){
       sumKernel += gaussian(t);
     }else{
       sumKernel += epanechnikov(t);
     }
   }
+
   return sumKernel;
 }
 
@@ -280,17 +284,25 @@ function kernelMode(allData){
 
 function kernelMedian(allData){
   if(allData.length === 0) return 0;
-
-    allData.sort(function(a,b){
-      return a-b;
-    });
-
+    allData.sort(sortFunction);
     var half = Math.floor(allData.length / 2);
+    if (allData.length % 2) {
+      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
+      return allData[half][0];
+    }else {
+      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + ((allData[half - 1][0] + allData[half][0]) / 2.0);
+      return (allData[half - 1][0] + allData[half][0]) / 2.0;
+    }
+}
 
-    if (allData.length % 2)
-      return allData[half];
-
-    return (allData[half - 1] + allData[half]) / 2.0;
+// Ascending sort on 1st column of 2D array
+function sortFunction(a, b) {
+    if (a[0] === b[0]) {
+        return 0;
+    }
+    else {
+        return (a[0] < b[0]) ? -1 : 1;
+    }
 }
 
 function kernelSkewness(allData, isMode, isPopulation){
