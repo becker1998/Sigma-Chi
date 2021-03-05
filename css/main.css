@@ -3,11 +3,23 @@
 	margin-bottom: 0rem;
 	background-color: #81B29A;
 }
+.scrollbar {
+position: relative;
+height: 200px;
+overflow: auto;
+}
+.table-scroll-y {
+display: block;
+}
+
+.pt-3-half { padding-top: 1.4rem;
+	padding-bottom: 0rem;
+ }
 
 .nopadding{
 	padding: 0 !important;
 	margin: 0 !important;
-	margin-bottom: 0rem;
+	margin-bottom: 0rem !important;
 }
 
 .side-panel{

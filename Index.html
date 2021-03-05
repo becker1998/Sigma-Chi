@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="./css/main.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Sigma Chi</title>
 
   </head>
@@ -38,7 +40,7 @@
             side-panel nopadding sidecol">
                 <nav class="navbar">
                   <div class="col align-self-center navbar-nav">
-                    <div class="form-check nav-item data nav-link align-self-center active">
+                    <div class="form-check nav-item data nav-link align-self-center active" id="dataset1">
                       <input class="form-check-input check" type="checkbox" id="datacheck">
                       <label class="form-check-label data" for="datacheck">Data Set 1</label>
                     </div>
@@ -48,36 +50,68 @@
             </div>
 
           <div class="col-8 main-panel nopadding maincol">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Reject</th>
-                  <th scope="col">Data</th>
-                  <th scope="col">Uncertainty</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="card-body">
+              <div id="table" class="table-editable table-scroll-y scrollbar">
+                <span class="table-add float-right"
+                  ><a href="#!" class="text-success"
+                    ><i class="material-icons">add_circle</i></a
+                ></span>
+                <table class="table table-bordered table-responsive-md table-striped text-center ">
+                  <thead>
+                    <tr>
+                      <th class="text-center">#</th>
+                      <th class="text-center">Reject</th>
+                      <th class="text-center">Data</th>
+                      <th class="text-center">Uncertainty</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="pt-3-half" contenteditable="true">1</td>
+                      <td class="pt-3-half" contenteditable="false">
+                        <input class="form-check-input text-center" type="checkbox" id="reject1">
+                      </td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                      <td class="pt-3-half" contenteditable="true">2</td>
+                      <td class="pt-3-half" contenteditable="false">
+                        <input class="form-check-input text-center" type="checkbox" id="reject3">
+                      </td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                      <td class="pt-3-half" contenteditable="true">3</td>
+                      <td class="pt-3-half" contenteditable="false">
+                        <input class="form-check-input text-center" type="checkbox" id="reject4">
+                      </td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                      <td class="pt-3-half" contenteditable="true">4</td>
+                      <td class="pt-3-half" contenteditable="false">
+                        <input class="form-check-input text-center" type="checkbox" id="reject5">
+                      </td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                    </tr>
+                    <tr>
+                      <td class="pt-3-half" contenteditable="true">5</td>
+                      <td class="pt-3-half" contenteditable="false">
+                        <input class="form-check-input text-center" type="checkbox" id="reject6">
+                      </td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                      <td class="pt-3-half" contenteditable="true"></td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
           </div>
           <div class="col-2 d-flex flex-column
             side-panel nopadding sidecol">
@@ -111,7 +145,7 @@
             </div>
           <!-- MAIN GRAPH AREA -->
           <div class="col-8 main-panel nopadding maincol">
-            
+
           </div>
           <!-- GRAPH AREA END-->
           <div class="col-2 d-flex flex-column
