@@ -18,7 +18,7 @@ function dataFile(input){
   reader.readAsText(file);
 
   reader.onload = function() {
-    var splt = reader.result.split("\\s+");
+    var splt = reader.result.split(" ");
     console.log(splt);
     var rslt = reader.result.trim().replace(/\s/g,",");
     var spltStr = rslt.split(",");
