@@ -7,35 +7,28 @@ var glData = new Array()
 var glUncer = new Array()
 
 //function will retrieve all files inputted from clicking "Import"
-//not complete, currently reads csv as a string
+//first reads in as a text string and then converts and updates
+//global variables glData and glUncer
 //need to modify to read into and array (global var)
 //FUNCTION IS CURRENTLY UNTESTED
 function dataFile(input){
   let file = input.files[0];
 
   let reader = new FileReader();
-
   reader.readAsText(file);
-
   reader.onload = function() {
-    var splt = reader.result.split(" ");
+    var splt = reader.result.trim().split("\n");
     console.log(splt);
-    var rslt = reader.result.trim().replace(/\s/g,",");
-    var spltStr = rslt.split(",");
-    var fields = new Array (spltStr[0], spltStr[1])
-    spltStr.splice(0,1);
-    spltStr.splice(1,1);
-    console.log(rslt);
-    console.log(rslt.length);
-    for (var i = 0; i < rslt.length; i++) {
-      console.log(rslt[i]);
+    var fields = splt.splice(0,1);
+    console.log(splt);
+    console.log(fields);
+    for (var i = 0; i < splt.length; i++) {
+        var array = splt[i].split(",").map(Number);
+        glData.push(array[0]);
+        glUncer.push(array[1])
     }
-    for (j = 0 ; j < spltStr.length; j= j + 2){
-      if (spltStr[j] != ""){
-
-      }
-    }
-    console.log(spltStr);
+    console.log("Data : " + glData);
+    console.log("Uncertainty : " + glUncer);
   };
 
   reader.onerror = function() {
