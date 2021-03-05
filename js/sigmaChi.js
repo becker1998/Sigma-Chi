@@ -284,17 +284,25 @@ function kernelMode(allData){
 
 function kernelMedian(allData){
   if(allData.length === 0) return 0;
-
-    allData.sort(function(a,b){
-      return a-b;
-    });
-
+    allData.sort(sortFunction);
     var half = Math.floor(allData.length / 2);
+    if (allData.length % 2) {
+      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
+      return allData[half][0];
+    }else {
+      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + ((allData[half - 1][0] + allData[half][0]) / 2.0);
+      return (allData[half - 1][0] + allData[half][0]) / 2.0;
+    }
+}
 
-    if (allData.length % 2)
-      return allData[half];
-
-    return (allData[half - 1] + allData[half]) / 2.0;
+// Ascending sort on 1st column of 2D array
+function sortFunction(a, b) {
+    if (a[0] === b[0]) {
+        return 0;
+    }
+    else {
+        return (a[0] < b[0]) ? -1 : 1;
+    }
 }
 
 function kernelSkewness(allData, isMode, isPopulation){
