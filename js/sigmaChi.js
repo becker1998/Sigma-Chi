@@ -235,49 +235,73 @@ function standardDeviation(allData, isPopulation){
   return standardDeviation;
 }
 
-function differentNumbers(allData){
-  var oneOfEach = new Array();
-  oneOfEach[0] = allData[0][0];
-  var isIn = false;
-  for (i = 0; i < allData.length; i++){
-    isIn = false;
-    for (z = 0; z < oneOfEach.length; z++){
-      if (allData[i][0] == oneOfEach[z]){
-        isIn = true;
-      }
-    }
-    if (!isIn){
-      oneOfEach[i] = allData[i][0];
-    }
-  }
-  return oneOfEach;
-}
+// function differentNumbers(allData){
+//   var oneOfEach = new Array();
+//   oneOfEach[0] = allData[0][0];
+//   var isIn = false;
+//   for (i = 0; i < allData.length; i++){
+//     isIn = false;
+//     for (z = 0; z < oneOfEach.length; z++){
+//       if (allData[i][0] == oneOfEach[z]){
+//         isIn = true;
+//       }
+//     }
+//     if (!isIn){
+//       oneOfEach[i] = allData[i][0];
+//     }
+//   }
+//   return oneOfEach;
+// }
+
+// function kernelMode(allData){
+//   var oneOfEach = differentNumbers(allData);
+//   var largest = new Array();
+//   var largestOne = 0;
+//   for (z = 0; z < oneOfEach.length; z++){
+//     largest[z] = 0;
+//   }
+//   for (i = 0; i < allData.length; i++){
+//     for (z = 0; z < oneOfEach.length; z++){
+//       if (oneOfEach[z] == allData[i][0]){
+//         largest[z] += 1;
+//       }
+//     }
+//   }
+//   for (z = 0; z < oneOfEach.length; z++){
+//     if (largest[z] > largestOne){
+//       largestOne = z;
+//     }
+//   }
+//   return largest[largestOne];
+// }
 
 function kernelMode(allData){
-  var oneOfEach = differentNumbers(allData);
-  var largest = new Array();
-  largestOne = 0;
-  for (z = 0; z < oneOfEach.length; z++){
-    largest[z] = 0;
-  }
-  for (i = 0; i < allData.length; i++){
-    for (z = 0; z < oneOfEach.length; z++){
-      if (oneOfEach[z] == allData[i][0]){
-        largest[z] += 1;
+  var modes = new Array();
+  allData.sort(sortFunction);
+  var currentCount = 1;
+  var modeCount = 1;
+  console.log(allData);
+  for(i = 0; i < allData.length-1; i++){
+    if(allData[i][0] == allData[i + 1][0]){
+      currentCount++;
+      if(currentCount == modeCount){
+        modes.push(allData[i][0]);
+      } else if(currentCount > modeCount){
+        modes = new Array();
+        modes.push(allData[i][0]);
+        modeCount = currentCount;
       }
+    } else {
+      currentCount = 1;
     }
   }
-  for (z = 0; z < oneOfEach.length; z++){
-    if (largest[z] > largestOne){
-      largestOne = z;
-    }
-  }
-  return largest[largestOne];
+  return modes;
 }
 
 function kernelMedian(allData){
   if(allData.length === 0) return 0;
-    allData.sort(sortFunction);
+    
+  allData.sort(sortFunction);
     var half = Math.floor(allData.length / 2);
     if (allData.length % 2) {
       document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
