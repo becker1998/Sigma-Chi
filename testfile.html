@@ -17,7 +17,7 @@
 <p id="chiSquared">Chi Squared: </p>
 <p id="reducedChiSquared">Reduced Chi Squared: </p>
 <p id="kernelMedian">Kernel Median: </p>
-
+<p id="kernelMode">Kernel Mode: </p>
 
 <script>
 function Data_Points_With_Uncertainty(data, uncertainties, twosigma){
@@ -160,13 +160,11 @@ for (i = 0; i < dataLength; i++){
 function kernelMedian(allData){
   if(allData.length === 0) return 0;
     allData.sort(sortFunction);
-    console.log(allData);
     var half = Math.floor(allData.length / 2);
     if (allData.length % 2) {
       document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
       return allData[half][0];
     }else {
-      var result = (allData[half - 1][0] + allData[half][0]) / 2.0;
       document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + ((allData[half - 1][0] + allData[half][0]) / 2.0);
       return (allData[half - 1][0] + allData[half][0]) / 2.0;
     }
@@ -181,6 +179,29 @@ function sortFunction(a, b) {
     }
 }
 
+function kernelMode(allData){
+  var modes = new Array();
+  allData.sort(sortFunction);
+  var currentCount = 1;
+  var modeCount = 1;
+  for(i = 0; i < allData.length-1; i++){
+    if(allData[i][0] == allData[i + 1][0]){
+      currentCount++;
+      if(currentCount == modeCount){
+        modes.push(allData[i][0]);
+      } else if(currentCount > modeCount){
+        modes = new Array();
+        modes.push(allData[i][0]);
+        modeCount = currentCount;
+      }
+    } else {
+      currentCount = 1;
+    }
+  }
+  document.getElementById("kernelMode").innerHTML = "Kernel Mode: " + modes;
+  return modes;
+}
+
 var allData = new Array();
 allData = Data_Points_With_Uncertainty(testData, testUncertainties, false);
 var weightedMean = weighted_Mean(allData);
@@ -193,6 +214,7 @@ var chiSquared = chi_squared(allData);
 var reducedchiSquared = reduced_Chai_Squared(allData, 0);
 document.getElementById("expectedValue").innerHTML += Expected_Value(allData);
 var kernelMedian = kernelMedian(allData);
+var kernelMode = kernelMode(allData);
 
 for (i = 0; i < allData.length; i++){
   if (i != allData.length - 1){
