@@ -16,6 +16,10 @@ display: block;
 	padding-bottom: 0rem;
  }
 
+ .nomargin{
+	 padding-bottom: 0rem !important;
+ }
+
 .nopadding{
 	padding: 0 !important;
 	margin: 0 !important;

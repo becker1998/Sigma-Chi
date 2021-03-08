@@ -3,9 +3,52 @@
 
 //GLOBAL VARS
 
-var glData = new Array()
-var glUncer = new Array()
+var glData = new Array();
+var glUncer = new Array();
 
+//this function will add a new row to table on button click
+//FUNCTION IS CURRENTLY UNTESTED
+function addRow(){
+  var tbl = document.getElementById("table");
+  var tbody = tbl.querySelector("tbody");
+  var inp = tbody.querySelectorAll("input");
+
+
+  var newRow = document.createElement("tr");
+  var idCol = document.createElement("td");
+  var rejCol = document.createElement("td");
+  var dataCol = document.createElement("td");
+  var uncCol = document.createElement("td");
+
+  idCol.className = "pt-3-half";
+  rejCol.className = "pt-3-half";
+  dataCol.clasName = "pt-3-half";
+  dataCol.setAttribute("contenteditable", "true");
+  uncCol.clasName = "pt-3-half";
+  uncCol.setAttribute("contenteditable", "true");
+
+  newRow.appendChild(idCol);
+  newRow.appendChild(rejCol);
+  newRow.appendChild(dataCol);
+  newRow.appendChild(uncCol);
+
+  var checkBox = document.createElement("input");
+  checkBox.className = "form-check-input text-center";
+  checkBox.setAttribute("type", "checkbox");
+  var numCheck = inp.length + 1;
+  var id = "reject" + numCheck;
+  checkBox.setAttribute("id", id);
+  rejCol.appendChild(checkBox);
+
+  var rowCount = tbody.getElementsByTagName("tr").length + 1;
+  idCol.innerText = rowCount.toLocaleString();
+
+  tbody.appendChild(newRow);
+
+
+
+
+}
 //function will retrieve all files inputted from clicking "Import"
 //first reads in as a text string and then converts and updates
 //global variables glData and glUncer
