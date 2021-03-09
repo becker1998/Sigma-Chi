@@ -11,13 +11,30 @@ var datasets = new Array();
 //index will corrspond to the correct index of the datasets array
 var datasetsUncer = new Array();
 
+function addDataSet() {
+  var dataSets = document.getElementById("datasets");
+  var newDataSet = document.createElement("div");
+  var input = document.createElement("input");
+  var label = document.createElement("label");
+  var count = dataSets.querySelectorAll("div")
+
+  newDataSet.className="form-check nav-item data nav-link align-self-center active";
+  input.className="form-check-input check";
+  input.setAttribute("type","checkbox");
+  label.className="form-check-label data";
+  label.textContent="Data Set " + (count.length+1);
+  label.setAttribute("for","datacheck");
+  newDataSet.appendChild(input);
+  newDataSet.appendChild(label);
+  dataSets.appendChild(newDataSet);
+}
+
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
 function addRow(){
   var tbl = document.getElementById("table");
   var tbody = tbl.querySelector("tbody");
   var inp = tbody.querySelectorAll("input");
-
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -27,9 +44,9 @@ function addRow(){
 
   idCol.className = "pt-3-half";
   rejCol.className = "pt-3-half";
-  dataCol.clasName = "pt-3-half";
+  dataCol.className = "pt-3-half";
   dataCol.setAttribute("contenteditable", "true");
-  uncCol.clasName = "pt-3-half";
+  uncCol.className = "pt-3-half";
   uncCol.setAttribute("contenteditable", "true");
 
   newRow.appendChild(idCol);
@@ -50,6 +67,7 @@ function addRow(){
 
   tbody.appendChild(newRow);
 }
+
 //function will retrieve all files inputted from clicking "Import"
 //first reads in as a text string and then converts and updates
 //global variables glData and glUncer
@@ -351,6 +369,5 @@ function kernelSkewness(allData, isMode, isPopulation){
   } else {
     skewness = (3*(mean - kernelMedian(allData))) / standardDeviation(allData, isPopulation);
   }
-
   return skewness;
 }
