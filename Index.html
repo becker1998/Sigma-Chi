@@ -27,7 +27,31 @@
                  <div class="dropwdown">
                     <button type="button" class="btn shadow-lg btn-lg dropdown-toggle" id="eval-settings" data-toggle="dropdown">Evaluation Settings</button>
                   <div class="dropdown-menu" aria-labelledby="eval-settings">
-                    <a class="dropdown-item" href="#">Design</a>
+                    <form class="form-group">
+                      <div class="form-group row">
+                        <label for="scaleMin" class="col-sm-4 col-form-label">Low Scale:</label>
+                        <div class="col-sm-4">
+                          <input type="number" class="form-control" id="scaleMin">
+                        </div>
+
+                      </div>
+                      <div class="form-group row">
+                        <label for="scaleMax" class="col-sm-4 col-form-label">Max Scale:</label>
+                        <div class="col-sm-4">
+                          <input type="number" class="form-control" id="scaleMax">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="bandwith" class="col-sm-3 col-form-label">Bandwith:</label>
+                        <div class="col-sm-3">
+                          <input type="number" class="form-control" id="bandwith">
+                        </div>
+                        <label for="unit" class="col-sm-1 col-form-label">Unit:</label>
+                        <div class="col-sm-2">
+                          <input type="number" class="form-control" id="unit">
+                        </div>
+                      </div>
+                    </form>
 
                   </div>
                 </div>
