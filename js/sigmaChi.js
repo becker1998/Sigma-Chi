@@ -3,8 +3,13 @@
 
 //GLOBAL VARS
 
-var glData = new Array();
-var glUncer = new Array();
+//2D array storing arrays of each dataset entered
+//index will correspond to the order that the datasets are listed
+var datasets = new Array();
+
+//2D array storing arrays of the corresponding dataset
+//index will corrspond to the correct index of the datasets array
+var datasetsUncer = new Array();
 
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
@@ -52,7 +57,8 @@ function addRow(){
 //FUNCTION IS CURRENTLY UNTESTED
 function dataFile(input){
   let file = input.files[0];
-
+  var glData = new Array();
+  var glUncer = new Array();
   let reader = new FileReader();
   reader.readAsText(file);
   reader.onload = function() {
