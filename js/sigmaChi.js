@@ -21,7 +21,7 @@ function addDataSet() {
   newDataSet.className="form-check nav-item data nav-link align-self-center active";
   input.className="form-check-input check";
   input.setAttribute("type","checkbox");
-  label.className="form-check-label data";
+  label.className="form-check-label data dataText";
   label.textContent="Data Set " + (count.length+1);
   label.setAttribute("for","datacheck");
   newDataSet.appendChild(input);
