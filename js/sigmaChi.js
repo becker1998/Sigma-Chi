@@ -50,6 +50,15 @@ function addRow(){
 
   tbody.appendChild(newRow);
 }
+
+function addEmptyTableBody (){
+  var tbl = document.getElementById("table");
+  var tbody = document.createElement("tbody");
+  tbl.appendChild(tbody);
+  for (var i = 0; i < 5; i++) {
+    addRow();
+  }
+}
 //function will retrieve all files inputted from clicking "Import"
 //first reads in as a text string and then converts and updates
 //global variables glData and glUncer
@@ -70,7 +79,7 @@ function dataFile(input){
     for (var i = 0; i < splt.length; i++) {
         var array = splt[i].split(",").map(Number);
         glData.push(array[0]);
-        glUncer.push(array[1])
+        glUncer.push(array[1]);
     }
     console.log("Data : " + glData);
     console.log("Uncertainty : " + glUncer);
@@ -82,6 +91,10 @@ function dataFile(input){
   };
 }
 
+//this function is called within dataFile() and stores the csv data
+//into 2 global arrays: datasets and datasetsUncer. It uses 2 helper functions:
+//addingDataset() will do the hard work in storing data
+//addCSVTable() will update and dataset links to frontend
 function addCSVTable (data, uncertainty){
   var numDataSets = document.getElementById("datasets").querySelectorAll("div").length;
   var id = numDataSets + 1;
@@ -110,7 +123,17 @@ function addingDataset (id,data, uncertainty){
 //function will get the data for the correspongding dataset
 //a load it into a dynamic table
 function getData (input){
-  console.log(typeof input);
+  //console.log("Index : " + input);
+  //console.log("data getDat: " + datasets[input]);
+  //console.log(typeof datasets[input]);
+  var indexValue = typeof datasets[input - 1]
+  if (indexValue == "undefined"){
+    addEmptyTableBody();
+    console.log("im in if");
+  }
+  else if (indexValue !== "undefined") {
+    console.log("i'm in else if");
+  }
 }
 //function will add new labels that represent additional DataSets
 function addNewData (){
