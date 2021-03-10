@@ -74,19 +74,37 @@ function dataFile(input){
     }
     console.log("Data : " + glData);
     console.log("Uncertainty : " + glUncer);
+    addCSVTable(glData, glUncer);
   };
 
   reader.onerror = function() {
     console.log(reader.error);
   };
 }
+
+function addCSVTable (data, uncertainty){
+  var numDataSets = document.getElementById("datasets").querySelectorAll("div").length;
+  var id = numDataSets + 1;
+  addingDataset(id, data, uncertainty);
+  addNewData();
+}
+
 //this function adds a dataset to the 2D array of daatsets to keep
 //track of the number of datasets
 //function takes 2 parameter data that is an array of data
 //and uncertainty which is an array of uncertainties corrsponding to the
 //respective data
-function addingDataset (data, uncertainty){
-  console.log(data);
+function addingDataset (id,data, uncertainty){
+  console.log("Id: " + id);
+  console.log(typeof id);
+  data.unshift(id);
+  uncertainty.unshift(id);
+  console.log("Data: " + data);
+  console.log("Unc: " + uncertainty);
+  datasets[id-1] = data;
+  datasetsUncer[id-1] = uncertainty;
+  console.log(datasets);
+  console.log(datasetsUncer);
 }
 
 //function will get the data for the correspongding dataset
@@ -102,7 +120,9 @@ function addNewData (){
   var newDivData = document.createElement("div");
   newDivData.className = "data text-center";
   var divID = "data" + numLabels;
+  var onclickFunc = "getData(" + numLabels + ")";
   newDivData.setAttribute("id", divID);
+  newDivData.setAttribute("onclick", onclickFunc);
 
   var newLabel = document.createElement("label");
   var datasetID = "label" + numLabels
@@ -378,7 +398,7 @@ function sortFunction(a, b) {
         return 0;
     }
     else {
-        return (a[0] < b[0]) ? -1 : 1;
+        return (a[0] < b[0]) ? - 1 : 1;
     }
 }
 
@@ -392,4 +412,46 @@ function kernelSkewness(allData, isMode, isPopulation){
   }
 
   return skewness;
+}
+
+csvTest();
+
+function csvTest() {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
 }
