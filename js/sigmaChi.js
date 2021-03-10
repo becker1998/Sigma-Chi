@@ -366,10 +366,8 @@ function kernelMedian(allData){
     allData.sort(sortFunction);
     var half = Math.floor(allData.length / 2);
     if (allData.length % 2) {
-      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
       return allData[half][0];
     }else {
-      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + ((allData[half - 1][0] + allData[half][0]) / 2.0);
       return (allData[half - 1][0] + allData[half][0]) / 2.0;
     }
 }
