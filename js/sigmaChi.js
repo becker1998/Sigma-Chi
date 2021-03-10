@@ -59,6 +59,18 @@ function addEmptyTableBody (){
     addRow();
   }
 }
+
+function addRowWithData (){
+
+}
+function addTableBody (){
+  var tbl = document.getElementById("table");
+  var tbody = document.createElement("tbody");
+  tbl.appendChild(tbody);
+  for (var i = 0; i < 5; i++) {
+    addRowWithData();
+  }
+}
 //function will retrieve all files inputted from clicking "Import"
 //first reads in as a text string and then converts and updates
 //global variables glData and glUncer
@@ -122,6 +134,11 @@ function addingDataset (id,data, uncertainty){
 
 //function will get the data for the correspongding dataset
 //a load it into a dynamic table
+//function uses 2 helper funtions:
+//addEmptyTableBody() which creates an empty dynamic table
+//and
+//addTableBody(input) which passes in the corresponing index
+//that points to the dataset and creates the table with the data
 function getData (input){
   //console.log("Index : " + input);
   //console.log("data getDat: " + datasets[input]);
@@ -129,9 +146,10 @@ function getData (input){
   var indexValue = typeof datasets[input - 1]
   if (indexValue == "undefined"){
     addEmptyTableBody();
-    console.log("im in if");
+    //console.log("im in if");
   }
   else if (indexValue !== "undefined") {
+    addTableBody(input);
     console.log("i'm in else if");
   }
 }
