@@ -86,9 +86,14 @@ function dataFile(input){
 //and uncertainty which is an array of uncertainties corrsponding to the
 //respective data
 function addingDataset (data, uncertainty){
-
+  console.log(data);
 }
 
+//function will get the data for the correspongding dataset
+//a load it into a dynamic table
+function getData (input){
+  console.log(typeof input);
+}
 //function will add new labels that represent additional DataSets
 function addNewData (){
   var div = document.getElementById("datasets");
