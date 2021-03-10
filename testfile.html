@@ -224,7 +224,11 @@ for (i = 0; i < allData.length; i++){
     document.getElementById("uncertainties").innerHTML += (testUncertainties[i] + ", ");
     document.getElementById("allDataTest").innerHTML += "(";
     for (z = 0; z < 3; z++){
-      document.getElementById("allDataTest").innerHTML += (allData[i][z] + ", ");
+      if (z == 2){
+        document.getElementById("allDataTest").innerHTML += (allData[i][z]);
+      }else{
+        document.getElementById("allDataTest").innerHTML += (allData[i][z] + ", ");
+      }
     }
     document.getElementById("allDataTest").innerHTML += ")";
     document.getElementById("kernelDensity").innerHTML += kernelDensity[i] + ", ";
@@ -237,7 +241,11 @@ for (i = 0; i < allData.length; i++){
     document.getElementById("allDataTest").innerHTML += "(";
     document.getElementById("kernelDensity").innerHTML += kernelDensity[i];
     for (z = 0; z < 3; z++){
-      document.getElementById("allDataTest").innerHTML += (allData[i][z] + ", ");
+      if (z == 2){
+        document.getElementById("allDataTest").innerHTML += (allData[i][z]);
+      }else{
+        document.getElementById("allDataTest").innerHTML += (allData[i][z] + ", ");
+      }
     }
     document.getElementById("allDataTest").innerHTML += ")";
   }
