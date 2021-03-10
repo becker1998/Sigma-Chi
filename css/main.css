@@ -8,6 +8,11 @@ position: relative;
 height: 200px;
 overflow: auto;
 }
+.mainScrollbar{
+	position: relative;
+	height: 250px;
+	overflow: auto;
+}
 .table-scroll-y {
 display: block;
 }

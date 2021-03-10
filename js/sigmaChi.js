@@ -11,30 +11,13 @@ var datasets = new Array();
 //index will corrspond to the correct index of the datasets array
 var datasetsUncer = new Array();
 
-function addDataSet() {
-  var dataSets = document.getElementById("datasets");
-  var newDataSet = document.createElement("div");
-  var input = document.createElement("input");
-  var label = document.createElement("label");
-  var count = dataSets.querySelectorAll("div")
-
-  newDataSet.className="form-check nav-item data nav-link align-self-center active";
-  input.className="form-check-input check";
-  input.setAttribute("type","checkbox");
-  label.className="form-check-label data dataText";
-  label.textContent="Data Set " + (count.length+1);
-  label.setAttribute("for","datacheck");
-  newDataSet.appendChild(input);
-  newDataSet.appendChild(label);
-  dataSets.appendChild(newDataSet);
-}
-
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
 function addRow(){
   var tbl = document.getElementById("table");
   var tbody = tbl.querySelector("tbody");
   var inp = tbody.querySelectorAll("input");
+
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -67,7 +50,6 @@ function addRow(){
 
   tbody.appendChild(newRow);
 }
-
 //function will retrieve all files inputted from clicking "Import"
 //first reads in as a text string and then converts and updates
 //global variables glData and glUncer
@@ -98,7 +80,43 @@ function dataFile(input){
     console.log(reader.error);
   };
 }
+//this function adds a dataset to the 2D array of daatsets to keep
+//track of the number of datasets
+//function takes 2 parameter data that is an array of data
+//and uncertainty which is an array of uncertainties corrsponding to the
+//respective data
+function addingDataset (data, uncertainty){
 
+}
+
+//function will add new labels that represent additional DataSets
+function addNewData (){
+  var div = document.getElementById("datasets");
+  var numLabels = div.querySelectorAll("div").length + 1;
+
+  var newDivData = document.createElement("div");
+  newDivData.className = "data text-center";
+  var divID = "data" + numLabels;
+  newDivData.setAttribute("id", divID);
+
+  var newLabel = document.createElement("label");
+  var datasetID = "label" + numLabels
+  newLabel.setAttribute("id", datasetID);
+
+  var newCheckBox = document.createElement("input");
+  newCheckBox.className = "text-center";
+  newCheckBox.setAttribute("type", "checkbox");
+  var checkboxID = "checkdata" + numLabels;
+  newCheckBox.setAttribute("id", checkboxID);
+
+  var dataText = "Data Set " + numLabels;
+  newLabel.innerText = dataText;
+
+  newDivData.appendChild(newLabel);
+  newDivData.appendChild(newCheckBox);
+  div.appendChild(newDivData);
+
+}
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
 //for example, if the customer enters 10, 1.  10 being the data point, 1 being the uncertainty, then array[0] = (10,11,9)
@@ -369,5 +387,6 @@ function kernelSkewness(allData, isMode, isPopulation){
   } else {
     skewness = (3*(mean - kernelMedian(allData))) / standardDeviation(allData, isPopulation);
   }
+
   return skewness;
 }

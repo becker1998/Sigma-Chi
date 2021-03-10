@@ -13,8 +13,11 @@ var html_location = href[href.length-1]
 //console.log(window.innerWidth);
 
 // LOAD DESKTOP
-if (document.documentElement.clientWidth >= 450 && html_location !== "Index.html") {
-    window.location = "Index.html";
+if (document.documentElement.clientWidth >= 450 && (html_location !== "Index.html" || html_location !== "mobileIndex.html") ) {
+    window.location = "home.html";
+}
+else if (document.documentElement.clientWidth >= 450 && (html_location !== "home.html" || html_location !== "mobileIndex.html") ) {
+    window.location = "index.html";
 }
 
 // LOAD MOBILE (iPhone 12 Pro Max width = 428)
