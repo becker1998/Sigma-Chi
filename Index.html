@@ -14,7 +14,8 @@
     <title>Sigma Chi</title>
   </head>
   <body>
-      <!------- TOP HALF OF SCREEN --->
+
+      <!------- TOP HALF OF SCREEN background colour: #2596be / rgb(37, 150, 190) --->
       <div class="container-fluid">
         <div class="row ">
           <div class="col top-panel nopadding">
@@ -23,31 +24,79 @@
                  <button type="file" onclick="document.getElementById('import').click();" class="btn shadow-lg btn-lg">Import<input class= "input" type="file" id="import" name="filename" accept=".csv" onChange="dataFile(this)"></button>
               </div>
               <div class="col offset-4">
-                 <div class="dropwdown">
+                 <div class="dropdown">
                     <button type="button" class="btn shadow-lg btn-lg dropdown-toggle" id="eval-settings" data-toggle="dropdown">Evaluation Settings</button>
-                  <div class="dropdown-menu" aria-labelledby="eval-settings">
+                  <div class="dropdown-menu mt-2 w-75 bg-colour-evaluation-settings" aria-labelledby="eval-settings">
                     <form class="form-group">
-                      <div class="form-group row">
-                        <label for="scaleMin" class="col-sm-4 col-form-label">Low Scale:</label>
-                        <div class="col-sm-4">
-                          <input type="number" class="form-control" id="scaleMin">
+                      <div class="form-group row ml-3 mt-1">
+                        <div class="col-sm-12 header-font-evaluation-settings mb-1"><b>Input Data</b></div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-4">Uncertainty</div>
+                        <div class="col-sm-8">
+                              <select class="form-select col-sm-8 test" id="uncertaintySelection" onchange="updateEvaluationSettingsUncertainty();">
+                                <option selected value="0">Choose...</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-4 mt-1">Rejection</div>
+                        <div class="col-sm-8">
+                          <select class="form-select col-sm-8 mt-1 " id="rejectionSelection"  onchange="updateEvaluationSettingsRejection();">
+                            <option selected value="0">Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label for="scaleMax" class="col-sm-4 col-form-label">Max Scale:</label>
-                        <div class="col-sm-4">
-                          <input type="number" class="form-control" id="scaleMax">
+                      <div class="form-group row ml-3">
+                        <div class="col-sm-12 header-font-evaluation-settings mb-1"><b>Output Uncertainty</b></div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-4">Data</div>
+                        <div class="col-sm-8">
+                          <select class="form-select col-sm-8 " id="dataSelection"  onchange="updateEvaluationSettingsData();">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-4 mt-1">Wtd. Avg.</div>
+                        <div class="col-sm-8">
+                          <select class="form-select col-sm-8 mt-1 " id="wtdAvgSelection"  onchange="updateEvaluationSettingsWtdAvg();">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label for="bandwith" class="col-sm-3 col-form-label">Bandwith:</label>
-                        <div class="col-sm-3">
-                          <input type="number" class="form-control" id="bandwith">
+                      <div class="form-group row ml-3">
+                        <div class="col-sm-12 header-font-evaluation-settings mb-1"><b>Kernel Density Estimation</b></div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-4">Function</div>
+                        <div class="col-sm-8">
+                          <select class="form-select col-sm-8 "  id="functionSelection"  onchange="updateEvaluationSettingsFunction();">
+                            <option selected>Choose...</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select>
                         </div>
-                        <label for="unit" class="col-sm-1 col-form-label">Unit:</label>
-                        <div class="col-sm-2">
-                          <input type="number" class="form-control" id="unit">
-                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-sm-4 mt-1">Bandwidth</div>
+                        <div class="col-sm-8">
+                          <select class="form-select col-sm-8 mt-1 "  id="bandwidthSelection"  onchange="updateEvaluationSettingsBandwidth();">
+                          <option selected>Choose...</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                      </div>
                       </div>
                     </form>
                   </div>
@@ -66,8 +115,7 @@
                     <!-- Datasets are stored into a div to and on onclick will invoke
                     getData() which updates the below table accordingly -->
                     <div class="data text-center" id = "data1" onclick="getData(1)">
-                      <label id="label1" >Data Set 1
-                      </label>
+                      <label id="label1" >Data Set 1</label>
                       <input class="text-center" type="checkbox" id="checkdata1">
                     </div>
                   </div>
@@ -93,10 +141,6 @@
                       <th class="text-center">Uncertainty</th>
                     </tr>
                   </thead>
-                  <tbody>
-
-
-                  </tbody>
                 </table>
             </div>
 
@@ -137,7 +181,7 @@
               <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
                   Weighted Mean
               </h3>
-              <canvas id="myChart"></canvas>
+              <canvas id="wMean"></canvas>
               <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
                   Reduced Chai Squared
               </h3>

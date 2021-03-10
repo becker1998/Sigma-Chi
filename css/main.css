@@ -69,9 +69,7 @@ display: block;
 }
 
 .btn:hover{
-	padding: 10px;
-	margin: 10px;
-	background-color: black !important;
+	background-color: #CD7158 !important;
 	color: white !important;
 }
 
@@ -165,4 +163,36 @@ label{
 
 .dataText {
 	padding-left: 30px;
+}
+
+.bg-colour-evaluation-settings {
+    background-color: #F9F4E2 !important;
+    border-left-color: #E07A5F !important;
+		border-right-color: #E07A5F !important;
+		border-bottom-color: #E07A5F !important;
+		border-width: medium !important;
+		color: #3D405B !important;
+}
+
+.header-font-evaluation-settings {
+    font-size: 18px !important;
+}
+
+select {
+	border-color: #ffd490;
+	color: #707070;
+}
+
+select:focus {
+	border-color: #E9AC4A !important;
+	outline-width: 2px !important;
+	outline-color: #E9AC4A !important;
+}
+
+select:active {
+	border-color: #E9AC4A !important;
+}
+
+select:hover{
+	border-color: #E9AC4A !important;
 }

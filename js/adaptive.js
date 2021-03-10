@@ -16,6 +16,7 @@ var html_location = href[href.length-1]
 if (document.documentElement.clientWidth >= 450 && (html_location !== "Index.html" || html_location !== "mobileIndex.html") ) {
     window.location = "home.html";
 }
+
 else if (document.documentElement.clientWidth >= 450 && (html_location !== "home.html" || html_location !== "mobileIndex.html") ) {
     window.location = "index.html";
 }

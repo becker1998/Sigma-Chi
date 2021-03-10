@@ -11,13 +11,56 @@ var datasets = new Array();
 //index will corrspond to the correct index of the datasets array
 var datasetsUncer = new Array();
 
+//These are the global values in the Evaluations Pop up for backend to access. They are updated when a user selects an option. Default value 0 = No option selected
+var eUncertainty = 0;
+var eRejection = 0;
+var eData = 0;
+var eWtdAvg = 0;
+var eFunction = 0;
+var eBandwidth = 0;
+
+function updateEvaluationSettingsUncertainty(){
+  var selectBox = document.getElementById("uncertaintySelection");
+  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  eUncertainty = selectedValue;
+}
+
+function updateEvaluationSettingsRejection(){
+  var selectBox = document.getElementById("rejectionSelection");
+  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  eRejection = selectedValue;
+}
+
+function updateEvaluationSettingsData(){
+  var selectBox = document.getElementById("dataSelection");
+  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  eData = selectedValue;
+}
+
+function updateEvaluationSettingsWtdAvg(){
+  var selectBox = document.getElementById("wtdAvgSelection");
+  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  eWtdAvg = selectedValue;
+}
+
+function updateEvaluationSettingsFunction(){
+  var selectBox = document.getElementById("functionSelection");
+  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  eFunction = selectedValue;
+}
+
+function updateEvaluationSettingsBandwidth(){
+  var selectBox = document.getElementById("bandwidthSelection");
+  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  eFunction = selectedValue;
+}
+
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
 function addRow(){
   var tbl = document.getElementById("table");
   var tbody = tbl.querySelector("tbody");
   var inp = tbody.querySelectorAll("input");
-
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -153,6 +196,7 @@ function getData (input){
     console.log("i'm in else if");
   }
 }
+
 //function will add new labels that represent additional DataSets
 function addNewData (){
   var div = document.getElementById("datasets");
@@ -181,8 +225,8 @@ function addNewData (){
   newDivData.appendChild(newLabel);
   newDivData.appendChild(newCheckBox);
   div.appendChild(newDivData);
-
 }
+
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
 //for example, if the customer enters 10, 1.  10 being the data point, 1 being the uncertainty, then array[0] = (10,11,9)
@@ -427,8 +471,10 @@ function kernelMedian(allData){
     allData.sort(sortFunction);
     var half = Math.floor(allData.length / 2);
     if (allData.length % 2) {
+      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
       return allData[half][0];
     }else {
+      document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + ((allData[half - 1][0] + allData[half][0]) / 2.0);
       return (allData[half - 1][0] + allData[half][0]) / 2.0;
     }
 }
