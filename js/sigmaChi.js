@@ -58,9 +58,16 @@ function updateEvaluationSettingsBandwidth(){
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
 function addRow(){
-  var tbl = document.getElementById("table");
+  var tbl = document.getElementById("tbl");
   var tbody = tbl.querySelector("tbody");
-  var inp = tbody.querySelectorAll("input");
+  var checkElem = tbody.querySelector('input');
+  if (checkElem !== null){
+    var inp = tbody.querySelectorAll("input");
+  }
+  else{
+    var inp = 0;
+  }
+
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -95,23 +102,72 @@ function addRow(){
 }
 
 function addEmptyTableBody (){
-  var tbl = document.getElementById("table");
-  var tbody = document.createElement("tbody");
-  tbl.appendChild(tbody);
-  for (var i = 0; i < 5; i++) {
-    addRow();
+  var tbl = document.getElementById("tbl");
+  var numRows = tbl.querySelectorAll("tr").length;
+  if (numRows <= 1){
+    for (var i = 0; i < 5; i++) {
+      addRow();
+    }
   }
 }
 
-function addRowWithData (){
+function addRowWithData (data, uncert){
+  var tbl = document.getElementById("tbl")
+  var tbody = tbl.querySelector("tbody");
+  console.log(tbody);
+  var checkElem = tbody.querySelector('input');
+  if (checkElem !== null){
+    var inp = tbody.querySelectorAll("input");
+  }
+  else{
+    var inp = 0;
+  }
 
+
+  var newRow = document.createElement("tr");
+  var idCol = document.createElement("td");
+  var rejCol = document.createElement("td");
+  var dataCol = document.createElement("td");
+  var uncCol = document.createElement("td");
+
+  idCol.className = "pt-3-half";
+  rejCol.className = "pt-3-half";
+  dataCol.className = "pt-3-half";
+  dataCol.setAttribute("contenteditable", "true");
+  if (data !== undefined || data !== null){
+    dataCol.innerText = data.toLocaleString();
+  }
+  uncCol.className = "pt-3-half";
+  uncCol.setAttribute("contenteditable", "true");
+  if (uncert !== undefined || uncert !== null){
+    uncCol.innerText = uncert.toLocaleString();
+  }
+  newRow.appendChild(idCol);
+  newRow.appendChild(rejCol);
+  newRow.appendChild(dataCol);
+  newRow.appendChild(uncCol);
+
+  var checkBox = document.createElement("input");
+  checkBox.className = "form-check-input text-center";
+  checkBox.setAttribute("type", "checkbox");
+  var numCheck = inp.length + 1;
+  var id = "reject" + numCheck;
+  checkBox.setAttribute("id", id);
+  rejCol.appendChild(checkBox);
+
+  var rowCount = tbody.getElementsByTagName("tr").length + 1;
+  idCol.innerText = rowCount.toLocaleString();
+
+  tbody.appendChild(newRow);
 }
-function addTableBody (){
-  var tbl = document.getElementById("table");
-  var tbody = document.createElement("tbody");
-  tbl.appendChild(tbody);
-  for (var i = 0; i < 5; i++) {
-    addRowWithData();
+function addTableBody (input){
+  var data = datasets[input-1];
+  var uncert = datasetsUncer[input-1];
+  var maxLength = Math.max(data.length, uncert.length);
+  var getBody = document.getElementById("tblBody");
+  getBody.innerHTML = "";
+  for (var i = 1; i < maxLength; i++) {
+    addRowWithData(data[i], uncert[i]);
   }
 }
 //function will retrieve all files inputted from clicking "Import"
@@ -196,7 +252,6 @@ function getData (input){
     console.log("i'm in else if");
   }
 }
-
 //function will add new labels that represent additional DataSets
 function addNewData (){
   var div = document.getElementById("datasets");
@@ -501,8 +556,6 @@ function kernelSkewness(allData, isMode, isPopulation){
   return skewness;
 }
 
-csvTest();
-
 function csvTest() {
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
@@ -542,3 +595,4 @@ function csvTest() {
       }
   });
 }
+//csvTest();
