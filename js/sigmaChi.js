@@ -180,13 +180,15 @@ function onColChange (input){
   console.log("Array :" +Array.isArray(arr));
 
   if (Array.isArray(arr)){
+    datasetsUncer[tracker-1][0] = newValue;
     datasetsUncer[tracker-1][rowNum] = newValue;
     console.log("Array Update: ");
     console.log(datasetsUncer[tracker-1]);
   }
   else{
     var tempArray = new Array();
-    tempArray[rowNum-1] = newValue;
+    tempArray[0] = newValue;
+    tempArray[rowNum] = newValue;
     console.log("Temp Array: ");
     console.log(tempArray);
     datasetsUncer[tracker-1] = tempArray;
