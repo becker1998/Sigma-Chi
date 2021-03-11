@@ -67,11 +67,21 @@ function addRow(){
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
     var inp = tbody.querySelectorAll('input[type="checkbox"]');
+    var inpVal = tbody.querySelectorAll('input[type="number"]');
   }
   else{
     var inp = 0;
+    var inpVal = 0;
   }
 
+  if (inpVal > 0){
+    var inpDataId = "dataInput" + (inpVal.length/2);
+    var inpColId = "colInput" + (inpVal.length/2);
+  }
+  else{
+    var inpDataId = "dataInput" + 1;
+    var inpColId = "colInput" + 1;
+  }
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -86,13 +96,17 @@ function addRow(){
   dataCol.className = "pt-3-half";
   dataInput.setAttribute("type", "number");
   dataInput.setAttribute("value", "");
+  dataInput.setAttribute("id", inpDataId);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "true");
+  dataInput.setAttribute("step", "0.01");
 
   uncCol.className = "pt-3-half";
   colInput.setAttribute("type", "number");
   colInput.setAttribute("value", "");
+  colInput.setAttribute("id", inpColId);
   colInput.setAttribute("onchange", "onColChange(this)");
+  colInput.setAttribute("step", "0.01");
   uncCol.setAttribute("contenteditable", "true");
 
   dataCol.appendChild(dataInput);
@@ -130,7 +144,13 @@ function addEmptyTableBody (){
 }
 
 function onDataChange (input){
-  console.log(input.value);
+  var newvalue = input.value;
+  var inputId = input.id;
+  console.log(typeof inputId);
+  var rowNum = Number(inputId.slice(-1));
+  console.log(rowNum);
+  var arr = datasets[tracker];
+  console.log(Array.isArray(arr));
 }
 function onColChange (input){
   console.log(input.value);
@@ -141,12 +161,21 @@ function addRowWithData (data, uncert){
   console.log(tbody);
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
-    var inp = tbody.querySelectorAll("input");
+    var inp = tbody.querySelectorAll('input[type="checkbox"]');
+    var inpVal = tbody.querySelectorAll('input[type="number"]');
   }
   else{
     var inp = 0;
+    var inpVal = 0;
   }
-
+  if (inpVal > 1){
+    var inpDataId = "dataInput" + (inpVal.length/2);
+    var inpColId = "colInput" + (inpVal.length/2);
+  }
+  else{
+    var inpDataId = "dataInput" + 1;
+    var inpColId = "colInput" + 1;
+  }
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -161,13 +190,17 @@ function addRowWithData (data, uncert){
   dataCol.className = "pt-3-half";
   dataCol.setAttribute("contenteditable", "true");
   dataInput.setAttribute("type", "number");
+  dataInput.setAttribute("id", inpDataId);
   dataInput.setAttribute("onchange", "onDataChange(this)");
+  dataInput.setAttribute("step", "0.01");
   if (data !== undefined || data !== null){
     dataInput.setAttribute("value", data);
   }
   uncCol.className = "pt-3-half";
   uncCol.setAttribute("contenteditable", "true");
   colInput.setAttribute("type", "number");
+  colInput.setAttribute("step", "0.01");
+  colInput.setAttribute("id", inpColId);
   colInput.setAttribute("onchange", "onColChange(this)");
   if (uncert !== undefined || uncert !== null){
     colInput.setAttribute("value", uncert);
