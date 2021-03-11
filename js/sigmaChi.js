@@ -11,6 +11,10 @@ var datasets = new Array();
 //index will corrspond to the correct index of the datasets array
 var datasetsUncer = new Array();
 
+//global variable that keeps track of the current datatset
+//displayed in the table
+var tracker = 0;
+
 //These are the global values in the Evaluations Pop up for backend to access. They are updated when a user selects an option. Default value 0 = No option selected
 var eUncertainty = 0;
 var eRejection = 0;
@@ -62,7 +66,7 @@ function addRow(){
   var tbody = tbl.querySelector("tbody");
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
-    var inp = tbody.querySelectorAll("input");
+    var inp = tbody.querySelectorAll('input[type="checkbox"]');
   }
   else{
     var inp = 0;
@@ -73,14 +77,26 @@ function addRow(){
   var idCol = document.createElement("td");
   var rejCol = document.createElement("td");
   var dataCol = document.createElement("td");
+  var dataInput = document.createElement("input");
   var uncCol = document.createElement("td");
+  var colInput = document.createElement("input");
 
   idCol.className = "pt-3-half";
   rejCol.className = "pt-3-half";
   dataCol.className = "pt-3-half";
+  dataInput.setAttribute("type", "number");
+  dataInput.setAttribute("value", "");
+  dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "true");
+
   uncCol.className = "pt-3-half";
+  colInput.setAttribute("type", "number");
+  colInput.setAttribute("value", "");
+  colInput.setAttribute("onchange", "onColChange(this)");
   uncCol.setAttribute("contenteditable", "true");
+
+  dataCol.appendChild(dataInput);
+  uncCol.appendChild(colInput);
 
   newRow.appendChild(idCol);
   newRow.appendChild(rejCol);
@@ -104,6 +120,8 @@ function addRow(){
 function addEmptyTableBody (){
   var tbl = document.getElementById("tbl");
   var numRows = tbl.querySelectorAll("tr").length;
+  var tblBody = document.getElementById("tblBody");
+  tblBody.innerHTML = "";
   if (numRows <= 1){
     for (var i = 0; i < 5; i++) {
       addRow();
@@ -111,6 +129,12 @@ function addEmptyTableBody (){
   }
 }
 
+function onDataChange (input){
+  console.log(input.value);
+}
+function onColChange (input){
+  console.log(input.value);
+}
 function addRowWithData (data, uncert){
   var tbl = document.getElementById("tbl")
   var tbody = tbl.querySelector("tbody");
@@ -129,19 +153,29 @@ function addRowWithData (data, uncert){
   var rejCol = document.createElement("td");
   var dataCol = document.createElement("td");
   var uncCol = document.createElement("td");
+  var dataInput = document.createElement("input");
+  var colInput = document.createElement("input");
 
   idCol.className = "pt-3-half";
   rejCol.className = "pt-3-half";
   dataCol.className = "pt-3-half";
   dataCol.setAttribute("contenteditable", "true");
+  dataInput.setAttribute("type", "number");
+  dataInput.setAttribute("onchange", "onDataChange(this)");
   if (data !== undefined || data !== null){
-    dataCol.innerText = data.toLocaleString();
+    dataInput.setAttribute("value", data);
   }
   uncCol.className = "pt-3-half";
   uncCol.setAttribute("contenteditable", "true");
+  colInput.setAttribute("type", "number");
+  colInput.setAttribute("onchange", "onColChange(this)");
   if (uncert !== undefined || uncert !== null){
-    uncCol.innerText = uncert.toLocaleString();
+    colInput.setAttribute("value", uncert);
   }
+
+  dataCol.appendChild(dataInput);
+  uncCol.appendChild(colInput);
+
   newRow.appendChild(idCol);
   newRow.appendChild(rejCol);
   newRow.appendChild(dataCol);
@@ -243,9 +277,12 @@ function getData (input){
   //console.log("data getDat: " + datasets[input]);
   //console.log(typeof datasets[input]);
   var indexValue = typeof datasets[input - 1]
+  tracker = input;
+  console.log("Tracker : " + tracker);
+  console.log(indexValue);
   if (indexValue == "undefined"){
     addEmptyTableBody();
-    //console.log("im in if");
+    console.log("im in if");
   }
   else if (indexValue !== "undefined") {
     addTableBody(input);
