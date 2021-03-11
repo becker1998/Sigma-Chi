@@ -144,16 +144,55 @@ function addEmptyTableBody (){
 }
 
 function onDataChange (input){
-  var newvalue = input.value;
+  var newValue = Number(input.value);
   var inputId = input.id;
-  console.log(typeof inputId);
+  //console.log(typeof inputId);
   var rowNum = Number(inputId.slice(-1));
   console.log(rowNum);
-  var arr = datasets[tracker];
-  console.log(Array.isArray(arr));
+  var arr = datasets[tracker-1];
+  console.log("Array :" +Array.isArray(arr));
+
+  if (Array.isArray(arr)){
+    datasets[tracker-1][0] = newValue;
+    datasets[tracker-1][rowNum] = newValue;
+    console.log("Array Update: ");
+    console.log(datasets[tracker-1]);
+  }
+  else{
+    var tempArray = new Array();
+    tempArray[0] = newValue;
+    tempArray[rowNum] = newValue;
+    console.log("Temp Array: ");
+    console.log(tempArray);
+    datasets[tracker-1] = tempArray;
+    console.log("Data Array: ");
+    console.log(datasets[tracker-1]);
+  }
+
 }
 function onColChange (input){
-  console.log(input.value);
+  var newValue = Number(input.value);
+  var inputId = input.id;
+  //console.log(typeof inputId);
+  var rowNum = Number(inputId.slice(-1));
+  console.log(rowNum);
+  var arr = datasetsUncer[tracker];
+  console.log("Array :" +Array.isArray(arr));
+
+  if (Array.isArray(arr)){
+    datasetsUncer[tracker-1][rowNum] = newValue;
+    console.log("Array Update: ");
+    console.log(datasetsUncer[tracker-1]);
+  }
+  else{
+    var tempArray = new Array();
+    tempArray[rowNum-1] = newValue;
+    console.log("Temp Array: ");
+    console.log(tempArray);
+    datasetsUncer[tracker-1] = tempArray;
+    console.log("Data Array: ");
+    console.log(datasetsUncer[tracker-1]);
+  }
 }
 function addRowWithData (data, uncert){
   var tbl = document.getElementById("tbl")
@@ -230,6 +269,9 @@ function addRowWithData (data, uncert){
 function addTableBody (input){
   var data = datasets[input-1];
   var uncert = datasetsUncer[input-1];
+  console.log("AddTableBody");
+  console.log(data);
+  console.log(uncert);
   var maxLength = Math.max(data.length, uncert.length);
   var getBody = document.getElementById("tblBody");
   getBody.innerHTML = "";
