@@ -373,6 +373,7 @@ function addNewData (){
   var newCheckBox = document.createElement("input");
   newCheckBox.className = "text-center";
   newCheckBox.setAttribute("type", "checkbox");
+  newCheckBox.setAttribute("onchange", "graph()");
   var checkboxID = "checkdata" + numLabels;
   newCheckBox.setAttribute("id", checkboxID);
 
@@ -658,6 +659,64 @@ function kernelSkewness(allData, isMode, isPopulation){
   return skewness;
 }
 
+function getLabels (data){
+  var labels = new Array();
+  for (i = 1; i < data.length+1; i++) {
+    labels.push(i);
+  }
+  return labels;
+}
+
+function graph (){
+  graphKernelDensity();
+  grapghReducedChiSquared();
+}
+function grapghReducedChiSquared (){
+  var tempDataset = datasets[tracker-1];
+  var tempDataUncert = datasetsUncer[tracker-1];
+  var allData = Data_Points_With_Uncertainty(tempDataset,tempDataUncert,false);
+  var dataLabels = getLabels(tempDataset);
+  var rChiSquared = reduced_Chai_Squared(allData,0);
+  var sqrContext = document.getElementById('rcSqr').getContext('2d');
+  var squareChart = new Chart(sqrContext,{
+  type: 'line',
+  data: {
+    labels: dataLabels,
+    datasets: [{
+        data: rChiSquared,
+        label: "Line",
+        borderColor: "#3e95cd",
+        fill: false
+        }
+      ]
+    }
+  });
+}
+
+function graphKernelDensity(){
+  var tempDataset = datasets[tracker-1];
+  var tempDataUncert = datasetsUncer[tracker-1];
+  var allData = Data_Points_With_Uncertainty(tempDataset,tempDataUncert,false);
+  var dataLabels = getLabels(tempDataset);
+  console.log(dataLabels);
+  var bandwidth = 0.8333333333333334;
+  var kernelData = new Array();
+  kernelData = univariate_Kernel_Density(bandwidth, allData,true);
+  var kernelContext = document.getElementById('kerDest').getContext('2d');
+  var kernelChart = new Chart(kernelContext, {
+  type: 'line',
+  data: {
+    labels: dataLabels,
+    datasets: [{
+        data: kernelData,
+        label: "Line",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  }
+});
+}
 function csvTest() {
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
