@@ -66,8 +66,8 @@ function addRow(){
   var tbody = tbl.querySelector("tbody");
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
-    var inp = tbody.querySelectorAll('input[type="checkbox"]');
-    var inpVal = tbody.querySelectorAll('input[type="number"]');
+    var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
+    var inpVal = tbody.querySelectorAll('input[type="number"]').length;
   }
   else{
     var inp = 0;
@@ -85,9 +85,9 @@ function addRow(){
 
   idCol.className = "pt-3-half";
   rejCol.className = "pt-3-half";
-  dataCol.className = "pt-3-half";
   dataInput.setAttribute("type", "number");
   dataInput.setAttribute("value", "");
+  var inpDataID = "dataInput" + (inpVal + 1);
   dataInput.setAttribute("id", inpDataId);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "true");
@@ -96,6 +96,7 @@ function addRow(){
   uncCol.className = "pt-3-half";
   colInput.setAttribute("type", "number");
   colInput.setAttribute("value", "");
+  var inpColId = "colInput" + (inpVal + 1);
   colInput.setAttribute("id", inpColId);
   colInput.setAttribute("onchange", "onColChange(this)");
   colInput.setAttribute("step", "0.01");
@@ -112,7 +113,7 @@ function addRow(){
   var checkBox = document.createElement("input");
   checkBox.className = "form-check-input text-center";
   checkBox.setAttribute("type", "checkbox");
-  var numCheck = inp.length + 1;
+  var numCheck = inp + 1;
   var id = "reject" + numCheck;
   checkBox.setAttribute("id", id);
   rejCol.appendChild(checkBox);
@@ -196,8 +197,8 @@ function addRowWithData (data, uncert){
   console.log(tbody);
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
-    var inp = tbody.querySelectorAll('input[type="checkbox"]');
-    var inpVal = tbody.querySelectorAll('input[type="number"]');
+    var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
+    var inpVal = tbody.querySelectorAll('input[type="number"]').length;
   }
   else{
     var inp = 0;
@@ -216,8 +217,8 @@ function addRowWithData (data, uncert){
   rejCol.className = "pt-3-half";
   dataCol.className = "pt-3-half";
   dataCol.setAttribute("contenteditable", "true");
-  var inpDataId = "dataInput" + (inpVal.length + 1);
-  var inpColId = "colInput" + (inpVal.length + 1);
+  var inpDataId = "dataInput" + (inpVal + 1);
+  var inpColId = "colInput" + (inpVal + 1);
   dataInput.setAttribute("type", "number");
   dataInput.setAttribute("id", inpDataId);
   dataInput.setAttribute("onchange", "onDataChange(this)");
@@ -246,7 +247,7 @@ function addRowWithData (data, uncert){
   var checkBox = document.createElement("input");
   checkBox.className = "form-check-input text-center";
   checkBox.setAttribute("type", "checkbox");
-  var numCheck = inp.length + 1;
+  var numCheck = inp + 1;
   var id = "reject" + numCheck;
   checkBox.setAttribute("id", id);
   rejCol.appendChild(checkBox);
