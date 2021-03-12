@@ -667,14 +667,30 @@ function getLabels (data){
   return labels;
 }
 
+function isMUltipleCheck(){
+  var inputs = document.getElementById("datasets");
+  var checkboxes = inputs.querySelectorAll('input[type=checkbox]:checked').length;
+  if (checkboxes == 1) {
+    return false;
+  }
+  else{
+    return true;
+  }
+}
 function graph (input){
   var iD = input.id;
   var check = document.getElementById(iD);
   if (check.checked == true){
     console.log("Checkbox is Checked!!");
+    if (isMUltipleCheck() == false){
+      graphKernelDensity();
+      grapghReducedChiSquared();
+    }
+    else{
+      alert("Please only select on dataset to graph");
+      check.checked = false;
+    }
   }
-  graphKernelDensity();
-  grapghReducedChiSquared();
 }
 function grapghReducedChiSquared (){
   var tempDataset = datasets[tracker-1];
