@@ -88,7 +88,7 @@ function addRow(){
   dataInput.setAttribute("type", "number");
   dataInput.setAttribute("value", "");
   var inpDataID = "dataInput" + (inpVal + 1);
-  dataInput.setAttribute("id", inpDataId);
+  dataInput.setAttribute("id", inpDataID);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "true");
   dataInput.setAttribute("step", "0.01");
@@ -144,7 +144,7 @@ function onDataChange (input){
   var rowNum = Number(inputId.slice(-1));
   console.log(rowNum);
   var arr = datasets[tracker-1];
-  console.log("Array :" +Array.isArray(arr));
+  console.log("Array :" + Array.isArray(arr));
 
   if (Array.isArray(arr)){
     datasets[tracker-1][0] = newValue;
