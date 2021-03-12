@@ -74,15 +74,7 @@ function addRow(){
     var inpVal = 0;
   }
 
-  if (inpVal > 0){
-    var inpDataId = "dataInput" + (inpVal.length/2);
-    var inpColId = "colInput" + (inpVal.length/2);
-  }
-  else{
-    var inpDataId = "dataInput" + 1;
-    var inpColId = "colInput" + 1;
-  }
-
+  console.log()
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
   var rejCol = document.createElement("td");
@@ -147,6 +139,7 @@ function onDataChange (input){
   var newValue = Number(input.value);
   var inputId = input.id;
   //console.log(typeof inputId);
+  console.log(input.id);
   var rowNum = Number(inputId.slice(-1));
   console.log(rowNum);
   var arr = datasets[tracker-1];
@@ -172,12 +165,13 @@ function onDataChange (input){
 }
 function onColChange (input){
   var newValue = Number(input.value);
-  var inputId = input.id;
-  //console.log(typeof inputId);
+  console.log(input.id);
+  var inputId = (input.id);
+  console.log(typeof inputId);
   var rowNum = Number(inputId.slice(-1));
   console.log(rowNum);
   var arr = datasetsUncer[tracker];
-  console.log("Array :" +Array.isArray(arr));
+  console.log("Array :" + Array.isArray(arr));
 
   if (Array.isArray(arr)){
     datasetsUncer[tracker-1][0] = newValue;
@@ -209,14 +203,6 @@ function addRowWithData (data, uncert){
     var inp = 0;
     var inpVal = 0;
   }
-  if (inpVal > 1){
-    var inpDataId = "dataInput" + (inpVal.length/2);
-    var inpColId = "colInput" + (inpVal.length/2);
-  }
-  else{
-    var inpDataId = "dataInput" + 1;
-    var inpColId = "colInput" + 1;
-  }
 
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
@@ -230,6 +216,8 @@ function addRowWithData (data, uncert){
   rejCol.className = "pt-3-half";
   dataCol.className = "pt-3-half";
   dataCol.setAttribute("contenteditable", "true");
+  var inpDataId = "dataInput" + (inpVal.length + 1);
+  var inpColId = "colInput" + (inpVal.length + 1);
   dataInput.setAttribute("type", "number");
   dataInput.setAttribute("id", inpDataId);
   dataInput.setAttribute("onchange", "onDataChange(this)");
