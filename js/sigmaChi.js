@@ -67,7 +67,7 @@ function addRow(){
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
     var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
-    var inpVal = tbody.querySelectorAll('input[type="number"]').length;
+    var inpVal = (tbody.querySelectorAll('input[type="number"]').length)/2;
   }
   else{
     var inp = 0;
@@ -143,12 +143,12 @@ function onDataChange (input){
   var arr = datasets[tracker-1];
 
   if (Array.isArray(arr)){
-    datasets[tracker-1][0] = newValue;
+    datasets[tracker-1][0] = rowNum;
     datasets[tracker-1][rowNum] = newValue;
   }
   else{
     var tempArray = new Array();
-    tempArray[0] = newValue;
+    tempArray[0] = rowNum;
     tempArray[rowNum] = newValue;
     datasets[tracker-1] = tempArray;
   }
@@ -158,7 +158,7 @@ function onColChange (input){
   var newValue = Number(input.value);
   var inputId = (input.id);
   var rowNum = Number(inputId.slice(-1));
-  var arr = datasetsUncer[tracker];
+  var arr = datasetsUncer[tracker-1];
 
   if (Array.isArray(arr)){
     datasetsUncer[tracker-1][0] = newValue;
