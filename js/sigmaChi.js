@@ -646,10 +646,78 @@ function graph (input){
       grapghReducedChiSquared();
     }
     else{
-      alert("Please only select on dataset to graph");
-      check.checked = false;
+      //alert("Please only select on dataset to graph");
+      graphMultipleReducedChiSquared();
+      //check.checked = false;
     }
   }
+}
+function getCheckedDatasets(){
+  var checkedArray = new Array();
+  var navData =  document.getElementById("datasets");
+  var numData = navData.querySelectorAll('input[type=checkbox]').length + 1;
+  for (var i = 1; i < numData; i++) {
+    var iD = "checkdata" + i
+    if (document.getElementById(iD).checked == true) {
+      checkedArray.push(i-1);
+    }
+  }
+  return checkedArray;
+}
+function getCheckedDatasetsName(){
+  var checkedArray = new Array();
+  var navData =  document.getElementById("datasets");
+  var numData = navData.querySelectorAll('input[type=checkbox]').length + 1;
+  for (var i = 1; i < numData; i++) {
+    var iD = "checkdata" + i
+    if (document.getElementById(iD).checked == true) {
+      checkedArray.push(iD);
+    }
+  }
+  return checkedArray;
+}
+function getMaxDatasetLength (checked){
+  var maxCheck = checked[0];
+  var first = 0;
+  for (var i = 1; i < checked.length; i++) {
+    if (datasets[checked[i]].length > datasets[first]){
+      maxCheck = checked[i];
+    }
+  }
+  return maxCheck;
+}
+function graphMultipleReducedChiSquared(){
+  var getChecked = getCheckedDatasets();
+  var maxDataset = getMaxDatasetLength(getChecked);
+  var dataLabels = getLabels(datasets[maxDataset]);
+  var datasetsName = getCheckedDatasetsName();
+  var graphData = new Array();
+  for (var i = 0; i < getChecked.length; i++) {
+    var tempdata = Data_Points_With_Uncertainty(datasets[getChecked[i]],datasetsUncer[getChecked[i]],false);
+    console.log("tempData: ");
+    console.log(tempdata);
+    var tempChi = reduced_Chai_Squared(tempdata,0);
+    console.log("tempChi: " + tempChi);
+    var tempX = {
+      data: tempChi,
+      label: datasetsName[i],
+      fill: false
+    };
+    graphData.push(tempX);
+  }
+  console.log("labels: ");
+  console.log(dataLabels);
+  console.log("Datasets: ");
+  console.log(graphData);
+  var multiSqrContext = document.getElementById('rcSqr').getContext('2d');
+  var squareChart = new Chart(multiSqrContext,{
+  type: 'line',
+  data: {
+    labels: dataLabels,
+    datasets: graphData
+    }
+  });
+
 }
 function grapghReducedChiSquared (){
   var tempDataset = datasets[tracker-1];
@@ -667,7 +735,7 @@ function grapghReducedChiSquared (){
         label: "Line",
         borderColor: "#3e95cd",
         fill: false
-        }
+      }
       ]
     }
   });
