@@ -139,66 +139,45 @@ function addEmptyTableBody (){
 function onDataChange (input){
   var newValue = Number(input.value);
   var inputId = input.id;
-  //console.log(typeof inputId);
-  console.log(input.id);
   var rowNum = Number(inputId.slice(-1));
-  console.log(rowNum);
   var arr = datasets[tracker-1];
-  console.log("Array :" + Array.isArray(arr));
 
   if (Array.isArray(arr)){
     datasets[tracker-1][0] = newValue;
     datasets[tracker-1][rowNum] = newValue;
-    console.log("Array Update: ");
-    console.log(datasets[tracker-1]);
   }
   else{
     var tempArray = new Array();
     tempArray[0] = newValue;
     tempArray[rowNum] = newValue;
-    console.log("Temp Array: ");
-    console.log(tempArray);
     datasets[tracker-1] = tempArray;
-    console.log("Data Array: ");
-    console.log(datasets[tracker-1]);
   }
 
 }
 function onColChange (input){
   var newValue = Number(input.value);
-  console.log(input.id);
   var inputId = (input.id);
-  console.log(typeof inputId);
   var rowNum = Number(inputId.slice(-1));
-  console.log(rowNum);
   var arr = datasetsUncer[tracker];
-  console.log("Array :" + Array.isArray(arr));
 
   if (Array.isArray(arr)){
     datasetsUncer[tracker-1][0] = newValue;
     datasetsUncer[tracker-1][rowNum] = newValue;
-    console.log("Array Update: ");
-    console.log(datasetsUncer[tracker-1]);
   }
   else{
     var tempArray = new Array();
     tempArray[0] = newValue;
     tempArray[rowNum] = newValue;
-    console.log("Temp Array: ");
-    console.log(tempArray);
     datasetsUncer[tracker-1] = tempArray;
-    console.log("Data Array: ");
-    console.log(datasetsUncer[tracker-1]);
   }
 }
 function addRowWithData (data, uncert){
   var tbl = document.getElementById("tbl")
   var tbody = tbl.querySelector("tbody");
-  console.log(tbody);
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
     var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
-    var inpVal = tbody.querySelectorAll('input[type="number"]').length;
+    var inpVal = (tbody.querySelectorAll('input[type="number"]').length)/2;
   }
   else{
     var inp = 0;
@@ -260,13 +239,10 @@ function addRowWithData (data, uncert){
 function addTableBody (input){
   var data = datasets[input-1];
   var uncert = datasetsUncer[input-1];
-  console.log("AddTableBody");
-  console.log(data);
-  console.log(uncert);
   var maxLength = Math.max(data.length, uncert.length);
   var getBody = document.getElementById("tblBody");
   getBody.innerHTML = "";
-  for (var i = 1; i < maxLength; i++) {
+  for (var i = 1; i < maxLength + 1; i++) {
     addRowWithData(data[i], uncert[i]);
   }
 }
@@ -283,17 +259,12 @@ function dataFile(input){
   reader.readAsText(file);
   reader.onload = function() {
     var splt = reader.result.trim().split("\n");
-    console.log(splt);
     var fields = splt.splice(0,1);
-    console.log(splt);
-    console.log(fields);
     for (var i = 0; i < splt.length; i++) {
         var array = splt[i].split(",").map(Number);
         glData.push(array[0]);
         glUncer.push(array[1]);
     }
-    console.log("Data : " + glData);
-    console.log("Uncertainty : " + glUncer);
     addCSVTable(glData, glUncer);
   };
 
@@ -319,16 +290,10 @@ function addCSVTable (data, uncertainty){
 //and uncertainty which is an array of uncertainties corrsponding to the
 //respective data
 function addingDataset (id,data, uncertainty){
-  console.log("Id: " + id);
-  console.log(typeof id);
   data.unshift(id);
   uncertainty.unshift(id);
-  console.log("Data: " + data);
-  console.log("Unc: " + uncertainty);
   datasets[id-1] = data;
   datasetsUncer[id-1] = uncertainty;
-  console.log(datasets);
-  console.log(datasetsUncer);
 }
 
 //function will get the data for the correspongding dataset
@@ -339,20 +304,13 @@ function addingDataset (id,data, uncertainty){
 //addTableBody(input) which passes in the corresponing index
 //that points to the dataset and creates the table with the data
 function getData (input){
-  //console.log("Index : " + input);
-  //console.log("data getDat: " + datasets[input]);
-  //console.log(typeof datasets[input]);
   var indexValue = typeof datasets[input - 1]
   tracker = input;
-  console.log("Tracker : " + tracker);
-  console.log(indexValue);
   if (indexValue == "undefined"){
     addEmptyTableBody();
-    console.log("im in if");
   }
   else if (indexValue !== "undefined") {
     addTableBody(input);
-    console.log("i'm in else if");
   }
 }
 //function will add new labels that represent additional DataSets
@@ -720,7 +678,7 @@ function graphKernelDensity(){
   var tempDataUncert = datasetsUncer[tracker-1];
   var allData = Data_Points_With_Uncertainty(tempDataset,tempDataUncert,false);
   var dataLabels = getLabels(tempDataset);
-  console.log(dataLabels);
+  //console.log(dataLabels);
   var bandwidth = 0.8333333333333334;
   var kernelData = new Array();
   kernelData = univariate_Kernel_Density(bandwidth, allData,true);
