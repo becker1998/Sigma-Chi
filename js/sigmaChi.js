@@ -70,15 +70,17 @@ function updateEvaluationSettingsBandwidth(){
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eFunction = selectedValue;
 }
-
+//function will download data inputed in on a selected datatset as a csv file
+//download will happen when the user clicks the download icon
 function downloadData (){
+  //setup data as an array of rows
   const rows = [["Data", "Uncertainty"]];
   var getDataset = datasets[tracker-1];
   var getUncert = datasetsUncer[tracker-1];
   for (var i = 1; i < getDataset.length + 1; i++) {
     rows.push([getDataset[i],getUncert[i]]);
   }
-
+  //format the data into csv compatible format
   var csvContent = "data:text/csv;charset=utf-8,";
   rows.forEach(function (rowArray){
     var row = rowArray.join(",");
@@ -87,6 +89,7 @@ function downloadData (){
 
   var encode = encodeURI(csvContent);
   var fileName = "Data Set " + tracker + ".csv";
+  //create a hidden download link and initiate a click
   var hiddenLink = document.createElement("a");
   hiddenLink.setAttribute("href", encode);
   hiddenLink.setAttribute("download", fileName);
@@ -99,6 +102,7 @@ function addRow(){
   var tbl = document.getElementById("tbl");
   var tbody = tbl.querySelector("tbody");
   var checkElem = tbody.querySelector('input');
+  //check to see if table is empty
   if (checkElem !== null){
     var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
     var inpVal = (tbody.querySelectorAll('input[type="number"]').length)/2;
@@ -108,7 +112,6 @@ function addRow(){
     var inpVal = 0;
   }
 
-  console.log()
   var newRow = document.createElement("tr");
   var idCol = document.createElement("td");
   var rejCol = document.createElement("td");
@@ -158,6 +161,8 @@ function addRow(){
   tbody.appendChild(newRow);
 }
 
+//if no data has been added this fucntion will be called and then
+//add a default of 5 rows
 function addEmptyTableBody (){
   var tbl = document.getElementById("tbl");
   var numRows = tbl.querySelectorAll("tr").length;
@@ -169,13 +174,16 @@ function addEmptyTableBody (){
     }
   }
 }
-
+//fucntion will be called when the software detects a change in
+//the the data column of the table and will update the table with the new change
+//input is the html element being passed in after change is made
 function onDataChange (input){
   var newValue = Number(input.value);
   var inputId = input.id;
   var rowNum = Number(inputId.slice(-1));
   var arr = datasets[tracker-1];
 
+  //determines is the data is already loaded into the gloabl array
   if (Array.isArray(arr)){
     datasets[tracker-1][0] = rowNum;
     datasets[tracker-1][rowNum] = newValue;
@@ -188,6 +196,8 @@ function onDataChange (input){
   }
 
 }
+//function is called when a change is detected in the uncertainty table
+//work in the exact same as onDataChange()
 function onColChange (input){
   var newValue = Number(input.value);
   var inputId = (input.id);
@@ -205,12 +215,15 @@ function onColChange (input){
     datasetsUncer[tracker-1] = tempArray;
   }
 }
+//this function is called in sequence after the user imports a csv file
+//this function will populate the table with the corresponding data
 function addRowWithData (data, uncert){
   var tbl = document.getElementById("tbl")
   var tbody = tbl.querySelector("tbody");
   var checkElem = tbody.querySelector('input');
   if (checkElem !== null){
     var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
+    //because there are 2 input of this type
     var inpVal = (tbody.querySelectorAll('input[type="number"]').length)/2;
   }
   else{
@@ -270,6 +283,8 @@ function addRowWithData (data, uncert){
 
   tbody.appendChild(newRow);
 }
+
+//function will instantiate the table
 function addTableBody (input){
   var data = datasets[input-1];
   var uncert = datasetsUncer[input-1];
@@ -651,7 +666,12 @@ function kernelSkewness(allData, isMode, isPopulation){
 
   return skewness;
 }
-
+//function will get the labels based on the length of the data
+//data is an array of data to be graphed
+//OR
+//if the user requires multiple datasets to be graphed data is an array of the 
+//largest data
+//will return an array from 1 to the length of the data+1 in a step fashion of 1
 function getLabels (data){
   var labels = new Array();
   for (i = 1; i < data.length+1; i++) {
@@ -659,7 +679,8 @@ function getLabels (data){
   }
   return labels;
 }
-
+//will check to see if multiple grpahs are selected to be graphed
+//and will return the corresponding boolean value
 function isMUltipleCheck(){
   var inputs = document.getElementById("datasets");
   var checkboxes = inputs.querySelectorAll('input[type=checkbox]:checked').length;
@@ -670,6 +691,9 @@ function isMUltipleCheck(){
     return true;
   }
 }
+//function is called when a change in the state of a checkbox is determined
+//function will take in the corresponding checkBox
+//and call the appropriate functions to graph the data
 function graph (input){
   var iD = input.id;
   var check = document.getElementById(iD);
@@ -687,6 +711,8 @@ function graph (input){
     }
   }
 }
+//function will return an array of the indexes of the datasets that are clicked
+//to be graphed
 function getCheckedDatasets(){
   var checkedArray = new Array();
   var navData =  document.getElementById("datasets");
@@ -699,6 +725,8 @@ function getCheckedDatasets(){
   }
   return checkedArray;
 }
+//function will return the names of the dataset in an array format
+//it is used to properly label the lines that are plotted for readabillity
 function getCheckedDatasetsName(){
   var checkedArray = new Array();
   var navData =  document.getElementById("datasets");
@@ -711,6 +739,9 @@ function getCheckedDatasetsName(){
   }
   return checkedArray;
 }
+//function will find which dataset has the most data
+//this is required to ensure all the data is displayed on the graphs
+//when the user selects multiple datasets to plot
 function getMaxDatasetLength (checked){
   var maxCheck = checked[0];
   var first = 0;
@@ -769,7 +800,7 @@ function grapghReducedChiSquared (){
     }
   });
 }
-
+//gets called if only oe dataset is selected to be graphed
 function graphKernelDensity(){
   var tempDataset = datasets[tracker-1];
   var tempDataUncert = datasetsUncer[tracker-1];
@@ -794,7 +825,10 @@ function graphKernelDensity(){
   }
 });
 }
+//function will graph data when multiple datasets are selected to be plotted
+//uses a powerful external charting library called chart.js
 function graphMultipleKernelDensity(){
+  //gets an array of the datset numbers that are clicked
   var getChecked = getCheckedDatasets();
   var maxDataset = getMaxDatasetLength(getChecked);
   var dataLabels = getLabels(datasets[maxDataset]);
