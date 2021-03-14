@@ -71,6 +71,28 @@ function updateEvaluationSettingsBandwidth(){
   eFunction = selectedValue;
 }
 
+function downloadData (){
+  const rows = [["Data", "Uncertainty"]];
+  var getDataset = datasets[tracker-1];
+  var getUncert = datasetsUncer[tracker-1];
+  for (var i = 1; i < getDataset.length + 1; i++) {
+    rows.push([getDataset[i],getUncert[i]]);
+  }
+
+  var csvContent = "data:text/csv;charset=utf-8,";
+  rows.forEach(function (rowArray){
+    var row = rowArray.join(",");
+    csvContent += row + "\r\n";
+  });
+
+  var encode = encodeURI(csvContent);
+  var fileName = "Data Set " + tracker + ".csv";
+  var hiddenLink = document.createElement("a");
+  hiddenLink.setAttribute("href", encode);
+  hiddenLink.setAttribute("download", fileName);
+  document.body.appendChild(hiddenLink);
+  hiddenLink.click();
+}
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
 function addRow(){
