@@ -195,6 +195,12 @@ function onDataChange(input) {
     datasets[tracker - 1] = tempArray;
   }
 
+  var dataID = "checkdata" + tracker;
+  var checkBox = document.getElementById(dataID);
+  if (checkBox.checked == true){
+    dynamicGraph(dataID);
+  }
+
 }
 //function is called when a change is detected in the uncertainty table
 //work in the exact same as onDataChange()
@@ -213,6 +219,12 @@ function onColChange(input) {
     tempArray[0] = newValue;
     tempArray[rowNum] = newValue;
     datasetsUncer[tracker - 1] = tempArray;
+  }
+
+  var dataID = "checkdata" + tracker;
+  var checkBox = document.getElementById(dataID);
+  if (checkBox.checked == true){
+    dynamicGraph(dataID);
   }
 }
 //this function is called in sequence after the user imports a csv file
@@ -691,6 +703,25 @@ function isMUltipleCheck() {
     return true;
   }
 }
+
+function dynamicGraph(iD) {
+  var check = document.getElementById(iD);
+  if (check.checked == true) {
+    console.log("Checkbox is Checked!!");
+    if (isMUltipleCheck() == false) {
+      graphWeightedMean();
+      graphKernelDensity();
+      grapghReducedChiSquared();
+    }
+    else {
+      //alert("Please only select on dataset to graph");
+      graphMultipleReducedChiSquared();
+      graphMultipleKernelDensity();
+      //check.checked = false;
+    }
+  }
+}
+
 //function is called when a change in the state of a checkbox is determined
 //function will take in the corresponding checkBox
 //and call the appropriate functions to graph the data
@@ -855,7 +886,7 @@ function graphWeightedMean() {
       labels: dataLabels,
       datasets: [{
         data: weightedMeanAverageData,
-        label: "Line",
+        label: "Mean",
         borderColor: "#3e95cd",
         fill: false
       }, {
