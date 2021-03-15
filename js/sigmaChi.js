@@ -127,7 +127,7 @@ function addRow() {
   var inpDataID = "dataInput" + (inpVal + 1);
   dataInput.setAttribute("id", inpDataID);
   dataInput.setAttribute("onchange", "onDataChange(this)");
-  dataCol.setAttribute("contenteditable", "true");
+  dataCol.setAttribute("contenteditable", "false");
   dataInput.setAttribute("step", "0.01");
 
   uncCol.className = "pt-3-half";
@@ -137,7 +137,7 @@ function addRow() {
   colInput.setAttribute("id", inpColId);
   colInput.setAttribute("onchange", "onColChange(this)");
   colInput.setAttribute("step", "0.01");
-  uncCol.setAttribute("contenteditable", "true");
+  uncCol.setAttribute("contenteditable", "false");
 
   dataCol.appendChild(dataInput);
   uncCol.appendChild(colInput);
@@ -254,7 +254,7 @@ function addRowWithData(data, uncert) {
   idCol.className = "pt-3-half";
   rejCol.className = "pt-3-half";
   dataCol.className = "pt-3-half";
-  dataCol.setAttribute("contenteditable", "true");
+  dataCol.setAttribute("contenteditable", "false");
   var inpDataId = "dataInput" + (inpVal + 1);
   var inpColId = "colInput" + (inpVal + 1);
   dataInput.setAttribute("type", "number");
@@ -265,7 +265,7 @@ function addRowWithData(data, uncert) {
     dataInput.setAttribute("value", data);
   }
   uncCol.className = "pt-3-half";
-  uncCol.setAttribute("contenteditable", "true");
+  uncCol.setAttribute("contenteditable", "false");
   colInput.setAttribute("type", "number");
   colInput.setAttribute("step", "0.01");
   colInput.setAttribute("id", inpColId);
