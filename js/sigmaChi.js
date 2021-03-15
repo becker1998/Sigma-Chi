@@ -155,7 +155,7 @@ function addRow() {
   checkBox.setAttribute("type", "checkbox");
   var numCheck = inp + 1;
   var id = "reject" + numCheck;
-  var rejectFunction = "getRejectedData (" + numCheck + ")";
+  var rejectFunction = "getRejectedData(" + numCheck + ")";
   checkBox.setAttribute("onchange", rejectFunction);
   checkBox.setAttribute("id", id);
   rejCol.appendChild(checkBox);
@@ -176,6 +176,31 @@ function addEmptyTableBody() {
       addRow();
     }
   }
+}
+
+function getRejectedData (idNum){
+  var arr = rejectedData[tracker - 1]
+  var id = "reject" + idNum;
+  var checkBox = document.getElementById(id);
+  if (checkBox.checked == true){
+    if (Array.isArray(arr)){
+      rejectedData[tracker - 1].push(idNum);
+    }else{
+      var tempArray = new Array();
+      tempArray[0] = idNum;
+      rejectedData[tracker - 1] = tempArray;
+    }
+  }
+  else{
+    if (Array.isArray(arr)){
+      var data = rejectedData[tracker -1];
+      if (data.includes(idNum)){
+        var getIndex = data.indexOf(idNum);
+        rejectedData.splice(getIndex, 1)
+      }
+    }
+  }
+
 }
 //fucntion will be called when the software detects a change in
 //the the data column of the table and will update the table with the new change
@@ -290,7 +315,7 @@ function addRowWithData(data, uncert) {
   checkBox.setAttribute("type", "checkbox");
   var numCheck = inp + 1;
   var id = "reject" + numCheck;
-  var rejectFunction = "getRejectedData (" + numCheck + ")";
+  var rejectFunction = "getRejectedData(" + numCheck + ")";
   checkBox.setAttribute("onchange", rejectFunction);
   checkBox.setAttribute("id", id);
   rejCol.appendChild(checkBox);
