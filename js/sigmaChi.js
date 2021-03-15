@@ -709,9 +709,10 @@ function dynamicGraph(iD) {
   if (check.checked == true) {
     console.log("Checkbox is Checked!!");
     if (isMUltipleCheck() == false) {
-      graphWeightedMean();
-      graphKernelDensity();
-      grapghReducedChiSquared();
+      var idNum = Number(iD.slice(-1));
+      graphWeightedMean(idNum);
+      graphKernelDensity(idNum);
+      grapghReducedChiSquared(idNum);
     }
     else {
       //alert("Please only select on dataset to graph");
@@ -719,6 +720,12 @@ function dynamicGraph(iD) {
       graphMultipleKernelDensity();
       //check.checked = false;
     }
+  }
+  else if (isMUltipleCheck() == false){
+    var checkId = getCheckedID();
+    graphWeightedMean(checkId);
+    graphKernelDensity(checkId);
+    grapghReducedChiSquared(checkId);
   }
 }
 
@@ -731,9 +738,10 @@ function graph(input) {
   if (check.checked == true) {
     console.log("Checkbox is Checked!!");
     if (isMUltipleCheck() == false) {
-      graphWeightedMean();
-      graphKernelDensity();
-      grapghReducedChiSquared();
+      var idNum = Number(iD.slice(-1));
+      graphWeightedMean(idNum);
+      graphKernelDensity(idNum);
+      grapghReducedChiSquared(idNum);
     }
     else {
       //alert("Please only select on dataset to graph");
@@ -742,6 +750,25 @@ function graph(input) {
       //check.checked = false;
     }
   }
+  else if (isMUltipleCheck() == false){
+    var checkId = getCheckedID();
+    graphWeightedMean(checkId);
+    graphKernelDensity(checkId);
+    grapghReducedChiSquared(checkId);
+  }
+}
+
+function getCheckedID (){
+  var navData = document.getElementById("datasets");
+  var numData = navData.querySelectorAll('input[type=checkbox]').length + 1;
+  var check = 0;
+  for (var i = 1; i < numData; i++) {
+    var iD = "checkdata" + i
+    if (document.getElementById(iD).checked == true) {
+      check = i;
+    }
+  }
+  return check;
 }
 //function will return an array of the indexes of the datasets that are clicked
 //to be graphed
@@ -811,9 +838,9 @@ function graphMultipleReducedChiSquared() {
   });
 
 }
-function grapghReducedChiSquared() {
-  var tempDataset = datasets[tracker - 1];
-  var tempDataUncert = datasetsUncer[tracker - 1];
+function grapghReducedChiSquared(checked) {
+  var tempDataset = datasets[checked - 1];
+  var tempDataUncert = datasetsUncer[checked - 1];
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
@@ -824,7 +851,7 @@ function grapghReducedChiSquared() {
       labels: dataLabels,
       datasets: [{
         data: rChiSquared,
-        label: "Line",
+        label: "Data Set" + checked,
         borderColor: "#3e95cd",
         fill: false
       }
@@ -833,9 +860,9 @@ function grapghReducedChiSquared() {
   });
 }
 //gets called if only oe dataset is selected to be graphed
-function graphKernelDensity() {
-  var tempDataset = datasets[tracker - 1];
-  var tempDataUncert = datasetsUncer[tracker - 1];
+function graphKernelDensity(checked) {
+  var tempDataset = datasets[checked - 1];
+  var tempDataUncert = datasetsUncer[checked - 1];
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   //console.log(dataLabels);
@@ -849,7 +876,7 @@ function graphKernelDensity() {
       labels: dataLabels,
       datasets: [{
         data: kernelData,
-        label: "Line",
+        label: "Data Set " + checked,
         borderColor: "#3e95cd",
         fill: false
       }
@@ -867,9 +894,9 @@ function setAll(a, v) {
 }
 
 // Call if only one dataset is selected to be graphed
-function graphWeightedMean() {
-  var tempDataset = datasets[tracker - 1];
-  var tempDataUncert = datasetsUncer[tracker - 1];
+function graphWeightedMean(checked) {
+  var tempDataset = datasets[checked - 1];
+  var tempDataUncert = datasetsUncer[checked - 1];
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
