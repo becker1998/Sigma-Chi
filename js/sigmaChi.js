@@ -11,6 +11,9 @@ var datasets = new Array();
 //index will corrspond to the correct index of the datasets array
 var datasetsUncer = new Array();
 
+//The global array will keep track of all the manually rejected data
+var rejectedData = new Array();
+
 //global variable that keeps track of the current datatset
 //displayed in the table
 var tracker = 0;
@@ -152,6 +155,8 @@ function addRow() {
   checkBox.setAttribute("type", "checkbox");
   var numCheck = inp + 1;
   var id = "reject" + numCheck;
+  var rejectFunction = "getRejectedData (" + numCheck + ")";
+  checkBox.setAttribute("onchange", rejectFunction);
   checkBox.setAttribute("id", id);
   rejCol.appendChild(checkBox);
 
@@ -166,8 +171,6 @@ function addRow() {
 function addEmptyTableBody() {
   var tbl = document.getElementById("tbl");
   var numRows = tbl.querySelectorAll("tr").length;
-  var tblBody = document.getElementById("tblBody");
-  tblBody.innerHTML = "";
   if (numRows <= 1) {
     for (var i = 0; i < 5; i++) {
       addRow();
@@ -287,6 +290,8 @@ function addRowWithData(data, uncert) {
   checkBox.setAttribute("type", "checkbox");
   var numCheck = inp + 1;
   var id = "reject" + numCheck;
+  var rejectFunction = "getRejectedData (" + numCheck + ")";
+  checkBox.setAttribute("onchange", rejectFunction);
   checkBox.setAttribute("id", id);
   rejCol.appendChild(checkBox);
 
@@ -368,6 +373,8 @@ function getData(input) {
   var indexValue = typeof datasets[input - 1]
   tracker = input;
   if (indexValue == "undefined") {
+    var tblBody = document.getElementById("tblBody");
+    tblBody.innerHTML = "";
     addEmptyTableBody();
   }
   else if (indexValue !== "undefined") {
