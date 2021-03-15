@@ -893,7 +893,9 @@ function graphWeightedMean() {
         data: weightedMeanRangeData,
         label: 'Bar',
         type: 'bar',
-        backgroundColor: '#FF6633'
+        backgroundColor: '#FF6633',
+        barThickness: 10,
+        maxBarThickness: 12
       }
       ]
     }
