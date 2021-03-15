@@ -924,7 +924,17 @@ function setAll(a, v) {
       a[i] = v;
   }
 }
-
+function getGraphableData(checked){
+  var tempDataset = datasets[checked - 1];
+  var tempReject = rejectedData[checked - 1];
+  var graphableData = new Array();
+  for (i = 0; i < tempDataset.length; i++) {
+    if (tempReject.includes(i) == false){
+      graphableData.push(tempDataset[i]);
+    }
+  }
+  return graphableData;
+}
 // Call if only one dataset is selected to be graphed
 function graphWeightedMean(checked) {
   var tempDataset = datasets[checked - 1];
