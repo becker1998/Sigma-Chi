@@ -871,8 +871,8 @@ function graphMultipleReducedChiSquared() {
 
 }
 function grapghReducedChiSquared(checked) {
-  var tempDataset = datasets[checked - 1];
-  var tempDataUncert = datasetsUncer[checked - 1];
+  var tempDataset = getGraphableData(checked);
+  var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
@@ -893,8 +893,8 @@ function grapghReducedChiSquared(checked) {
 }
 //gets called if only oe dataset is selected to be graphed
 function graphKernelDensity(checked) {
-  var tempDataset = datasets[checked - 1];
-  var tempDataUncert = datasetsUncer[checked - 1];
+  var tempDataset = getGraphableData(checked);
+  var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   //console.log(dataLabels);
@@ -927,18 +927,38 @@ function setAll(a, v) {
 function getGraphableData(checked){
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
-  var graphableData = new Array();
-  for (i = 0; i < tempDataset.length; i++) {
-    if (tempReject.includes(i) == false){
-      graphableData.push(tempDataset[i]);
+  if (tempReject == undefined){
+    return tempDataset;
+  }else{
+    var graphableData = new Array();
+    for (i = 0; i < tempDataset.length; i++) {
+      if (tempReject.includes(i) == false){
+        graphableData.push(tempDataset[i]);
+      }
     }
+    return graphableData;
   }
-  return graphableData;
+}
+
+function getGraphableUncertainty(checked){
+  var tempDataset = datasetsUncer[checked - 1];
+  var tempReject = rejectedData[checked - 1];
+  if (tempReject == undefined){
+    return tempDataset;
+  }else{
+    var graphableData = new Array();
+    for (i = 0; i < tempDataset.length; i++) {
+      if (tempReject.includes(i) == false){
+        graphableData.push(tempDataset[i]);
+      }
+    }
+    return graphableData;
+  };
 }
 // Call if only one dataset is selected to be graphed
 function graphWeightedMean(checked) {
-  var tempDataset = datasets[checked - 1];
-  var tempDataUncert = datasetsUncer[checked - 1];
+  var tempDataset = getGraphableData(checked);
+  var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
