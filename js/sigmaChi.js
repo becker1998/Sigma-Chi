@@ -1,4 +1,3 @@
-
 //Sigma-Chi, written by Connor St. Louis - 2021
 
 //GLOBAL VARS
@@ -27,16 +26,58 @@ var eFunction = 0;
 var eBandwidth = 0;
 
 //Global array for possible colours to use for grahping lines
-var colours = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
-  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
-  '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
-  '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
-  '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
-  '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
-  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
-  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
-  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+var colours = [
+  "#FF6633",
+  "#FFB399",
+  "#FF33FF",
+  "#FFFF99",
+  "#00B3E6",
+  "#E6B333",
+  "#3366E6",
+  "#999966",
+  "#99FF99",
+  "#B34D4D",
+  "#80B300",
+  "#809900",
+  "#E6B3B3",
+  "#6680B3",
+  "#66991A",
+  "#FF99E6",
+  "#CCFF1A",
+  "#FF1A66",
+  "#E6331A",
+  "#33FFCC",
+  "#66994D",
+  "#B366CC",
+  "#4D8000",
+  "#B33300",
+  "#CC80CC",
+  "#66664D",
+  "#991AFF",
+  "#E666FF",
+  "#4DB3FF",
+  "#1AB399",
+  "#E666B3",
+  "#33991A",
+  "#CC9999",
+  "#B3B31A",
+  "#00E680",
+  "#4D8066",
+  "#809980",
+  "#E6FF80",
+  "#1AFF33",
+  "#999933",
+  "#FF3380",
+  "#CCCC00",
+  "#66E64D",
+  "#4D80CC",
+  "#9900B3",
+  "#E64D66",
+  "#4DB380",
+  "#FF4D4D",
+  "#99E6E6",
+  "#6666FF",
+];
 
 function updateEvaluationSettingsUncertainty() {
   var selectBox = document.getElementById("uncertaintySelection");
@@ -104,13 +145,12 @@ function downloadData() {
 function addRow() {
   var tbl = document.getElementById("tbl");
   var tbody = tbl.querySelector("tbody");
-  var checkElem = tbody.querySelector('input');
+  var checkElem = tbody.querySelector("input");
   //check to see if table is empty
   if (checkElem !== null) {
     var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
-    var inpVal = (tbody.querySelectorAll('input[type="number"]').length) / 2;
-  }
-  else {
+    var inpVal = tbody.querySelectorAll('input[type="number"]').length / 2;
+  } else {
     var inp = 0;
     var inpVal = 0;
   }
@@ -164,9 +204,9 @@ function addRow() {
   idCol.innerText = rowCount.toLocaleString();
 
   tbody.appendChild(newRow);
-  if (rejectedData[tracker-1] !== undefined){
-    if(rejectedData[tracker-1].includes(numCheck)){
-      console.log('in rejected if');
+  if (rejectedData[tracker - 1] !== undefined) {
+    if (rejectedData[tracker - 1].includes(numCheck)) {
+      console.log("in rejected if");
       checkRejectedData(id);
     }
   }
@@ -184,34 +224,32 @@ function addEmptyTableBody() {
   }
 }
 
-function getRejectedData (idNum){
-  var arr = rejectedData[tracker - 1]
+function getRejectedData(idNum) {
+  var arr = rejectedData[tracker - 1];
   var id = "reject" + idNum;
   var checkBox = document.getElementById(id);
-  if (checkBox.checked == true){
-    if (Array.isArray(arr)){
+  if (checkBox.checked == true) {
+    if (Array.isArray(arr)) {
       rejectedData[tracker - 1].push(idNum);
-    }else{
+    } else {
       var tempArray = new Array();
       tempArray[0] = idNum;
       rejectedData[tracker - 1] = tempArray;
     }
-  }
-  else{
-    if (Array.isArray(arr)){
-      var data = rejectedData[tracker -1];
-      if (data.includes(idNum)){
+  } else {
+    if (Array.isArray(arr)) {
+      var data = rejectedData[tracker - 1];
+      if (data.includes(idNum)) {
         var getIndex = data.indexOf(idNum);
-        rejectedData.splice(getIndex, 1)
+        rejectedData.splice(getIndex, 1);
       }
     }
   }
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if (checkBox.checked == true){
+  if (checkBox.checked == true) {
     dynamicGraph(dataID);
   }
-
 }
 //fucntion will be called when the software detects a change in
 //the the data column of the table and will update the table with the new change
@@ -226,8 +264,7 @@ function onDataChange(input) {
   if (Array.isArray(arr)) {
     datasets[tracker - 1][0] = rowNum;
     datasets[tracker - 1][rowNum] = newValue;
-  }
-  else {
+  } else {
     var tempArray = new Array();
     tempArray[0] = rowNum;
     tempArray[rowNum] = newValue;
@@ -236,24 +273,22 @@ function onDataChange(input) {
 
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if (checkBox.checked == true){
+  if (checkBox.checked == true) {
     dynamicGraph(dataID);
   }
-
 }
 //function is called when a change is detected in the uncertainty table
 //work in the exact same as onDataChange()
 function onColChange(input) {
   var newValue = Number(input.value);
-  var inputId = (input.id);
+  var inputId = input.id;
   var rowNum = Number(inputId.slice(-1));
   var arr = datasetsUncer[tracker - 1];
 
   if (Array.isArray(arr)) {
     datasetsUncer[tracker - 1][0] = newValue;
     datasetsUncer[tracker - 1][rowNum] = newValue;
-  }
-  else {
+  } else {
     var tempArray = new Array();
     tempArray[0] = newValue;
     tempArray[rowNum] = newValue;
@@ -262,22 +297,21 @@ function onColChange(input) {
 
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if (checkBox.checked == true){
+  if (checkBox.checked == true) {
     dynamicGraph(dataID);
   }
 }
 //this function is called in sequence after the user imports a csv file
 //this function will populate the table with the corresponding data
 function addRowWithData(data, uncert) {
-  var tbl = document.getElementById("tbl")
+  var tbl = document.getElementById("tbl");
   var tbody = tbl.querySelector("tbody");
-  var checkElem = tbody.querySelector('input');
+  var checkElem = tbody.querySelector("input");
   if (checkElem !== null) {
     var inp = tbody.querySelectorAll('input[type="checkbox"]').length;
     //because there are 2 input of this type
-    var inpVal = (tbody.querySelectorAll('input[type="number"]').length) / 2;
-  }
-  else {
+    var inpVal = tbody.querySelectorAll('input[type="number"]').length / 2;
+  } else {
     var inp = 0;
     var inpVal = 0;
   }
@@ -337,15 +371,15 @@ function addRowWithData(data, uncert) {
   tbody.appendChild(newRow);
   console.log("outside rejected if");
   console.log(rejectedData);
-  if (rejectedData[tracker-1] !== undefined){
-    if(rejectedData[tracker-1].includes(numCheck)){
-      console.log('in rejected if');
+  if (rejectedData[tracker - 1] !== undefined) {
+    if (rejectedData[tracker - 1].includes(numCheck)) {
+      console.log("in rejected if");
       checkRejectedData(id);
     }
   }
 }
 
-function checkRejectedData(id){
+function checkRejectedData(id) {
   document.getElementById(id).checked = true;
 }
 
@@ -418,14 +452,13 @@ function addingDataset(id, data, uncertainty) {
 //addTableBody(input) which passes in the corresponing index
 //that points to the dataset and creates the table with the data
 function getData(input) {
-  var indexValue = typeof datasets[input - 1]
+  var indexValue = typeof datasets[input - 1];
   tracker = input;
   if (indexValue == "undefined") {
     var tblBody = document.getElementById("tblBody");
     tblBody.innerHTML = "";
     addEmptyTableBody();
-  }
-  else if (indexValue !== "undefined") {
+  } else if (indexValue !== "undefined") {
     addTableBody(input);
   }
 }
@@ -435,18 +468,19 @@ function addNewData() {
   var numLabels = div.querySelectorAll("div").length + 1;
 
   var newDivData = document.createElement("div");
-  newDivData.className = "data text-center";
+  newDivData.className = "text-center datasetBox d-flex align-items-center";
   var divID = "data" + numLabels;
   var onclickFunc = "getData(" + numLabels + ")";
   newDivData.setAttribute("id", divID);
   newDivData.setAttribute("onclick", onclickFunc);
 
   var newLabel = document.createElement("label");
-  var datasetID = "label" + numLabels
+  var datasetID = "label" + numLabels;
+  newLabel.className = "col-10 mt-2";
   newLabel.setAttribute("id", datasetID);
 
   var newCheckBox = document.createElement("input");
-  newCheckBox.className = "text-center";
+  newCheckBox.className = "col-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
   var checkboxID = "checkdata" + numLabels;
@@ -467,7 +501,8 @@ function Data_Points_With_Uncertainty(data, uncertainties, twosigma) {
   if (data === undefined) {
     alert("error using the current dataset");
     return null;
-  } if (uncertainties === undefined) {
+  }
+  if (uncertainties === undefined) {
     alert("error using the current uncertainties");
     return null;
   }
@@ -475,8 +510,8 @@ function Data_Points_With_Uncertainty(data, uncertainties, twosigma) {
   var dataWithUncertainties = new Array();
   for (i = 0; i < data.length; i++) {
     if (twosigma == false) {
-      var uncertaintyMax = data[i] + (uncertainties[i] * 2);
-      var uncertaintyMin = data[i] - (uncertainties[i] * 2);
+      var uncertaintyMax = data[i] + uncertainties[i] * 2;
+      var uncertaintyMin = data[i] - uncertainties[i] * 2;
     } else {
       var uncertaintyMax = data[i] + uncertainties[i];
       var uncertaintyMin = data[i] - uncertainties[i];
@@ -498,8 +533,8 @@ function weighted_Mean(allData) {
   //for each data point
   for (i = 0; i < allData.length; i++) {
     //sum of all data points * their respective weights
-    weightedMean += (allData[i][0] * (allData[i][1] - allData[i][0])); //(allData[i][1] - allData[i][0]) = uncertanty
-    sumOfWeights += (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
+    weightedMean += allData[i][0] * (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
+    sumOfWeights += allData[i][1] - allData[i][0]; //(allData[i][1] - allData[i][0]) = uncertanty
   }
   weightedMean = weightedMean / sumOfWeights;
   return weightedMean;
@@ -519,8 +554,8 @@ function weighted_Mean_Variance(allData) {
   //for each data point
   for (i = 0; i < allData.length; i++) {
     //w(x-weightedMean)^2
-    weight = (allData[i][1] - allData[i][0]); //(allData[i][1] - allData[i][0]) = uncertanty
-    weightedMeanVariance += (weight * ((allData[i][0] - weightedMean) * (allData[i][0] - weightedMean)));
+    weight = allData[i][1] - allData[i][0]; //(allData[i][1] - allData[i][0]) = uncertanty
+    weightedMeanVariance += weight * ((allData[i][0] - weightedMean) * (allData[i][0] - weightedMean));
     sumOfWeights += weight;
   }
   weightedMeanVariance = weightedMeanVariance / sumOfWeights;
@@ -573,7 +608,7 @@ function chi_squared(data) {
 //function uses chi_squared(data)
 //FUNCTION IS CURRENTLY UNTESTED
 function reduced_Chai_Squared(data, rejected) {
-  var accepted = data.length - rejected;  //accepted = degrees of freedom
+  var accepted = data.length - rejected; //accepted = degrees of freedom
   var reduced_chi_sqr = new Array();
   var chi = chi_squared(data);
   for (i = 0; i < data.length; i++) {
@@ -583,11 +618,11 @@ function reduced_Chai_Squared(data, rejected) {
 }
 
 function gaussian(t) {
-  return 1.0 / Math.sqrt(2 * Math.PI) * Math.pow(Math.E, -Math.pow(t, 2.0) / 2.0);
+  return (1.0 / Math.sqrt(2 * Math.PI)) * Math.pow(Math.E, -Math.pow(t, 2.0) / 2.0);
 }
 
 function epanechnikov(t) {
-  return Math.max(0.0, 3.0 / 4.0 * (1.0 - (1.0 / 5.0 * Math.pow(t, 2.0))) / Math.sqrt(5));
+  return Math.max(0.0, ((3.0 / 4.0) * (1.0 - (1.0 / 5.0) * Math.pow(t, 2.0))) / Math.sqrt(5));
 }
 
 function sumKernel(bandwidth, allData, formulaGaussian, i) {
@@ -609,7 +644,7 @@ function univariate_Kernel_Density(bandwidth, allData, formulaGaussian) {
   var densityEstimation = new Array();
 
   for (i = 0; i < allData.length; i++) {
-    densityEstimation[i] = ((1 / (allData.length * bandwidth)) * sumKernel(bandwidth, allData, formulaGaussian, i));
+    densityEstimation[i] = (1 / (allData.length * bandwidth)) * sumKernel(bandwidth, allData, formulaGaussian, i);
   }
 
   return densityEstimation;
@@ -707,7 +742,8 @@ function kernelMedian(allData) {
     document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
     return allData[half][0];
   } else {
-    document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + ((allData[half - 1][0] + allData[half][0]) / 2.0);
+    document.getElementById("kernelMedian").innerHTML =
+      "Kernel Median: " + (allData[half - 1][0] + allData[half][0]) / 2.0;
     return (allData[half - 1][0] + allData[half][0]) / 2.0;
   }
 }
@@ -716,9 +752,8 @@ function kernelMedian(allData) {
 function sortFunction(a, b) {
   if (a[0] === b[0]) {
     return 0;
-  }
-  else {
-    return (a[0] < b[0]) ? - 1 : 1;
+  } else {
+    return a[0] < b[0] ? -1 : 1;
   }
 }
 
@@ -750,11 +785,10 @@ function getLabels(data) {
 //and will return the corresponding boolean value
 function isMUltipleCheck() {
   var inputs = document.getElementById("datasets");
-  var checkboxes = inputs.querySelectorAll('input[type=checkbox]:checked').length;
+  var checkboxes = inputs.querySelectorAll("input[type=checkbox]:checked").length;
   if (checkboxes == 1) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -768,15 +802,13 @@ function dynamicGraph(iD) {
       graphWeightedMean(idNum);
       graphKernelDensity(idNum);
       grapghReducedChiSquared(idNum);
-    }
-    else {
+    } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
       graphMultipleKernelDensity();
       //check.checked = false;
     }
-  }
-  else if (isMUltipleCheck() == false){
+  } else if (isMUltipleCheck() == false) {
     var checkId = getCheckedID();
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
@@ -797,15 +829,13 @@ function graph(input) {
       graphWeightedMean(idNum);
       graphKernelDensity(idNum);
       grapghReducedChiSquared(idNum);
-    }
-    else {
+    } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
       graphMultipleKernelDensity();
       //check.checked = false;
     }
-  }
-  else if (isMUltipleCheck() == false){
+  } else if (isMUltipleCheck() == false) {
     var checkId = getCheckedID();
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
@@ -813,12 +843,12 @@ function graph(input) {
   }
 }
 
-function getCheckedID (){
+function getCheckedID() {
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll('input[type=checkbox]').length + 1;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
   var check = 0;
   for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i
+    var iD = "checkdata" + i;
     if (document.getElementById(iD).checked == true) {
       check = i;
     }
@@ -830,9 +860,9 @@ function getCheckedID (){
 function getCheckedDatasets() {
   var checkedArray = new Array();
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll('input[type=checkbox]').length + 1;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
   for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i
+    var iD = "checkdata" + i;
     if (document.getElementById(iD).checked == true) {
       checkedArray.push(i - 1);
     }
@@ -844,9 +874,9 @@ function getCheckedDatasets() {
 function getCheckedDatasetsName() {
   var checkedArray = new Array();
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll('input[type=checkbox]').length + 1;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
   for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i
+    var iD = "checkdata" + i;
     if (document.getElementById(iD).checked == true) {
       checkedArray.push(iD);
     }
@@ -879,19 +909,18 @@ function graphMultipleReducedChiSquared() {
       data: tempChi,
       label: datasetsName[i],
       borderColor: colours[i],
-      fill: false
+      fill: false,
     };
     graphData.push(tempX);
   }
-  var multiSqrContext = document.getElementById('rcSqr').getContext('2d');
+  var multiSqrContext = document.getElementById("rcSqr").getContext("2d");
   var squareChart = new Chart(multiSqrContext, {
-    type: 'line',
+    type: "line",
     data: {
       labels: dataLabels,
-      datasets: graphData
-    }
+      datasets: graphData,
+    },
   });
-
 }
 function grapghReducedChiSquared(checked) {
   var tempDataset = getGraphableData(checked);
@@ -899,23 +928,24 @@ function grapghReducedChiSquared(checked) {
   console.log("Datasets");
   console.log(tempDataset);
   console.log("Rejected");
-  console.log(rejectedData[checked-1]);
+  console.log(rejectedData[checked - 1]);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
-  var sqrContext = document.getElementById('rcSqr').getContext('2d');
+  var sqrContext = document.getElementById("rcSqr").getContext("2d");
   var squareChart = new Chart(sqrContext, {
-    type: 'line',
+    type: "line",
     data: {
       labels: dataLabels,
-      datasets: [{
-        data: rChiSquared,
-        label: "Data Set" + checked,
-        borderColor: "#3e95cd",
-        fill: false
-      }
-      ]
-    }
+      datasets: [
+        {
+          data: rChiSquared,
+          label: "Data Set" + checked,
+          borderColor: "#3e95cd",
+          fill: false,
+        },
+      ],
+    },
   });
 }
 //gets called if only oe dataset is selected to be graphed
@@ -928,39 +958,41 @@ function graphKernelDensity(checked) {
   var bandwidth = 0.8333333333333334;
   var kernelData = new Array();
   kernelData = univariate_Kernel_Density(bandwidth, allData, true);
-  var kernelContext = document.getElementById('kerDest').getContext('2d');
+  var kernelContext = document.getElementById("kerDest").getContext("2d");
   var kernelChart = new Chart(kernelContext, {
-    type: 'line',
+    type: "line",
     data: {
       labels: dataLabels,
-      datasets: [{
-        data: kernelData,
-        label: "Data Set " + checked,
-        borderColor: "#3e95cd",
-        fill: false
-      }
-      ]
-    }
+      datasets: [
+        {
+          data: kernelData,
+          label: "Data Set " + checked,
+          borderColor: "#3e95cd",
+          fill: false,
+        },
+      ],
+    },
   });
 }
 
 // Set all the values of an Array()
 function setAll(a, v) {
-  var i, n = a.length;
+  var i,
+    n = a.length;
   for (i = 0; i < n; ++i) {
-      a[i] = v;
+    a[i] = v;
   }
 }
-function getGraphableData(checked){
+function getGraphableData(checked) {
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
-  if (tempReject == undefined){
+  if (tempReject == undefined) {
     return tempDataset;
-  }else{
+  } else {
     var graphableData = new Array();
     for (i = 1; i < tempDataset.length; i++) {
-      if (tempReject.includes(i) == false){
-        console.log("in filter if statement")
+      if (tempReject.includes(i) == false) {
+        console.log("in filter if statement");
         graphableData.push(tempDataset[i]);
       }
     }
@@ -968,20 +1000,20 @@ function getGraphableData(checked){
   }
 }
 
-function getGraphableUncertainty(checked){
+function getGraphableUncertainty(checked) {
   var tempDataset = datasetsUncer[checked - 1];
   var tempReject = rejectedData[checked - 1];
-  if (tempReject == undefined){
+  if (tempReject == undefined) {
     return tempDataset;
-  }else{
+  } else {
     var graphableData = new Array();
     for (i = 1; i < tempDataset.length; i++) {
-      if (tempReject.includes(i) == false){
+      if (tempReject.includes(i) == false) {
         graphableData.push(tempDataset[i]);
       }
     }
     return graphableData;
-  };
+  }
 }
 // Call if only one dataset is selected to be graphed
 function graphWeightedMean(checked) {
@@ -996,26 +1028,28 @@ function graphWeightedMean(checked) {
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i + 1][2], allData[i + 1][1]];
   }
-  var weightedMeanChartContext = document.getElementById('wMean').getContext('2d');
+  var weightedMeanChartContext = document.getElementById("wMean").getContext("2d");
   var weightedMeanChart = new Chart(weightedMeanChartContext, {
-    type: 'line',
+    type: "line",
     data: {
       labels: dataLabels,
-      datasets: [{
-        data: weightedMeanAverageData,
-        label: "Mean",
-        borderColor: "#3e95cd",
-        fill: false
-      }, {
-        data: weightedMeanRangeData,
-        label: 'Bar',
-        type: 'bar',
-        backgroundColor: '#FF6633',
-        barThickness: 10,
-        maxBarThickness: 12
-      }
-      ]
-    }
+      datasets: [
+        {
+          data: weightedMeanAverageData,
+          label: "Mean",
+          borderColor: "#3e95cd",
+          fill: false,
+        },
+        {
+          data: weightedMeanRangeData,
+          label: "Bar",
+          type: "bar",
+          backgroundColor: "#FF6633",
+          barThickness: 10,
+          maxBarThickness: 12,
+        },
+      ],
+    },
   });
 }
 
@@ -1036,16 +1070,16 @@ function graphMultipleKernelDensity() {
       data: tempKer,
       label: datasetsName[i],
       borderColor: colours[i],
-      fill: false
+      fill: false,
     };
     graphData.push(tempX);
   }
-  var multiKerContext = document.getElementById('kerDest').getContext('2d');
+  var multiKerContext = document.getElementById("kerDest").getContext("2d");
   var squareChart = new Chart(multiKerContext, {
-    type: 'line',
+    type: "line",
     data: {
       labels: dataLabels,
-      datasets: graphData
-    }
+      datasets: graphData,
+    },
   });
 }

@@ -16,17 +16,17 @@
   <body>
 
       <!------- TOP HALF OF SCREEN background colour: #2596be / rgb(37, 150, 190) --->
-      <div class="container-fluid">
+      <div class="container-fluid ">
         <div class="row ">
           <div class="col top-panel nopadding">
             <div class="row">
               <div class="col offset-1 ">
-                 <button type="file" onclick="document.getElementById('import').click();" class="btn shadow-lg btn-lg">Import
+                 <button type="file" onclick="document.getElementById('import').click();" class="btn btn-lg fontFix">Import
                    <input class= "input" type="file" id="import" name="filename" accept=".csv" onChange="dataFile(this)"></button>
               </div>
               <div class="col offset-4">
                  <div class="dropdown">
-                    <button type="button" class="btn shadow-lg btn-lg dropdown-toggle" id="eval-settings" data-toggle="dropdown">Evaluation Settings</button>
+                    <button type="button" class="btn btn-lg dropdown-toggle fontFix" id="eval-settings" data-toggle="dropdown">Evaluation Settings</button>
                   <div class="dropdown-menu mt-2 w-75 bg-colour-evaluation-settings" aria-labelledby="eval-settings">
                     <form class="form-group">
                       <div class="form-group row ml-3 mt-1">
@@ -106,6 +106,7 @@
             </div>
           </div>
         </div>
+      <div class="header-underline w-100"></div>
         <div class="row d-flex">
           <div class="col-2  d-flex flex-column
             side-panel nopadding sidecol ">
@@ -115,9 +116,9 @@
                     <!-- DataSets are written into here from addNewData() -->
                     <!-- Datasets are stored into a div to and on onclick will invoke
                     getData() which updates the below table accordingly -->
-                    <div class="data text-center" id = "data1" onclick="getData(1)">
-                      <label id="label1" >Data Set 1</label>
-                      <input class="text-center" type="checkbox" id="checkdata1" onchange="graph(this)">
+                    <div class="text-center datasetBox d-flex align-items-center" id = "data1" onclick="getData(1)">
+                      <label class="col-10 mt-2" id="label1" >Data Set 1</label>
+                      <input class="col-2" type="checkbox" id="checkdata1" onchange="graph(this)">
                     </div>
                   </div>
                 </nav>
