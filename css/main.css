@@ -87,13 +87,13 @@ display: block;
 .top-divider{
 	margin-bottom: 0rem;
 	background-color: #E9AC4A;
-	height: 15px !important;
+	height: 18px !important;
 }
 
 .bottom-divider{
 	margin-bottom: 0rem;
 	background-color: #CC7E00;
-	height: 7.5px !important;
+	height: 5px !important;
 }
 
 .data-btn{
