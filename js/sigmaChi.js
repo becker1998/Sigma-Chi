@@ -895,11 +895,9 @@ function graphMultipleReducedChiSquared() {
 }
 function grapghReducedChiSquared(checked) {
   var tempDataset = getGraphableData(checked);
+  tempDataset.shift();
   var tempDataUncert = getGraphableUncertainty(checked);
-  console.log("Datasets");
-  console.log(tempDataset);
-  console.log("Rejected");
-  console.log(rejectedData[checked-1]);
+  tempDataUncert.shift();
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
@@ -954,11 +952,16 @@ function setAll(a, v) {
 function getGraphableData(checked){
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
+  console.log("in graphableData");
+  console.log(tempReject);
   if (tempReject == undefined){
+    //tempDataset.shift();
+    console.log("in graphableData If state");
+    console.log(tempDataset);
     return tempDataset;
   }else{
     var graphableData = new Array();
-    for (i = 1; i < tempDataset.length; i++) {
+    for (i = 0; i < tempDataset.length; i++) {
       if (tempReject.includes(i) == false){
         console.log("in filter if statement")
         graphableData.push(tempDataset[i]);
@@ -972,10 +975,11 @@ function getGraphableUncertainty(checked){
   var tempDataset = datasetsUncer[checked - 1];
   var tempReject = rejectedData[checked - 1];
   if (tempReject == undefined){
+    //tempDataset.shift();
     return tempDataset;
   }else{
     var graphableData = new Array();
-    for (i = 1; i < tempDataset.length; i++) {
+    for (i = 0; i < tempDataset.length; i++) {
       if (tempReject.includes(i) == false){
         graphableData.push(tempDataset[i]);
       }
