@@ -356,7 +356,7 @@ function addTableBody(input) {
   var maxLength = Math.max(data.length, uncert.length);
   var getBody = document.getElementById("tblBody");
   getBody.innerHTML = "";
-  for (var i = 1; i < maxLength + 1; i++) {
+  for (var i = 1; i < maxLength; i++) {
     addRowWithData(data[i], uncert[i]);
   }
 }
@@ -895,9 +895,7 @@ function graphMultipleReducedChiSquared() {
 }
 function grapghReducedChiSquared(checked) {
   var tempDataset = getGraphableData(checked);
-  tempDataset.shift();
   var tempDataUncert = getGraphableUncertainty(checked);
-  tempDataUncert.shift();
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
@@ -954,17 +952,18 @@ function getGraphableData(checked){
   var tempReject = rejectedData[checked - 1];
   console.log("in graphableData");
   console.log(tempReject);
+  var graphableData = new Array();
   if (tempReject == undefined){
-    //tempDataset.shift();
-    console.log("in graphableData If state");
-    console.log(tempDataset);
-    return tempDataset;
+    for (j = 1; j < tempDataset.length; j++) {
+      graphableData[j-1] = tempDataset[j];
+    }
+
+    return graphableData;
   }else{
-    var graphableData = new Array();
-    for (i = 0; i < tempDataset.length; i++) {
+    for (i = 1; i < tempDataset.length; i++) {
       if (tempReject.includes(i) == false){
         console.log("in filter if statement")
-        graphableData.push(tempDataset[i]);
+        graphableData[i-1] = tempDataset[i];
       }
     }
     return graphableData;
@@ -974,14 +973,17 @@ function getGraphableData(checked){
 function getGraphableUncertainty(checked){
   var tempDataset = datasetsUncer[checked - 1];
   var tempReject = rejectedData[checked - 1];
+  var graphableData = new Array();
   if (tempReject == undefined){
-    //tempDataset.shift();
-    return tempDataset;
+    for (j = 1; j < tempDataset.length; j++) {
+      graphableData[j-1] = tempDataset[j];
+    }
+    return graphableData;
   }else{
-    var graphableData = new Array();
-    for (i = 0; i < tempDataset.length; i++) {
+    for (i = 1; i < tempDataset.length; i++) {
       if (tempReject.includes(i) == false){
-        graphableData.push(tempDataset[i]);
+        console.log("in filter if statement")
+        graphableData[i-1] = tempDataset[i];
       }
     }
     return graphableData;
@@ -994,12 +996,14 @@ function graphWeightedMean(checked) {
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
-  var weightedMeanAverageData = new Array(allData.length - 1);
-  var weightedMeanRangeData = new Array(allData.length - 1);
+  var weightedMeanAverageData = new Array(allData.length);
+  var weightedMeanRangeData = new Array(allData.length);
   setAll(weightedMeanAverageData, weightedMeanAverage);
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
-    weightedMeanRangeData[i] = [allData[i + 1][2], allData[i + 1][1]];
+    weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
   }
+  console.log("Weight Mean: ");
+  console.log(weightedMeanRangeData);
   var weightedMeanChartContext = document.getElementById('wMean').getContext('2d');
   var weightedMeanChart = new Chart(weightedMeanChartContext, {
     type: 'line',
