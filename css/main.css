@@ -66,11 +66,13 @@ display: block;
 	margin: 10px;
 	background-color: #E07A5F !important;
 	color: white !important;
+	box-shadow: 0px 3px 0px 0px #c76c53 !important;
 }
 
 .btn:hover{
 	background-color: #CD7158 !important;
 	color: white !important;
+	box-shadow: 0px 3px 0px 0px #b1604a !important;
 }
 
 .divider{
@@ -85,13 +87,13 @@ display: block;
 .top-divider{
 	margin-bottom: 0rem;
 	background-color: #E9AC4A;
-	height: 15px !important;
+	height: 18px !important;
 }
 
 .bottom-divider{
 	margin-bottom: 0rem;
 	background-color: #CC7E00;
-	height: 7.5px !important;
+	height: 5px !important;
 }
 
 .data-btn{
@@ -111,6 +113,8 @@ display: block;
 
 .navbar {
 	padding: 0 !important;
+	height: 100%;
+	/* margin-top: 4px; */
 }
 
 nav .col {
@@ -125,35 +129,45 @@ label{
 	text-align: center !important;
 }
 
-.data{
-	margin-bottom: 2px !important;
+#datasets{
+	height: 300px;
+	overflow-y: auto;
+}
+
+.datasetBox {
+	min-height: 50px;
+	height: 50px;
+	margin-top: 4px !important;
+	margin-bottom: 6px !important;
+	background-color: #E9AC4A;
+	box-shadow: 0px 4px 0px 0px #cc7e00cb;
+	font-family: 'Roboto', sans-serif;
+	font-weight:600 !important;
+	font-size: 20px;
+	color: white;
+}
+
+.datasetBox:hover{
+	background-color: #f8b345 !important;
+	color: white !important;
 }
 
 .check{
 	margin-left: 130px !important;
 }
 
-.data:hover{
-	background-color: #ffb743 !important;
-	color: white !important;
-	margin-bottom: 2px !important;
-}
-
 .add{
-	background-color: #CC7E00 !important;
+	background-color: #c79e5c  !important;
 	color: white !important;
 	box-shadow: 0px 5px 0px #CC7E00;
-	margin-top: 12px !important;
-	width: 40px !important;
-	height: 20px !important;
+	width: 100% !important;
 }
 
 .add:hover{
-	margin-bottom: 2px !important;
-	background-color: #9e732d !important;
+	background-color: #ac8039 !important;
 	box-shadow: 0px 5px 0px #9e732d;
 	color: white !important;
-	width: 40px !important;
+	width: 100% !important;
 }
 
 .brand{
@@ -196,3 +210,16 @@ select:active {
 select:hover{
 	border-color: #E9AC4A !important;
 }
+
+.header-underline {
+	background-color: #77A38D;
+	height: 6px;
+}
+
+.fontFix{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700 !important;
+	font-size: 22px !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
