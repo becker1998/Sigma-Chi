@@ -199,11 +199,18 @@ function getRejectedData (idNum){
   }
   else{
     if (Array.isArray(arr)){
+      console.log("in else if ");
+      console.log("Rejected Data to Remove");
+      console.log(rejectedData);
       var data = rejectedData[tracker -1];
+      console.log("Data Getter");
+      console.log(data);
       if (data.includes(idNum)){
         var getIndex = data.indexOf(idNum);
-        rejectedData.splice(getIndex, 1)
+        rejectedData[tracker - 1].splice(getIndex, 1)
       }
+      console.log("New Rejected Data");
+      console.log(rejectedData);
     }
   }
   var dataID = "checkdata" + tracker;
@@ -950,22 +957,26 @@ function setAll(a, v) {
 function getGraphableData(checked){
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
-  console.log("in graphableData");
-  console.log(tempReject);
   var graphableData = new Array();
+  //console.log("Temp Reject before for in graphableData");
+  //console.log(tempReject);
+  //console.log("Temp Dataset before for in graphableData");
+  //console.log(tempDataset);
   if (tempReject == undefined){
     for (j = 1; j < tempDataset.length; j++) {
       graphableData[j-1] = tempDataset[j];
     }
-
     return graphableData;
   }else{
     for (i = 1; i < tempDataset.length; i++) {
       if (tempReject.includes(i) == false){
-        console.log("in filter if statement")
-        graphableData[i-1] = tempDataset[i];
+        //console.log("datat added in for ");
+        //console.log(tempDataset[i]);
+        graphableData.push(tempDataset[i]);
       }
     }
+    //console.log("Graphable Data");
+    //console.log(graphableData);
     return graphableData;
   }
 }
@@ -1002,8 +1013,6 @@ function graphWeightedMean(checked) {
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
   }
-  console.log("Weight Mean: ");
-  console.log(weightedMeanRangeData);
   var weightedMeanChartContext = document.getElementById('wMean').getContext('2d');
   var weightedMeanChart = new Chart(weightedMeanChartContext, {
     type: 'line',
