@@ -1112,10 +1112,13 @@ function center(){
 }
 
 function expandTop(){
-  $('.collapsetop').collapse("toggle");
+  document.getElementById("collapsebottom").style.height = '1px';
   return;
 }
 
 function expandBottom(){
+  document.getElementById("collapsetop").style.height = '0px';
   return;
 }
+
+center();
