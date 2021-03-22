@@ -1106,40 +1106,39 @@ function graphMultipleKernelDensity() {
   });
 }
 
-function center(){
-  document.getElementById("logo").style.position = 'absolute';
-  document.getElementById("screendivider").style.position = 'relative';
-  document.getElementById("collapsetop").style.height = '100%';
-  document.getElementById("logo").style.bottom = '-280px';
-  document.getElementById("screendivider").style.top = '0vh';
-  document.getElementById("tophalf").style.height = '325px';
-  document.getElementById("table").style.height = '325px';
-  document.getElementById("collapsebottom2").style.height = '100%';
-  document.getElementById("collapsebottom").style.height = '533px';
-  document.getElementById("collapsebottom3").style.height = '533px';
+function center() {
+  document.getElementById("logo").style.position = "absolute";
+  document.getElementById("screendivider").style.position = "relative";
+  document.getElementById("collapsetop").style.height = "100%";
+  document.getElementById("logo").style.bottom = "-280px";
+  document.getElementById("screendivider").style.top = "0vh";
+  document.getElementById("tophalf").style.height = "325px";
+  document.getElementById("table").style.height = "325px";
+  document.getElementById("collapsebottom2").style.height = "100%";
+  document.getElementById("collapsebottom").style.height = "533px";
+  document.getElementById("collapsebottom3").style.height = "533px";
   return;
 }
 
-function expandTop(){
-  document.getElementById("screendivider").style.position = 'relative';
-  document.getElementById("collapsebottom").style.height = '0px';
-  document.getElementById("collapsebottom2").style.height = '0px';
-  document.getElementById("collapsebottom3").style.height = '0px';
-  document.getElementById("screendivider").style.top = '0px';
-  document.getElementById("logo").style.bottom = '208px';
-  document.getElementById("collapsetop").style.height = '857px';
-  document.getElementById("tophalf").style.height = '857px';
-  document.getElementById("table").style.height = '857px';
+function expandTop() {
+  document.getElementById("screendivider").style.position = "relative";
+  document.getElementById("collapsebottom").style.height = "0px";
+  document.getElementById("collapsebottom2").style.height = "0px";
+  document.getElementById("collapsebottom3").style.height = "0px";
+  document.getElementById("screendivider").style.top = "0px";
+  document.getElementById("logo").style.bottom = "208px";
+  document.getElementById("collapsetop").style.height = "857px";
+  document.getElementById("tophalf").style.height = "857px";
+  document.getElementById("table").style.height = "857px";
   return;
 }
 
-function expandBottom(){
-  document.getElementById("collapsetop").style.height = '0px';
-  document.getElementById("collapsebottom2").style.height = '858px';
-  document.getElementById("collapsebottom").style.height = '858px';
-  document.getElementById("collapsebottom3").style.height = '858px';
-  document.getElementById("logo").style.bottom = '-578px';
-
+function expandBottom() {
+  document.getElementById("collapsetop").style.height = "0px";
+  document.getElementById("collapsebottom2").style.height = "858px";
+  document.getElementById("collapsebottom").style.height = "858px";
+  document.getElementById("collapsebottom3").style.height = "858px";
+  document.getElementById("logo").style.bottom = "-578px";
   return;
 }
 

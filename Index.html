@@ -191,25 +191,25 @@
         </div>
       </div>
       <!-- MAIN GRAPH AREA -->
-      <div id = "collapsebottom2" class="col-10 bottom-panel nopadding maincol card-body nomargin">
-        <div id="graphs" class="table-scroll-y bottom-graphs mainScrollbar nomargin">
-          <div>
-            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+      <div id = "collapsebottom2" class="col-sm-10 bottom-panel nopadding maincol card-body nomargin">
+        <div id="graphs" class="bottom-graphs mainScrollbar nomargin d-flex flex-row">
+          <div class="col-sm-4 nopadding">
+            <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
               Weighted Mean
             </h3>
-            <canvas id="wMean"></canvas>
+            <canvas class="graph-size" id="wMean"></canvas>
           </div>
-          <div>
-            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+          <div class="col-sm-4 nopadding">
+            <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
               Reduced Chai Squared
             </h3>
-            <canvas id="rcSqr"></canvas>
+            <canvas class="graph-size" id="rcSqr"></canvas>
           </div>
-          <div>
-            <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+          <div class="col-sm-4 nopadding align-items-center">
+            <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
               Kernel Density Estimation
             </h3>
-            <canvas id="kerDest"></canvas>
+            <canvas class="graph-size" id="kerDest"></canvas>
             <div>
             </div>
           </div>
