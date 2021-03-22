@@ -1029,7 +1029,7 @@ function getGraphableUncertainty(checked) {
     for (i = 1; i < tempDataset.length; i++) {
       if (tempReject.includes(i) == false) {
         console.log("in filter if statement");
-        graphableData[i - 1] = tempDataset[i];
+        graphableData.push(tempDataset[i]);
       }
     }
     return graphableData;
@@ -1042,8 +1042,8 @@ function graphWeightedMean(checked) {
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
   var dataLabels = getLabels(tempDataset);
   var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
-  var weightedMeanAverageData = new Array(allData.length);
-  var weightedMeanRangeData = new Array(allData.length);
+  var weightedMeanAverageData = new Array(allData.length - 1);
+  var weightedMeanRangeData = new Array(allData.length - 1);
   setAll(weightedMeanAverageData, weightedMeanAverage);
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
