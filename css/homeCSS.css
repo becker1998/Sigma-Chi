@@ -17,7 +17,10 @@
 	margin-bottom: 0rem;
 	margin-right: 0rem;
 	width: 75%;
-	height: 650px !important;
+	height:91vh !important;
+  /*height: 650px !important; removed due to problems*/
+  min-height:100%;
+	overflow: auto;
 }
 .bn{
 	padding: 10px;
@@ -50,7 +53,7 @@
 	margin: 5px;
 	background-color: #E07A5F !important;
 	color: white !important;
-	width: 200px !important; 
+	width: 200px !important;
 }
 a{
 	text-align: center !important;
