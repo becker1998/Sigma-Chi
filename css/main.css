@@ -42,33 +42,32 @@
   height: 5000px;
 }
 
-.main-panel{
-	background-color: #FFFCF2;
-	margin-bottom: 0rem;
-	margin-right: 0rem;
-	width: 75%;
-	height: 310px;
+.main-panel {
+  background-color: #fffcf2;
+  margin-bottom: 0rem;
+  margin-right: 0rem;
+  width: 75%;
+  height: 310px;
 }
 
-.bottom-panel{
-	background-color: #FFFCF2;
-	margin-bottom: 0rem;
-	margin-right: 0rem;
-	width: 75%;
-	height:54.5vh;
-  
+.bottom-panel {
+  background-color: #fffcf2;
+  margin-bottom: 0rem;
+  margin-right: 0rem;
+  width: 75%;
+  height: 54.5vh;
+
   /*height: 650px !important; removed due to problems*/
   min-height: 100%;
   overflow: auto;
 }
 
-
-.bottom-graphs{
-	background-color: #FFFCF2;
-	margin-bottom: 0rem;
-	margin-right: 0rem;
-	width: 100%;
-	height:54vh;
+.bottom-graphs {
+  background-color: #fffcf2;
+  margin-bottom: 0rem;
+  margin-right: 0rem;
+  width: 100%;
+  height: 54vh;
 
   /*height: 650px !important; removed due to problems*/
   min-height: 100%;
@@ -113,32 +112,31 @@
   border-color: black !important;
 }
 
-
-.top-divider{
-	margin-bottom: 0rem;
-	background-color: #E9AC4A;
-	height: 18px ;
+.top-divider {
+  margin-bottom: 0rem;
+  background-color: #e9ac4a;
+  height: 18px;
 }
 
-.bottom-divider{
-	margin-bottom: 0rem;
-	background-color: #CC7E00;
-	height: 5px ;
+.bottom-divider {
+  margin-bottom: 0rem;
+  background-color: #cc7e00;
+  height: 5px;
 }
 
-.data-btn{
-	width: 5000px;
-	height: 50px;
+.data-btn {
+  width: 5000px;
+  height: 50px;
 }
 
-.nav-item{
-	padding: 5px;
-	margin: 5px;
-	background-color: #E9AC4A !important;
-	color: white !important;
-	width: 100% ;
-	box-shadow: 0px 5px 0px #CC7E00;
-	padding-top: 10px !important;
+.nav-item {
+  padding: 5px;
+  margin: 5px;
+  background-color: #e9ac4a !important;
+  color: white !important;
+  width: 100%;
+  box-shadow: 0px 5px 0px #cc7e00;
+  padding-top: 10px !important;
 }
 
 .navbar {
@@ -186,12 +184,11 @@ label {
   margin-left: 130px !important;
 }
 
-.add{
-	background-color: #c79e5c  !important;
-	color: white !important;
-	box-shadow: 0px 5px 0px #CC7E00;
-	width: 100% ;
-
+.add {
+  background-color: #c79e5c !important;
+  color: white !important;
+  box-shadow: 0px 5px 0px #cc7e00;
+  width: 100%;
 }
 
 .add:hover {
@@ -261,6 +258,19 @@ select:hover {
 
 .select-width {
   min-width: 100%;
+}
+
+.graph-header {
+  background-color: #fff5e2 !important;
+  color: #d3a755 !important;
+  border: none !important;
+  box-shadow: 0px 1px 3px 0px #6b2c0241 !important;
+}
+
+.graph-size {
+  width: 95% !important;
+  margin-left: 10px;
+  margin-top: 5px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
