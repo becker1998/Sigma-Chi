@@ -885,7 +885,8 @@ function getCheckedDatasetsName() {
   for (var i = 1; i < numData; i++) {
     var iD = "checkdata" + i;
     if (document.getElementById(iD).checked == true) {
-      checkedArray.push(iD);
+      var dataID = "Data Set " + i;
+      checkedArray.push(dataID);
     }
   }
   return checkedArray;
@@ -910,7 +911,9 @@ function graphMultipleReducedChiSquared() {
   var datasetsName = getCheckedDatasetsName();
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    var tempdata = Data_Points_With_Uncertainty(datasets[getChecked[i]], datasetsUncer[getChecked[i]], false);
+    var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
+    var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
+    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, false);
     var tempChi = reduced_Chai_Squared(tempdata, 0);
     var tempX = {
       data: tempChi,
@@ -1081,7 +1084,9 @@ function graphMultipleKernelDensity() {
   var bandwidth = 0.8333333333333334;
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    var tempdata = Data_Points_With_Uncertainty(datasets[getChecked[i]], datasetsUncer[getChecked[i]], false);
+    var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
+    var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
+    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, false);
     var tempKer = univariate_Kernel_Density(bandwidth, tempdata, true);
     var tempX = {
       data: tempKer,
