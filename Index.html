@@ -24,6 +24,9 @@
                  <button type="file" onclick="document.getElementById('import').click();" class="btn btn-lg fontFix">Import
                    <input class= "input" type="file" id="import" name="filename" accept=".csv" onChange="dataFile(this)"></button>
               </div>
+              <button class = "btn1 btn btn-lg fontFix" onclick="center()">Center</button>
+              <button class = "btn2 btn btn-lg fontFix" onclick="expandTop()">Data</button>
+              <button class = "btn3 btn btn-lg fontFix" onclick="expandBottom()">Graphs</button>
               <div class="col offset-4">
                  <div class="dropdown">
                     <button type="button" class="btn btn-lg dropdown-toggle fontFix" id="eval-settings" data-toggle="dropdown">Evaluation Settings</button>
@@ -165,6 +168,7 @@
       <div class="container-fluid">
         <!-- screen divider-->
         <div class="row ">
+
           <div class="col top-divider nopadding">
           </div>
         </div>

@@ -1105,3 +1105,7 @@ function graphMultipleKernelDensity() {
     },
   });
 }
+
+function expandBottom(){
+
+}
