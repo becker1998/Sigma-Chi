@@ -16,7 +16,7 @@
   <body>
 
       <!------- TOP HALF OF SCREEN background colour: #2596be / rgb(37, 150, 190) --->
-      <div class="container-fluid ">
+      <div class="container-fluid">
         <div class="row ">
           <div class="col top-panel nopadding">
             <div class="row">
@@ -24,9 +24,9 @@
                  <button type="file" onclick="document.getElementById('import').click();" class="btn btn-lg fontFix">Import
                    <input class= "input" type="file" id="import" name="filename" accept=".csv" onChange="dataFile(this)"></button>
               </div>
-              <button class = "btn1 btn btn-lg fontFix" onclick="center()">Center</button>
-              <button class = "btn2 btn btn-lg fontFix" onclick="expandTop()">Data</button>
-              <button class = "btn3 btn btn-lg fontFix" onclick="expandBottom()">Graphs</button>
+              <button id = "btn1" class = "btn1 btn btn-lg fontFix" onclick="center()">Center</button>
+              <button id = "btn2" class = "btn2 btn btn-lg fontFix" onclick="expandTop()">Data</button>
+              <button id = "btn3" class = "btn3 btn btn-lg fontFix" onclick="expandBottom()">Graphs</button>
               <div class="col offset-4">
                  <div class="dropdown">
                     <button type="button" class="btn btn-lg dropdown-toggle fontFix" id="eval-settings" data-toggle="dropdown">Evaluation Settings</button>
@@ -110,7 +110,7 @@
           </div>
         </div>
       <div class="header-underline w-100"></div>
-        <div class="row d-flex">
+        <div class="row d-flex collapsetop">
           <div class="col-2  d-flex flex-column
             side-panel nopadding sidecol ">
                 <nav class="navbar">
@@ -127,7 +127,7 @@
                 </nav>
                 <a onclick="addNewData()" class="add align-self-center">+</a>
             </div>
-          <div class="col-8 main-panel nopadding maincol card-body nomargin">
+          <div id = "tophalf" class="col-8 main-panel nopadding maincol card-body nomargin">
             <div id="table" class="table-editable table-scroll-y mainScrollbar nomargin">
               <span class="table-add float-left" onclick="downloadData()"
                 ><a href="#!" class="text-success"
@@ -165,7 +165,7 @@
       </div><!-- end TOP SCREEN -->
 
       <!--------- bottom half of the screen -->
-      <div class="container-fluid">
+      <div id = "bottomhalf" class="container-fluid">
         <!-- screen divider-->
         <div class="row ">
 

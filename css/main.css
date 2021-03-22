@@ -247,21 +247,21 @@ select:hover{
 .btn1{
 	z-index: 10;
 	position: absolute;
-	left: 47%;
+	left: 20%;
   top: 0px;
 }
 
 .btn2{
 	z-index: 12;
 	position: absolute;
-	left: 40%;
+	left: 15%;
   top: 0px;
 }
 
 .btn3{
 	z-index: 11;
 	position: absolute;
-	left: 55%;
+	left: 26.1%;
   top: 0px;
 }
 

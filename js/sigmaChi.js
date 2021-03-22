@@ -1106,6 +1106,16 @@ function graphMultipleKernelDensity() {
   });
 }
 
-function expandBottom(){
+function center(){
 
+  return;
+}
+
+function expandTop(){
+  $('.collapsetop').collapse("toggle");
+  return;
+}
+
+function expandBottom(){
+  return;
 }
