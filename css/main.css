@@ -215,7 +215,7 @@ label {
   border-bottom-color: #e07a5f !important;
   border-width: medium !important;
   color: #3d405b !important;
-  width: 350px ;
+  width: 350px;
 }
 
 .header-font-evaluation-settings {
@@ -268,29 +268,29 @@ select:hover {
 }
 
 .graph-size {
-  width: 95% ;
+  width: 95%;
   margin-left: 10px;
   margin-top: 5px;
 }
 
-.btn1{
+.btn1 {
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
   background-color: #e07a5f;
   color: white;
   box-shadow: 0px 3px 0px 0px #c76c53;
-  border: 0px solid #73AD21;
-	z-index: 10;
-	position: relative;
-	left: 0%;
+  border: 0px solid #73ad21;
+  z-index: 10;
+  position: relative;
+  left: 0%;
   top: 0px;
 }
 
 .btn1:hover {
-  background-color: #cd7158;
-  color: white;
-  box-shadow: 0px 3px 0px 0px #b1604a;
+  background-color: #cd7158 !important;
+  color: white !important;
+  box-shadow: 0px 3px 0px 0px #b1604a !important;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");

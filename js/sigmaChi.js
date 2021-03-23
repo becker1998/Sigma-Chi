@@ -811,8 +811,10 @@ function dynamicGraph(iD) {
       grapghReducedChiSquared(idNum);
 
       var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), false);
-      document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-      document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
+      document.getElementById("textWeightedMean").innerHTML =
+        "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+      document.getElementById("textrejected").innerHTML =
+        "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
     } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
@@ -826,8 +828,10 @@ function dynamicGraph(iD) {
     grapghReducedChiSquared(checkId);
 
     var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), false);
-    document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-    document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
+    document.getElementById("textWeightedMean").innerHTML =
+      "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+    document.getElementById("textrejected").innerHTML =
+      "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
   }
 }
 
@@ -846,8 +850,10 @@ function graph(input) {
       grapghReducedChiSquared(idNum);
 
       var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), false);
-      document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-      document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
+      document.getElementById("textWeightedMean").innerHTML =
+        "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+      document.getElementById("textrejected").innerHTML =
+        "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
     } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
@@ -861,8 +867,10 @@ function graph(input) {
     grapghReducedChiSquared(checkId);
 
     var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), false);
-    document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-    document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
+    document.getElementById("textWeightedMean").innerHTML =
+      "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+    document.getElementById("textrejected").innerHTML =
+      "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
   }
 }
 
@@ -1133,9 +1141,9 @@ function center() {
   document.getElementById("collapsebottom2").style.height = "620px";
   document.getElementById("collapsebottom").style.height = "620px";
   document.getElementById("collapsebottom3").style.height = "620px";
-  document.getElementById("btn1").style.backgroundColor = '#e07a5f';
-  document.getElementById("btn2").style.backgroundColor = '#cd7158';
-  document.getElementById("btn3").style.backgroundColor = '#e07a5f';
+  document.getElementById("btn1").style.backgroundColor = "#e07a5f";
+  document.getElementById("btn2").style.backgroundColor = "#cd7158";
+  document.getElementById("btn3").style.backgroundColor = "#e07a5f";
   return;
 }
 
@@ -1149,9 +1157,9 @@ function expandTop() {
   document.getElementById("collapsetop").style.height = "945px";
   document.getElementById("tophalf").style.height = "945px";
   document.getElementById("table").style.height = "945px";
-  document.getElementById("btn1").style.backgroundColor = '#cd7158';
-  document.getElementById("btn2").style.backgroundColor = '#e07a5f';
-  document.getElementById("btn3").style.backgroundColor = '#e07a5f';
+  document.getElementById("btn1").style.backgroundColor = "#cd7158";
+  document.getElementById("btn2").style.backgroundColor = "#e07a5f";
+  document.getElementById("btn3").style.backgroundColor = "#e07a5f";
   return;
 }
 
@@ -1161,9 +1169,9 @@ function expandBottom() {
   document.getElementById("collapsebottom").style.height = "945px";
   document.getElementById("collapsebottom3").style.height = "945px";
   document.getElementById("logo").style.bottom = "0px";
-  document.getElementById("btn1").style.backgroundColor = '#e07a5f';
-  document.getElementById("btn2").style.backgroundColor = '#e07a5f';
-  document.getElementById("btn3").style.backgroundColor = '#cd7158';
+  document.getElementById("btn1").style.backgroundColor = "#e07a5f";
+  document.getElementById("btn2").style.backgroundColor = "#e07a5f";
+  document.getElementById("btn3").style.backgroundColor = "#cd7158";
   return;
 }
 
