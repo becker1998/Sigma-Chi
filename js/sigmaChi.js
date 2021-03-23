@@ -1114,7 +1114,7 @@ function center() {
   document.getElementById("screendivider").style.top = "0vh";
   document.getElementById("tophalf").style.height = "325px";
   document.getElementById("table").style.height = "325px";
-  document.getElementById("collapsebottom2").style.height = "100%";
+  document.getElementById("collapsebottom2").style.height = "620px";
   document.getElementById("collapsebottom").style.height = "620px";
   document.getElementById("collapsebottom3").style.height = "620px";
   return;
