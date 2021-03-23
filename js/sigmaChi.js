@@ -809,6 +809,10 @@ function dynamicGraph(iD) {
       graphWeightedMean(idNum);
       graphKernelDensity(idNum);
       grapghReducedChiSquared(idNum);
+
+      var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), false);
+      document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+      document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
     } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
@@ -820,6 +824,10 @@ function dynamicGraph(iD) {
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
+
+    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), false);
+    document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+    document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
   }
 }
 
@@ -836,6 +844,10 @@ function graph(input) {
       graphWeightedMean(idNum);
       graphKernelDensity(idNum);
       grapghReducedChiSquared(idNum);
+
+      var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), false);
+      document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+      document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
     } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
@@ -847,6 +859,10 @@ function graph(input) {
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
+
+    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), false);
+    document.getElementById("textWeightedMean").innerHTML = "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+    document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)"
   }
 }
 
