@@ -29,14 +29,13 @@
           </div>
           <div class="col-4 d-flex flex-row justify-content-center">
             <div>
-              <button class=" btn btn-lg fontFix" onclick="center()">Center</button>
+              <button class=" btn btn2 btn-lg fontFix" onclick="expandTop()">Data</button>
             </div>
             <div>
-              <button class=" btn btn-lg fontFix" onclick="expandTop()">Data</button>
-
+              <button class=" btn btn1 btn-lg fontFix" onclick="center()">Center</button>
             </div>
             <div>
-              <button class=" btn btn-lg fontFix" onclick="expandBottom()">Graphs</button>
+              <button class=" btn btn3 btn-lg fontFix" onclick="expandBottom()">Graphs</button>
             </div>
           </div>
           <div class="col-sm-4 d-flex justify-content-center ">
@@ -140,7 +139,7 @@
       </nav>
       <a onclick="addNewData()" class="add align-self-center">+</a>
     </div>
-    <div class="col-sm-8 main-panel nopadding maincol card-body nomargin">
+    <div id = "tophalf" class="col-sm-8 main-panel nopadding maincol card-body nomargin">
       <div id="table" class="table-editable table-scroll-y mainScrollbar nomargin">
         <span class="table-add float-left" onclick="downloadData()"><a href="#!" class="text-success"><i
               class="material-icons">file_download</i></a></span>
@@ -164,7 +163,7 @@
 
     </div>
     <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
-        <img src="logo.png" class="brand">
+        <img id = "logo" src="logo.png" class="brand">
     </div>
   </div><!-- end second row-->
 </div>

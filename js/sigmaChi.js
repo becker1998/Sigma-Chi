@@ -1115,8 +1115,8 @@ function center() {
   document.getElementById("tophalf").style.height = "325px";
   document.getElementById("table").style.height = "325px";
   document.getElementById("collapsebottom2").style.height = "100%";
-  document.getElementById("collapsebottom").style.height = "533px";
-  document.getElementById("collapsebottom3").style.height = "533px";
+  document.getElementById("collapsebottom").style.height = "620px";
+  document.getElementById("collapsebottom3").style.height = "620px";
   return;
 }
 
@@ -1127,18 +1127,18 @@ function expandTop() {
   document.getElementById("collapsebottom3").style.height = "0px";
   document.getElementById("screendivider").style.top = "0px";
   document.getElementById("logo").style.bottom = "208px";
-  document.getElementById("collapsetop").style.height = "857px";
-  document.getElementById("tophalf").style.height = "857px";
-  document.getElementById("table").style.height = "857px";
+  document.getElementById("collapsetop").style.height = "945px";
+  document.getElementById("tophalf").style.height = "945px";
+  document.getElementById("table").style.height = "945px";
   return;
 }
 
 function expandBottom() {
   document.getElementById("collapsetop").style.height = "0px";
-  document.getElementById("collapsebottom2").style.height = "858px";
-  document.getElementById("collapsebottom").style.height = "858px";
-  document.getElementById("collapsebottom3").style.height = "858px";
-  document.getElementById("logo").style.bottom = "-578px";
+  document.getElementById("collapsebottom2").style.height = "945px";
+  document.getElementById("collapsebottom").style.height = "945px";
+  document.getElementById("collapsebottom3").style.height = "945px";
+  document.getElementById("logo").style.bottom = "0px";
   return;
 }
 
