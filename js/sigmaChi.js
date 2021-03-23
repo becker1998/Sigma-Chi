@@ -1117,6 +1117,9 @@ function center() {
   document.getElementById("collapsebottom2").style.height = "620px";
   document.getElementById("collapsebottom").style.height = "620px";
   document.getElementById("collapsebottom3").style.height = "620px";
+  document.getElementById("btn1").style.backgroundColor = '#e07a5f';
+  document.getElementById("btn2").style.backgroundColor = '#cd7158';
+  document.getElementById("btn3").style.backgroundColor = '#e07a5f';
   return;
 }
 
@@ -1130,6 +1133,9 @@ function expandTop() {
   document.getElementById("collapsetop").style.height = "945px";
   document.getElementById("tophalf").style.height = "945px";
   document.getElementById("table").style.height = "945px";
+  document.getElementById("btn1").style.backgroundColor = '#cd7158';
+  document.getElementById("btn2").style.backgroundColor = '#e07a5f';
+  document.getElementById("btn3").style.backgroundColor = '#e07a5f';
   return;
 }
 
@@ -1139,6 +1145,9 @@ function expandBottom() {
   document.getElementById("collapsebottom").style.height = "945px";
   document.getElementById("collapsebottom3").style.height = "945px";
   document.getElementById("logo").style.bottom = "0px";
+  document.getElementById("btn1").style.backgroundColor = '#e07a5f';
+  document.getElementById("btn2").style.backgroundColor = '#e07a5f';
+  document.getElementById("btn3").style.backgroundColor = '#cd7158';
   return;
 }
 
