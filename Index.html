@@ -125,7 +125,7 @@
   <div id = "collapsetop" class="row d-flex collapsetop">
     <div class="col-sm-2  d-flex flex-column
             side-panel nopadding sidecol ">
-      <nav class="navbar">
+      <nav class="navbar d-flex align-items-start flex-column">
         <div id="datasets" class="col align-self-center navbar-nav card-body table-scroll-y scrollbar
                   nomargin">
           <!-- DataSets are written into here from addNewData() -->
@@ -137,7 +137,7 @@
           </div>
         </div>
       </nav>
-      <a onclick="addNewData()" class="add align-self-center">+</a>
+      <Button onclick="addNewData()" class="add fontFix align-self-center">+</Button>
     </div>
     <div id = "tophalf" class="col-sm-8 main-panel nopadding maincol card-body nomargin">
       <div id="table" class="table-editable table-scroll-y mainScrollbar nomargin">
@@ -183,7 +183,7 @@
       </div>
       <!-- divider end -->
     </div>
-    <div class="row d-flex ">
+    <div class="row">
       <div  id = "collapsebottom" class="col-1 d-flex flex-column
             side-panel nopadding sidecol">
         <div class="col-4 align-self-center">
@@ -206,7 +206,7 @@
             </h3>
             <canvas class="graph-size" id="rcSqr"></canvas>
           </div>
-          <div class="col-sm-4 nopadding align-items-center">
+          <div class="col-sm-4 nopadding">
             <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
               Kernel Density Estimation
             </h3>

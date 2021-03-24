@@ -187,13 +187,14 @@ label {
 .add {
   background-color: #c79e5c !important;
   color: white !important;
-  box-shadow: 0px 5px 0px #cc7e00;
+  border: none;
   width: 100%;
+  height: 30px !important;
+  line-height: 50% !important;
 }
 
 .add:hover {
-  background-color: #ac8039 !important;
-  box-shadow: 0px 5px 0px #9e732d;
+  background-color: #bb8d43 !important;
   color: white !important;
   width: 100%;
 }
@@ -268,7 +269,7 @@ select:hover {
 }
 
 .graph-size {
-  width: 95%;
+  width: 95% !important;
   margin-left: 10px;
   margin-top: 5px;
 }
