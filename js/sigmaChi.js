@@ -1131,10 +1131,8 @@ function graphMultipleKernelDensity() {
 }
 
 function center() {
-  document.getElementById("logo").style.position = "absolute";
   document.getElementById("screendivider").style.position = "relative";
   document.getElementById("collapsetop").style.height = "100%";
-  document.getElementById("logo").style.bottom = "-280px";
   document.getElementById("screendivider").style.top = "0vh";
   document.getElementById("tophalf").style.height = "325px";
   document.getElementById("table").style.height = "325px";
@@ -1153,7 +1151,6 @@ function expandTop() {
   document.getElementById("collapsebottom2").style.height = "0px";
   document.getElementById("collapsebottom3").style.height = "0px";
   document.getElementById("screendivider").style.top = "0px";
-  document.getElementById("logo").style.bottom = "208px";
   document.getElementById("collapsetop").style.height = "945px";
   document.getElementById("tophalf").style.height = "945px";
   document.getElementById("table").style.height = "945px";
@@ -1168,7 +1165,6 @@ function expandBottom() {
   document.getElementById("collapsebottom2").style.height = "945px";
   document.getElementById("collapsebottom").style.height = "945px";
   document.getElementById("collapsebottom3").style.height = "945px";
-  document.getElementById("logo").style.bottom = "0px";
   document.getElementById("btn1").style.backgroundColor = "#e07a5f";
   document.getElementById("btn2").style.backgroundColor = "#e07a5f";
   document.getElementById("btn3").style.backgroundColor = "#cd7158";
