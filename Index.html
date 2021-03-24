@@ -22,13 +22,22 @@
   <div class="container-fluid ">
     <div class="row ">
       <div class="col d-flex flex-row top-panel nopadding">
-          <div class="col-4 d-flex justify-content-center import-button">
+          <div class="col-sm-4 d-flex justify-content-center import-button">
             <button type="file" onclick="document.getElementById('import').click();" class="btn btn-lg fontFix">Import
               <input class="input" type="file" id="import" name="filename" accept=".csv"
                 onChange="dataFile(this)"></button>
-                <button type="file" class="btn btn-lg fontFix">Export</button>
+                <div class="dropdown">
+                  <button class="btn btn-lg fontFix dropdown-toggle" type="button" id="exportButton" data-toggle="dropdown" aria-expanded="false">
+                    Export
+                  </button>
+                  <ul class="dropdown-menu export-menu mt-2 nopadding" aria-labelledby="exportButton">
+                    <li><a class="dropdown-item p-1 export-items"><b>Datasets</b></a></li>
+                    <li><a class="dropdown-item p-1 export-items"><b>Graphs</b></a></li>
+                    <li><a class="dropdown-item p-1 export-items"><b>Both</b></a></li>
+                  </ul>
+                </div>
           </div>
-          <div class="col-4 d-flex flex-row justify-content-center">
+          <div class="col-sm-4 d-flex flex-row justify-content-center">
             <div>
               <button id = "btn1" class=" btn1 btn-lg fontFix" onclick="expandTop()">Data</button>
             </div>
@@ -46,8 +55,8 @@
               <div class="dropdown-menu mt-2 bg-colour-evaluation-settings" aria-labelledby="eval-settings">
                 <form class="form-group container-fluid pl-0 w-100">
                   <div class="form-group row ml-3 mt-1">
-                    <div class="col-sm-12 header-font-evaluation-settings mb-1"><b>Input Data</b></div>
-                    <div class="col-sm-4">Uncertainty</div>
+                    <div class="col-sm-12 header-font-evaluation-settings mb-1 cursor-fix"><b>Input Data</b></div>
+                    <div class="col-sm-4 cursor-fix">Uncertainty</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 select-width" id="uncertaintySelection"
                         onchange="updateEvaluationSettingsUncertainty();">
@@ -57,7 +66,7 @@
                         <option value="3">Three</option>
                       </select>
                     </div>
-                    <div class="col-sm-4 mt-1">Rejection</div>
+                    <div class="col-sm-4 mt-1 cursor-fix">Rejection</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 mt-1 select-width" id="rejectionSelection"
                         onchange="updateEvaluationSettingsRejection();">
@@ -69,8 +78,8 @@
                     </div>
                   </div>
                   <div class="form-group row ml-3">
-                    <div class="col-sm-12 header-font-evaluation-settings mb-1"><b>Output Uncertainty</b></div>
-                    <div class="col-sm-4">Data</div>
+                    <div class="col-sm-12 header-font-evaluation-settings mb-1 cursor-fix"><b>Output Uncertainty</b></div>
+                    <div class="col-sm-4 cursor-fix">Data</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 select-width" id="dataSelection"
                         onchange="updateEvaluationSettingsData();">
@@ -80,7 +89,7 @@
                         <option value="3">Three</option>
                       </select>
                     </div>
-                    <div class="col-sm-4 mt-1">Wtd. Avg.</div>
+                    <div class="col-sm-4 mt-1 cursor-fix">Wtd. Avg.</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 mt-1 select-width" id="wtdAvgSelection"
                         onchange="updateEvaluationSettingsWtdAvg();">
@@ -92,8 +101,8 @@
                     </div>
                   </div>
                   <div class="form-group row ml-3">
-                    <div class="col-sm-12 header-font-evaluation-settings mb-1"><b>Kernel Density Estimation</b></div>
-                    <div class="col-sm-4">Function</div>
+                    <div class="col-sm-12 header-font-evaluation-settings mb-1 cursor-fix"><b>Kernel Density Estimation</b></div>
+                    <div class="col-sm-4 cursor-fix">Function</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 select-width" id="functionSelection"
                         onchange="updateEvaluationSettingsFunction();">
@@ -103,7 +112,7 @@
                         <option value="3">Three</option>
                       </select>
                     </div>
-                    <div class="col-sm-4 mt-1">Bandwidth</div>
+                    <div class="col-sm-4 mt-1 cursor-fix">Bandwidth</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 mt-1 select-width" id="bandwidthSelection"
                         onchange="updateEvaluationSettingsBandwidth();">
