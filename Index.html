@@ -140,8 +140,20 @@
           <!-- Datasets are stored into a div to and on onclick will invoke
                     getData() which updates the below table accordingly -->
           <div class="text-center datasetBox d-flex align-items-center" id="data1" onclick="getData(1)">
-            <label class="col-10 mt-2" id="label1">Data Set 1</label>
-            <input class="col-2" type="checkbox" id="checkdata1" onchange="graph(this)">
+            <label class="col-sm-8 mt-2" contenteditable="false" id="label1">Data Set 1</label>
+            <input class="col-sm-2" type="checkbox" id="checkdata1" onchange="graph(this)" checked="true">
+
+            <div class="dropdown d-flex align-items-center">
+              <button class="col-sm-2 edit-label material-icons w-100" data-toggle="dropdown" aria-expanded="false">
+                edit
+              </button>
+              <ul class="dropdown-menu edit-dropdown dropdown-menu-right" aria-labelledby="edit1">
+                <li><a class="dropdown-item dropdown-edit-options" id="edit1" onclick="editLabel(this)"><b>Rename</b></a></li>
+                <li><a class="dropdown-item dropdown-edit-options" id="delete1" onclick="deleteDataset(this)"><b>Delete</b></a></li>
+              </ul>
+            </div>
+
+            <!-- <button class="col-sm-2 edit-label material-icons" id="edit1" onclick="editLabel(this)" >edit</button> -->
           </div>
         </div>
       </nav>
