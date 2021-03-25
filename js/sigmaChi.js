@@ -18,7 +18,7 @@ var rejectedData = new Array();
 var tracker = 0;
 
 //These are the global values in the Evaluations Pop up for backend to access. They are updated when a user selects an option. Default value 0 = No option selected
-var eUncertainty = 0;
+var eUncertainty = 2;
 var eRejection = 0;
 var eData = 0;
 var eWtdAvg = 0;
@@ -79,40 +79,54 @@ var colours = [
   "#6666FF",
 ];
 
+function updateEvaluationSettings(){
+  var dataID = "checkdata" + tracker;
+  var checkBox = document.getElementById(dataID);
+  if (checkBox.checked == true) {
+    dynamicGraph(dataID);
+  }
+}
+
 function updateEvaluationSettingsUncertainty() {
   var selectBox = document.getElementById("uncertaintySelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eUncertainty = selectedValue;
+  updateEvaluationSettings();
 }
 
 function updateEvaluationSettingsRejection() {
   var selectBox = document.getElementById("rejectionSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eRejection = selectedValue;
+  updateEvaluationSettings();
 }
 
 function updateEvaluationSettingsData() {
   var selectBox = document.getElementById("dataSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eData = selectedValue;
+  updateEvaluationSettings();
 }
 
 function updateEvaluationSettingsWtdAvg() {
   var selectBox = document.getElementById("wtdAvgSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eWtdAvg = selectedValue;
+  updateEvaluationSettings();
 }
 
 function updateEvaluationSettingsFunction() {
   var selectBox = document.getElementById("functionSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eFunction = selectedValue;
+  updateEvaluationSettings();
 }
 
 function updateEvaluationSettingsBandwidth() {
   var selectBox = document.getElementById("bandwidthSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eFunction = selectedValue;
+  updateEvaluationSettings();
 }
 //function will download data inputed in on a selected datatset as a csv file
 //download will happen when the user clicks the download icon
@@ -516,7 +530,7 @@ function Data_Points_With_Uncertainty(data, uncertainties, twosigma) {
 
   var dataWithUncertainties = new Array();
   for (i = 0; i < data.length; i++) {
-    if (twosigma == false) {
+    if (twosigma == 1) {
       var uncertaintyMax = data[i] + uncertainties[i] * 2;
       var uncertaintyMin = data[i] - uncertainties[i] * 2;
     } else {
@@ -810,11 +824,8 @@ function dynamicGraph(iD) {
       graphKernelDensity(idNum);
       grapghReducedChiSquared(idNum);
 
-      var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), false);
-      document.getElementById("textWeightedMean").innerHTML =
-        "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-      document.getElementById("textrejected").innerHTML =
-        "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
+      var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), eUncertainty);
+      populateWeightedMeanGraphInfo(allData, idNum);
     } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
@@ -827,11 +838,8 @@ function dynamicGraph(iD) {
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
 
-    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), false);
-    document.getElementById("textWeightedMean").innerHTML =
-      "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-    document.getElementById("textrejected").innerHTML =
-      "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
+    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    populateWeightedMeanGraphInfo(allData, checkId);
   }
 }
 
@@ -849,11 +857,8 @@ function graph(input) {
       graphKernelDensity(idNum);
       grapghReducedChiSquared(idNum);
 
-      var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), false);
-      document.getElementById("textWeightedMean").innerHTML =
-        "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-      document.getElementById("textrejected").innerHTML =
-        "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
+      var allData = Data_Points_With_Uncertainty(getGraphableData(idNum), getGraphableUncertainty(idNum), eUncertainty);
+      populateWeightedMeanGraphInfo(allData, idNum);
     } else {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
@@ -866,13 +871,30 @@ function graph(input) {
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
 
-    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), false);
-    document.getElementById("textWeightedMean").innerHTML =
-      "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-    document.getElementById("textrejected").innerHTML =
-      "Wtd by uncertainties (" + rejectedData.length + " of " + allData.length + " rejected)";
+    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    populateWeightedMeanGraphInfo(allData, checkId);
+
   }
 }
+function populateWeightedMeanGraphInfo(allData, id){
+  document.getElementById("textWeightedMean").innerHTML =
+    "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+  if (rejectedData[id - 1] && rejectedData[id - 1].length){
+    if (allData && allData.length){
+      document.getElementById("textrejected").innerHTML =
+        "Wtd by uncertainties (" + rejectedData[id - 1].length + " of " + (allData.length + rejectedData[id - 1].length) + " rejected)";
+    }else{
+      document.getElementById("textrejected").innerHTML =
+        "Wtd by uncertainties (All datapoints rejected)";
+    }
+  }else{
+    document.getElementById("textrejected").innerHTML =
+      "Wtd by uncertainties (0 of " + (allData.length) + " rejected)";
+  }
+  document.getElementById("textdataset").innerHTML =
+    "Using Data Set " + id;
+}
+
 
 function getCheckedID() {
   var navData = document.getElementById("datasets");
@@ -937,7 +959,7 @@ function graphMultipleReducedChiSquared() {
   for (var i = 0; i < getChecked.length; i++) {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
     var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
-    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, false);
+    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var tempChi = reduced_Chai_Squared(tempdata, 0);
     var tempX = {
       data: tempChi,
@@ -959,7 +981,7 @@ function graphMultipleReducedChiSquared() {
 function grapghReducedChiSquared(checked) {
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
-  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
+  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
   var sqrContext = document.getElementById("rcSqr").getContext("2d");
@@ -982,7 +1004,7 @@ function grapghReducedChiSquared(checked) {
 function graphKernelDensity(checked) {
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
-  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
+  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
   //console.log(dataLabels);
   var bandwidth = 0.8333333333333334;
@@ -1063,7 +1085,7 @@ function getGraphableUncertainty(checked) {
 function graphWeightedMean(checked) {
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
-  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, false);
+  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
   var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
   var weightedMeanAverageData = new Array(allData.length - 1);
@@ -1110,7 +1132,7 @@ function graphMultipleKernelDensity() {
   for (var i = 0; i < getChecked.length; i++) {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
     var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
-    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, false);
+    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var tempKer = univariate_Kernel_Density(bandwidth, tempdata, true);
     var tempX = {
       data: tempKer,
