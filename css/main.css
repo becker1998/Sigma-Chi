@@ -273,4 +273,67 @@ select:hover {
   margin-top: 5px;
 }
 
+.btn1 {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #e07a5f;
+  color: white;
+  box-shadow: 0px 3px 0px 0px #c76c53;
+  border: 0px solid #73ad21;
+  z-index: 10;
+  position: relative;
+  left: 0%;
+  top: 0px;
+}
+
+.btn1:hover {
+  background-color: #cd7158 !important;
+  color: white !important;
+  box-shadow: 0px 3px 0px 0px #b1604a !important;
+}
+
+.export-menu {
+  background-color: #f9f4e2 !important;
+  border-left-color: #e07a5f !important;
+  border-right-color: #e07a5f !important;
+  border-bottom-color: #e07a5f !important;
+  border-width: medium !important;
+}
+
+.export-items {
+  color: #3d405b !important;
+  font: bold;
+  cursor: default;
+}
+
+.export-items:hover {
+  background-color: #f7eac2 !important;
+}
+
+.cursor-fix {
+  cursor: default;
+}
+
+.edit-label {
+  background-color: #e9ac4a00 !important;
+  border: none;
+  color: white;
+  padding: 0 !important;
+}
+
+.edit-dropdown {
+  position: absolute !important;
+  width: 90px !important;
+  min-width: 0px !important;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.dropdown-edit-options {
+  padding: 0 !important;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
