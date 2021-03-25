@@ -499,21 +499,32 @@ function addNewData() {
   var datasetID = "label" + numLabels;
   newLabel.className = "col-10 mt-2";
   newLabel.setAttribute("id", datasetID);
+  var dataText = "Data Set " + numLabels;
+  newLabel.innerText = dataText;
 
   var newCheckBox = document.createElement("input");
   newCheckBox.className = "col-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
+  newCheckBox.setAttribute("checked", "true");
   var checkboxID = "checkdata" + numLabels;
   newCheckBox.setAttribute("id", checkboxID);
-
-  var dataText = "Data Set " + numLabels;
-  newLabel.innerText = dataText;
 
   newDivData.appendChild(newLabel);
   newDivData.appendChild(newCheckBox);
   div.appendChild(newDivData);
 }
+
+function editLabel(input) {
+  var iD = input.id;
+  var idNum = Number(iD.slice(-1));
+  var labelID = document.getElementById("label" + idNum);
+  labelID.setAttribute("contenteditable", "true");
+  labelID.focus();
+  console.log(idNum);
+}
+
+function deleteDataset(input) {}
 
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
@@ -802,6 +813,7 @@ function getLabels(data) {
   }
   return labels;
 }
+
 //will check to see if multiple grpahs are selected to be graphed
 //and will return the corresponding boolean value
 function isMUltipleCheck() {

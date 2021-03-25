@@ -316,4 +316,24 @@ select:hover {
   cursor: default;
 }
 
+.edit-label {
+  background-color: #e9ac4a00 !important;
+  border: none;
+  color: white;
+  padding: 0 !important;
+}
+
+.edit-dropdown {
+  position: absolute !important;
+  width: 90px !important;
+  min-width: 0px !important;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+.dropdown-edit-options {
+  padding: 0 !important;
+}
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
