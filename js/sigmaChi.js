@@ -79,6 +79,38 @@ var colours = [
   "#6666FF",
 ];
 
+function appendToReject(){
+
+  if (eRejection != 0){
+    var checkId = getCheckedID();
+    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    var weightedMean = weighted_Mean(allData);
+    var threshold = eRejection * standardDeviation(allData, true);
+    var arr = rejectedData[tracker - 1];
+    var correctArray = false;
+    if (Array.isArray(arr)) {
+      correctArray = true;
+    }
+    for (i = 0; i < allData.length; i++){
+      if ((allData[i][0] > (weightedMean + threshold)) || (allData[i][0] < (weightedMean - threshold))){
+        console.log("rejected data point: " + allData[i][0]);
+        if (correctArray){
+          rejectedData[tracker - 1].push(i + 1)
+          var id = "reject" + (i + 1);
+        }else{
+          var tempArray = new Array();
+          tempArray[0] = i + 1;
+          rejectedData[tracker - 1] = tempArray;
+          correctArray = true;
+          var id = "reject" + (i + 1);
+        }
+        checkRejectedData(id);
+      }
+    }
+    console.log(rejectedData);
+  }
+}
+
 function updateEvaluationSettings(){
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
@@ -98,6 +130,7 @@ function updateEvaluationSettingsRejection() {
   var selectBox = document.getElementById("rejectionSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eRejection = selectedValue;
+  appendToReject();
   updateEvaluationSettings();
 }
 
@@ -248,6 +281,7 @@ function getRejectedData(idNum) {
     } else {
       var tempArray = new Array();
       tempArray[0] = idNum;
+      console.log(idNum);
       rejectedData[tracker - 1] = tempArray;
     }
   } else {
@@ -699,7 +733,7 @@ function SDsum(allData) {
   var mean = weighted_Mean(allData);
   var power = 0.0;
   for (i = 0; i < allData.length; i++) {
-    power = allData[i] - mean;
+    power = allData[i][0] - mean;
     standardDeviationSum += Math.pow(power, 2);
   }
   return standardDeviationSum;
@@ -708,9 +742,9 @@ function SDsum(allData) {
 function standardDeviation(allData, isPopulation) {
   var standardDeviation = 0.0;
   if (isPopulation) {
-    Math.sqrt(SDsum(allData) / allData.length);
+    standardDeviation = Math.sqrt(SDsum(allData) / allData.length);
   } else {
-    Math.sqrt(SDsum(allData) / (allData.length - 1));
+    standardDeviation = Math.sqrt(SDsum(allData) / (allData.length - 1));
   }
   return standardDeviation;
 }
@@ -877,12 +911,18 @@ function graph(input) {
   }
 }
 function populateWeightedMeanGraphInfo(allData, id){
+  var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
   if (rejectedData[id - 1] && rejectedData[id - 1].length){
+    for (i = 0; i < rejectedData[id - 1].length; i++){
+      if (rejectedData[id-1][i] != -1){
+        count += 1;
+      }
+    }
     if (allData && allData.length){
       document.getElementById("textrejected").innerHTML =
-        "Wtd by uncertainties (" + rejectedData[id - 1].length + " of " + (allData.length + rejectedData[id - 1].length) + " rejected)";
+        "Wtd by uncertainties (" + count + " of " + (allData.length + count) + " rejected)";
     }else{
       document.getElementById("textrejected").innerHTML =
         "Wtd by uncertainties (All datapoints rejected)";
