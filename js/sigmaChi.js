@@ -1141,9 +1141,11 @@ function graphWeightedMean(checked) {
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
   var weightedMeanAverage = weighted_Mean(allData);
+  var weighteMeanArea = weighted_Mean_Uncertainty(allData);
   var weightedMeanAverageData = new Array(allData.length);
   var weightedMeanRangeData = new Array(allData.length);
   setAll(weightedMeanAverageData, weightedMeanAverage);
+  console.log("lineThickness: ", weighteMeanArea)
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
   }
@@ -1157,7 +1159,8 @@ function graphWeightedMean(checked) {
           data: weightedMeanAverageData,
           label: "Mean",
           borderColor: "#3e95cd",
-          fill: false,
+          lineThickness: weighteMeanArea,
+          fill: false
         },
         {
           data: weightedMeanRangeData,
@@ -1165,7 +1168,7 @@ function graphWeightedMean(checked) {
           type: "bar",
           backgroundColor: "#FF6633",
           barThickness: 10,
-          maxBarThickness: 12,
+          maxBarThickness: 12
         },
       ],
     },
