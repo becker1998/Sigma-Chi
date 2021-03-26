@@ -23,7 +23,7 @@ var eRejection = 0;
 var eData = 0;
 var eWtdAvg = 0;
 var eFunction = 0;
-var eBandwidth = 0;
+var eBandwidth = 0.8333333333333334;
 
 //Global array for possible colours to use for grahping lines
 var colours = [
