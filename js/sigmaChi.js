@@ -482,7 +482,8 @@ function dataFile(input) {
 //addCSVTable() will update and dataset links to frontend
 function addCSVTable(data, uncertainty) {
   var numDataSets = document.getElementById("datasets").querySelectorAll("div").length;
-  var id = numDataSets + 1;
+  var id = numDataSets;
+  console.log("NumDataSets: ", numDataSets);
   addingDataset(id, data, uncertainty);
   addNewData();
 }
@@ -520,7 +521,7 @@ function getData(input) {
 //function will add new labels that represent additional DataSets
 function addNewData() {
   var div = document.getElementById("datasets");
-  var numLabels = div.querySelectorAll("div").length + 1;
+  var numLabels = div.querySelectorAll("div").length;
 
   var newDivData = document.createElement("div");
   newDivData.className = "text-center datasetBox d-flex align-items-center";
@@ -1139,9 +1140,9 @@ function graphWeightedMean(checked) {
   var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
-  var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
-  var weightedMeanAverageData = new Array(allData.length - 1);
-  var weightedMeanRangeData = new Array(allData.length - 1);
+  var weightedMeanAverage = weighted_Mean(allData);
+  var weightedMeanAverageData = new Array(allData.length);
+  var weightedMeanRangeData = new Array(allData.length);
   setAll(weightedMeanAverageData, weightedMeanAverage);
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
@@ -1179,7 +1180,7 @@ function graphMultipleKernelDensity() {
   var maxDataset = getMaxDatasetLength(getChecked);
   var dataLabels = getLabels(datasets[maxDataset]);
   var datasetsName = getCheckedDatasetsName();
-  var bandwidth = 0.8333333333333334;
+  var bandwidth = eBandwidth;
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
