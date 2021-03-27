@@ -541,7 +541,7 @@ function addNewData() {
   newCheckBox.className = "col-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
-  newCheckBox.setAttribute("checked", "true");
+  newCheckBox.setAttribute("checked", "false");
   var checkboxID = "checkdata" + numLabels;
   newCheckBox.setAttribute("id", checkboxID);
 
