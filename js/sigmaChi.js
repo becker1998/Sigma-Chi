@@ -948,6 +948,14 @@ function populateWeightedMeanGraphInfo(allData, id){
     "Using Data Set " + id;
 }
 
+function exportGraphs (){
+  var graphs = document.getElementById('collapsebottom2');
+  var fileName = "Dataset " + tracker + ".jpeg";
+  domtoimage.toBlob(graphs).then(function(blob){
+    window.saveAs(blob, fileName);
+  });
+}
+
 
 function getCheckedID() {
   var navData = document.getElementById("datasets");
@@ -990,6 +998,7 @@ function getCheckedDatasetsName() {
   }
   return checkedArray;
 }
+
 //function will find which dataset has the most data
 //this is required to ensure all the data is displayed on the graphs
 //when the user selects multiple datasets to plot
@@ -1031,6 +1040,7 @@ function graphMultipleReducedChiSquared() {
     },
   });
 }
+
 function grapghReducedChiSquared(checked) {
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
