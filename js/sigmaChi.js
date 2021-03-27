@@ -534,7 +534,7 @@ function addNewData() {
   newDivData.setAttribute("onclick", onclickFunc);
 
   var newLabel = document.createElement("input");
-  var datasetID = "label" + numLabels;
+  var datasetID = "set" + numLabels;
   newLabel.setAttribute("type", "text");
   newLabel.className = "col-sm-8 dataset-names";
   newLabel.setAttribute("id", datasetID);
@@ -595,10 +595,10 @@ function addNewData() {
 
 function editLabel(input) {
   var iD = input.id;
-  var idNum = Number(iD.slice(-1));
-  var labelID = document.getElementById("label" + idNum);
+  var parts = iD.split("t");
+  var idNum = Number(parts[1]);
+  var labelID = document.getElementById("set" + idNum);
   labelID.removeAttribute("disabled");
-  console.log("FUCK");
   labelID.focus();
   labelID.select();
   document.addEventListener("keypress", function (e) {
@@ -610,8 +610,9 @@ function editLabel(input) {
 
 function toggleEdit(input) {
   var iD = input.id;
-  var idNum = Number(iD.slice(-1));
-  var labelID = document.getElementById("label" + idNum);
+  var parts = iD.split("t");
+  var idNum = Number(parts[1]);
+  var labelID = document.getElementById("set" + idNum);
   labelID.setAttribute("disabled", "true");
 }
 
