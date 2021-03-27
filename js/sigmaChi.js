@@ -79,7 +79,7 @@ var colours = [
   "#6666FF",
 ];
 
-function updateEvaluationSettings(){
+function updateEvaluationSettings() {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
@@ -495,23 +495,64 @@ function addNewData() {
   newDivData.setAttribute("id", divID);
   newDivData.setAttribute("onclick", onclickFunc);
 
-  var newLabel = document.createElement("label");
+  var newLabel = document.createElement("input");
   var datasetID = "label" + numLabels;
-  newLabel.className = "col-10 mt-2";
+  newLabel.setAttribute("type", "text");
+  newLabel.className = "col-sm-8 dataset-names";
   newLabel.setAttribute("id", datasetID);
+  newLabel.setAttribute("contenteditable", "false");
+  newLabel.setAttribute("onfocusout", "toggleEdit(this)");
+  newLabel.setAttribute("disabled", "true");
   var dataText = "Data Set " + numLabels;
-  newLabel.innerText = dataText;
+  newLabel.setAttribute("value", dataText);
 
   var newCheckBox = document.createElement("input");
-  newCheckBox.className = "col-2";
+  newCheckBox.className = "col-sm-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
   newCheckBox.setAttribute("checked", "true");
   var checkboxID = "checkdata" + numLabels;
   newCheckBox.setAttribute("id", checkboxID);
 
+  // DROPDOWN MENU
+  var dropdownMenu = document.createElement("span");
+  dropdownMenu.className = "dropdown d-flex align-items-center";
+
+  var editButton = document.createElement("button");
+  editButton.className = "col-sm-2 edit-label material-icons w-100";
+  editButton.setAttribute("data-toggle", "dropdown");
+  editButton.setAttribute("aria-expanded", "false");
+  editButton.innerHTML = "edit";
+
+  var dropdownOptions = document.createElement("ul");
+  dropdownOptions.className = "dropdown-menu edit-dropdown dropdown-menu-right";
+  dropdownOptions.setAttribute("aria-labelledby", "edit" + numLabels);
+
+  var editOption = document.createElement("a");
+  editOption.className = "dropdown-item dropdown-edit-options cursor-fix";
+  editOption.setAttribute("id", "edit" + numLabels);
+  editOption.setAttribute("onclick", "editLabel(this)");
+  editOption.innerHTML = "<b>Rename</b>";
+
+  var deleteOption = document.createElement("a");
+  deleteOption.className = "dropdown-item dropdown-edit-options cursor-fix";
+  deleteOption.setAttribute("id", "delete" + numLabels);
+  deleteOption.setAttribute("onclick", "deleteDataset(this)");
+  deleteOption.innerHTML = "<b>Delete</b>";
+
+  var optionOne = document.createElement("li");
+  var optionTwo = document.createElement("li");
+
+  optionOne.appendChild(editOption);
+  optionTwo.appendChild(deleteOption);
+  dropdownOptions.appendChild(optionOne);
+  dropdownOptions.appendChild(optionTwo);
+  dropdownMenu.appendChild(editButton);
+  dropdownMenu.appendChild(dropdownOptions);
+
   newDivData.appendChild(newLabel);
   newDivData.appendChild(newCheckBox);
+  newDivData.appendChild(dropdownMenu);
   div.appendChild(newDivData);
 }
 
@@ -519,9 +560,21 @@ function editLabel(input) {
   var iD = input.id;
   var idNum = Number(iD.slice(-1));
   var labelID = document.getElementById("label" + idNum);
-  labelID.setAttribute("contenteditable", "true");
+  labelID.removeAttribute("disabled");
   labelID.focus();
-  console.log(idNum);
+  labelID.select();
+  document.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      toggleEdit(input);
+    }
+  });
+}
+
+function toggleEdit(input) {
+  var iD = input.id;
+  var idNum = Number(iD.slice(-1));
+  var labelID = document.getElementById("label" + idNum);
+  labelID.setAttribute("disabled", "true");
 }
 
 function deleteDataset(input) {}
@@ -850,7 +903,11 @@ function dynamicGraph(iD) {
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
 
-    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    var allData = Data_Points_With_Uncertainty(
+      getGraphableData(checkId),
+      getGraphableUncertainty(checkId),
+      eUncertainty
+    );
     populateWeightedMeanGraphInfo(allData, checkId);
   }
 }
@@ -883,30 +940,33 @@ function graph(input) {
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
 
-    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    var allData = Data_Points_With_Uncertainty(
+      getGraphableData(checkId),
+      getGraphableUncertainty(checkId),
+      eUncertainty
+    );
     populateWeightedMeanGraphInfo(allData, checkId);
-
   }
 }
-function populateWeightedMeanGraphInfo(allData, id){
+function populateWeightedMeanGraphInfo(allData, id) {
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-  if (rejectedData[id - 1] && rejectedData[id - 1].length){
-    if (allData && allData.length){
+  if (rejectedData[id - 1] && rejectedData[id - 1].length) {
+    if (allData && allData.length) {
       document.getElementById("textrejected").innerHTML =
-        "Wtd by uncertainties (" + rejectedData[id - 1].length + " of " + (allData.length + rejectedData[id - 1].length) + " rejected)";
-    }else{
-      document.getElementById("textrejected").innerHTML =
-        "Wtd by uncertainties (All datapoints rejected)";
+        "Wtd by uncertainties (" +
+        rejectedData[id - 1].length +
+        " of " +
+        (allData.length + rejectedData[id - 1].length) +
+        " rejected)";
+    } else {
+      document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (All datapoints rejected)";
     }
-  }else{
-    document.getElementById("textrejected").innerHTML =
-      "Wtd by uncertainties (0 of " + (allData.length) + " rejected)";
+  } else {
+    document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
-  document.getElementById("textdataset").innerHTML =
-    "Using Data Set " + id;
+  document.getElementById("textdataset").innerHTML = "Using Data Set " + id;
 }
-
 
 function getCheckedID() {
   var navData = document.getElementById("datasets");
