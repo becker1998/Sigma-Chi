@@ -25,6 +25,9 @@ var eWtdAvg = 0;
 var eFunction = 0;
 var eBandwidth = 0.8333333333333334;
 
+//keeps track of number of datasets created in session for naming purposes.
+var numberOfDatasetsCreated = 1;
+
 //Global array for possible colours to use for grahping lines
 var colours = [
   "#FF6633",
@@ -523,24 +526,24 @@ function getData(input) {
 }
 //function will add new labels that represent additional DataSets
 function addNewData() {
+  numberOfDatasetsCreated++; //alternative to numLabels, needed to track total since we can now delete sets.
   var div = document.getElementById("datasets");
-  var numLabels = div.querySelectorAll("div").length + 1;
 
   var newDivData = document.createElement("div");
   newDivData.className = "text-center datasetBox d-flex align-items-center";
-  var divID = "data" + numLabels;
-  var onclickFunc = "getData(" + numLabels + ")";
+  var divID = "data" + numberOfDatasetsCreated;
+  var onclickFunc = "getData(" + numberOfDatasetsCreated + ")";
   newDivData.setAttribute("id", divID);
   newDivData.setAttribute("onclick", onclickFunc);
 
   var newLabel = document.createElement("input");
-  var datasetID = "set" + numLabels;
+  var datasetID = "set" + numberOfDatasetsCreated;
   newLabel.setAttribute("type", "text");
   newLabel.className = "col-sm-8 dataset-names";
   newLabel.setAttribute("id", datasetID);
   newLabel.setAttribute("onfocusout", "toggleEdit(this)");
   newLabel.setAttribute("disabled", "true");
-  var dataText = "Data Set " + numLabels;
+  var dataText = "Data Set " + numberOfDatasetsCreated;
   newLabel.setAttribute("value", dataText);
 
   var newCheckBox = document.createElement("input");
@@ -548,7 +551,7 @@ function addNewData() {
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
   newCheckBox.setAttribute("checked", "false");
-  var checkboxID = "checkdata" + numLabels;
+  var checkboxID = "checkdata" + numberOfDatasetsCreated;
   newCheckBox.setAttribute("id", checkboxID);
 
   // DROPDOWN MENU
@@ -563,17 +566,17 @@ function addNewData() {
 
   var dropdownOptions = document.createElement("ul");
   dropdownOptions.className = "dropdown-menu edit-dropdown dropdown-menu-right";
-  dropdownOptions.setAttribute("aria-labelledby", "edit" + numLabels);
+  dropdownOptions.setAttribute("aria-labelledby", "edit" + numberOfDatasetsCreated);
 
   var editOption = document.createElement("a");
   editOption.className = "dropdown-item dropdown-edit-options cursor-fix";
-  editOption.setAttribute("id", "edit" + numLabels);
+  editOption.setAttribute("id", "edit" + numberOfDatasetsCreated);
   editOption.setAttribute("onclick", "editLabel(this)");
   editOption.innerHTML = "<b>Rename</b>";
 
   var deleteOption = document.createElement("a");
   deleteOption.className = "dropdown-item dropdown-edit-options cursor-fix";
-  deleteOption.setAttribute("id", "delete" + numLabels);
+  deleteOption.setAttribute("id", "del" + numberOfDatasetsCreated);
   deleteOption.setAttribute("onclick", "deleteDataset(this)");
   deleteOption.innerHTML = "<b>Delete</b>";
 
@@ -612,11 +615,18 @@ function toggleEdit(input) {
   var iD = input.id;
   var parts = iD.split("t");
   var idNum = Number(parts[1]);
+
   var labelID = document.getElementById("set" + idNum);
   labelID.setAttribute("disabled", "true");
 }
 
-function deleteDataset(input) {}
+function deleteDataset(input) {
+  var iD = input.id;
+  var parts = iD.split("l");
+  var idNum = Number(parts[1]);
+  var datasetDiv = document.getElementById("data" + idNum);
+  datasetDiv.remove();
+}
 
 //function input is data point values and uncertainties for each data point.
 //the function returns an array in the form array[0] = new array (data point, uncertainty max, uncertainty min), array[1] = new array (data point 2, ........
