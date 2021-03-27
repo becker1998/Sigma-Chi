@@ -23,7 +23,7 @@ var eRejection = 0;
 var eData = 0;
 var eWtdAvg = 0;
 var eFunction = 0;
-var eBandwidth = 0;
+var eBandwidth = 0.8333333333333334;
 
 //Global array for possible colours to use for grahping lines
 var colours = [
@@ -79,7 +79,40 @@ var colours = [
   "#6666FF",
 ];
 
-function updateEvaluationSettings() {
+
+function appendToReject(){
+
+  if (eRejection != 0){
+    var checkId = getCheckedID();
+    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    var weightedMean = weighted_Mean(allData);
+    var threshold = eRejection * standardDeviation(allData, true);
+    var arr = rejectedData[tracker - 1];
+    var correctArray = false;
+    if (Array.isArray(arr)) {
+      correctArray = true;
+    }
+    for (i = 0; i < allData.length; i++){
+      if ((allData[i][0] > (weightedMean + threshold)) || (allData[i][0] < (weightedMean - threshold))){
+        console.log("rejected data point: " + allData[i][0]);
+        if (correctArray){
+          rejectedData[tracker - 1].push(i + 1)
+          var id = "reject" + (i + 1);
+        }else{
+          var tempArray = new Array();
+          tempArray[0] = i + 1;
+          rejectedData[tracker - 1] = tempArray;
+          correctArray = true;
+          var id = "reject" + (i + 1);
+        }
+        checkRejectedData(id);
+      }
+    }
+    console.log(rejectedData);
+  }
+}
+
+function updateEvaluationSettings(){
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
@@ -98,6 +131,7 @@ function updateEvaluationSettingsRejection() {
   var selectBox = document.getElementById("rejectionSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eRejection = selectedValue;
+  appendToReject();
   updateEvaluationSettings();
 }
 
@@ -248,6 +282,7 @@ function getRejectedData(idNum) {
     } else {
       var tempArray = new Array();
       tempArray[0] = idNum;
+      console.log(idNum);
       rejectedData[tracker - 1] = tempArray;
     }
   } else {
@@ -448,7 +483,8 @@ function dataFile(input) {
 //addCSVTable() will update and dataset links to frontend
 function addCSVTable(data, uncertainty) {
   var numDataSets = document.getElementById("datasets").querySelectorAll("div").length;
-  var id = numDataSets + 1;
+  var id = numDataSets;
+  console.log("NumDataSets: ", numDataSets);
   addingDataset(id, data, uncertainty);
   addNewData();
 }
@@ -510,7 +546,7 @@ function addNewData() {
   newCheckBox.className = "col-sm-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
-  newCheckBox.setAttribute("checked", "true");
+  newCheckBox.setAttribute("checked", "false");
   var checkboxID = "checkdata" + numLabels;
   newCheckBox.setAttribute("id", checkboxID);
 
@@ -763,7 +799,7 @@ function SDsum(allData) {
   var mean = weighted_Mean(allData);
   var power = 0.0;
   for (i = 0; i < allData.length; i++) {
-    power = allData[i] - mean;
+    power = allData[i][0] - mean;
     standardDeviationSum += Math.pow(power, 2);
   }
   return standardDeviationSum;
@@ -772,9 +808,9 @@ function SDsum(allData) {
 function standardDeviation(allData, isPopulation) {
   var standardDeviation = 0.0;
   if (isPopulation) {
-    Math.sqrt(SDsum(allData) / allData.length);
+    standardDeviation = Math.sqrt(SDsum(allData) / allData.length);
   } else {
-    Math.sqrt(SDsum(allData) / (allData.length - 1));
+    standardDeviation = Math.sqrt(SDsum(allData) / (allData.length - 1));
   }
   return standardDeviation;
 }
@@ -948,11 +984,21 @@ function graph(input) {
     populateWeightedMeanGraphInfo(allData, checkId);
   }
 }
-function populateWeightedMeanGraphInfo(allData, id) {
+
+function populateWeightedMeanGraphInfo(allData, id){
+  var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-  if (rejectedData[id - 1] && rejectedData[id - 1].length) {
-    if (allData && allData.length) {
+  if (rejectedData[id - 1] && rejectedData[id - 1].length){
+    for (i = 0; i < rejectedData[id - 1].length; i++){
+      if (rejectedData[id-1][i] != -1){
+        count += 1;
+      }
+    }
+    if (allData && allData.length){
+      document.getElementById("textrejected").innerHTML =
+        "Wtd by uncertainties (" + count + " of " + (allData.length + count) + " rejected)";
+    }else{
       document.getElementById("textrejected").innerHTML =
         "Wtd by uncertainties (" +
         rejectedData[id - 1].length +
@@ -966,6 +1012,15 @@ function populateWeightedMeanGraphInfo(allData, id) {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
   document.getElementById("textdataset").innerHTML = "Using Data Set " + id;
+}
+
+
+function exportGraphs (){
+  var graphs = document.getElementById('collapsebottom2');
+  var fileName = "Dataset " + tracker + ".jpeg";
+  domtoimage.toBlob(graphs).then(function(blob){
+    window.saveAs(blob, fileName);
+  });
 }
 
 function getCheckedID() {
@@ -1009,6 +1064,7 @@ function getCheckedDatasetsName() {
   }
   return checkedArray;
 }
+
 //function will find which dataset has the most data
 //this is required to ensure all the data is displayed on the graphs
 //when the user selects multiple datasets to plot
@@ -1050,6 +1106,7 @@ function graphMultipleReducedChiSquared() {
     },
   });
 }
+
 function grapghReducedChiSquared(checked) {
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
@@ -1159,10 +1216,12 @@ function graphWeightedMean(checked) {
   var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
-  var weightedMeanAverage = weighted_Mean_Uncertainty(allData);
-  var weightedMeanAverageData = new Array(allData.length - 1);
-  var weightedMeanRangeData = new Array(allData.length - 1);
+  var weightedMeanAverage = weighted_Mean(allData);
+  var weighteMeanArea = weighted_Mean_Uncertainty(allData);
+  var weightedMeanAverageData = new Array(allData.length);
+  var weightedMeanRangeData = new Array(allData.length);
   setAll(weightedMeanAverageData, weightedMeanAverage);
+  console.log("lineThickness: ", weighteMeanArea)
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
   }
@@ -1176,7 +1235,8 @@ function graphWeightedMean(checked) {
           data: weightedMeanAverageData,
           label: "Mean",
           borderColor: "#3e95cd",
-          fill: false,
+          lineThickness: weighteMeanArea,
+          fill: false
         },
         {
           data: weightedMeanRangeData,
@@ -1184,7 +1244,7 @@ function graphWeightedMean(checked) {
           type: "bar",
           backgroundColor: "#FF6633",
           barThickness: 10,
-          maxBarThickness: 12,
+          maxBarThickness: 12
         },
       ],
     },
@@ -1199,7 +1259,7 @@ function graphMultipleKernelDensity() {
   var maxDataset = getMaxDatasetLength(getChecked);
   var dataLabels = getLabels(datasets[maxDataset]);
   var datasetsName = getCheckedDatasetsName();
-  var bandwidth = 0.8333333333333334;
+  var bandwidth = eBandwidth;
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
