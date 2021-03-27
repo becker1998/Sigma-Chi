@@ -79,12 +79,14 @@ var colours = [
   "#6666FF",
 ];
 
-
-function appendToReject(){
-
-  if (eRejection != 0){
+function appendToReject() {
+  if (eRejection != 0) {
     var checkId = getCheckedID();
-    var allData = Data_Points_With_Uncertainty(getGraphableData(checkId), getGraphableUncertainty(checkId), eUncertainty);
+    var allData = Data_Points_With_Uncertainty(
+      getGraphableData(checkId),
+      getGraphableUncertainty(checkId),
+      eUncertainty
+    );
     var weightedMean = weighted_Mean(allData);
     var threshold = eRejection * standardDeviation(allData, true);
     var arr = rejectedData[tracker - 1];
@@ -92,13 +94,13 @@ function appendToReject(){
     if (Array.isArray(arr)) {
       correctArray = true;
     }
-    for (i = 0; i < allData.length; i++){
-      if ((allData[i][0] > (weightedMean + threshold)) || (allData[i][0] < (weightedMean - threshold))){
+    for (i = 0; i < allData.length; i++) {
+      if (allData[i][0] > weightedMean + threshold || allData[i][0] < weightedMean - threshold) {
         console.log("rejected data point: " + allData[i][0]);
-        if (correctArray){
-          rejectedData[tracker - 1].push(i + 1)
+        if (correctArray) {
+          rejectedData[tracker - 1].push(i + 1);
           var id = "reject" + (i + 1);
-        }else{
+        } else {
           var tempArray = new Array();
           tempArray[0] = i + 1;
           rejectedData[tracker - 1] = tempArray;
@@ -112,7 +114,7 @@ function appendToReject(){
   }
 }
 
-function updateEvaluationSettings(){
+function updateEvaluationSettings() {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
@@ -536,7 +538,6 @@ function addNewData() {
   newLabel.setAttribute("type", "text");
   newLabel.className = "col-sm-8 dataset-names";
   newLabel.setAttribute("id", datasetID);
-  newLabel.setAttribute("contenteditable", "false");
   newLabel.setAttribute("onfocusout", "toggleEdit(this)");
   newLabel.setAttribute("disabled", "true");
   var dataText = "Data Set " + numLabels;
@@ -597,6 +598,7 @@ function editLabel(input) {
   var idNum = Number(iD.slice(-1));
   var labelID = document.getElementById("label" + idNum);
   labelID.removeAttribute("disabled");
+  console.log("FUCK");
   labelID.focus();
   labelID.select();
   document.addEventListener("keypress", function (e) {
@@ -985,28 +987,26 @@ function graph(input) {
   }
 }
 
-function populateWeightedMeanGraphInfo(allData, id){
+function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-  if (rejectedData[id - 1] && rejectedData[id - 1].length){
-    for (i = 0; i < rejectedData[id - 1].length; i++){
-      if (rejectedData[id-1][i] != -1){
+  if (rejectedData[id - 1] && rejectedData[id - 1].length) {
+    for (i = 0; i < rejectedData[id - 1].length; i++) {
+      if (rejectedData[id - 1][i] != -1) {
         count += 1;
       }
     }
-    if (allData && allData.length){
+    if (allData && allData.length) {
       document.getElementById("textrejected").innerHTML =
         "Wtd by uncertainties (" + count + " of " + (allData.length + count) + " rejected)";
-    }else{
+    } else {
       document.getElementById("textrejected").innerHTML =
         "Wtd by uncertainties (" +
         rejectedData[id - 1].length +
         " of " +
         (allData.length + rejectedData[id - 1].length) +
         " rejected)";
-    } else {
-      document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (All datapoints rejected)";
     }
   } else {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
@@ -1014,11 +1014,10 @@ function populateWeightedMeanGraphInfo(allData, id){
   document.getElementById("textdataset").innerHTML = "Using Data Set " + id;
 }
 
-
-function exportGraphs (){
-  var graphs = document.getElementById('collapsebottom2');
+function exportGraphs() {
+  var graphs = document.getElementById("collapsebottom2");
   var fileName = "Dataset " + tracker + ".jpeg";
-  domtoimage.toBlob(graphs).then(function(blob){
+  domtoimage.toBlob(graphs).then(function (blob) {
     window.saveAs(blob, fileName);
   });
 }
@@ -1221,7 +1220,7 @@ function graphWeightedMean(checked) {
   var weightedMeanAverageData = new Array(allData.length);
   var weightedMeanRangeData = new Array(allData.length);
   setAll(weightedMeanAverageData, weightedMeanAverage);
-  console.log("lineThickness: ", weighteMeanArea)
+  console.log("lineThickness: ", weighteMeanArea);
   for (var i = 0; i < weightedMeanRangeData.length; i++) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
   }
@@ -1236,7 +1235,7 @@ function graphWeightedMean(checked) {
           label: "Mean",
           borderColor: "#3e95cd",
           lineThickness: weighteMeanArea,
-          fill: false
+          fill: false,
         },
         {
           data: weightedMeanRangeData,
@@ -1244,7 +1243,7 @@ function graphWeightedMean(checked) {
           type: "bar",
           backgroundColor: "#FF6633",
           barThickness: 10,
-          maxBarThickness: 12
+          maxBarThickness: 12,
         },
       ],
     },
