@@ -201,6 +201,14 @@ function downloadAllData (){
     }
   }
 }
+function downloadCheckedData (){
+  var checkedData = getCheckedDatasets();
+  for (var i = 0; i < checkedData.length; i++) {
+    if (datasets[i] !== undefined || datasets[i] !== null){
+      downloadData(checkedData[i]);
+    }
+  }
+}
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
 function addRow() {
@@ -561,7 +569,7 @@ function addNewData() {
   newCheckBox.className = "col-sm-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
-  newCheckBox.setAttribute("checked", "false");
+  //newCheckBox.setAttribute("checked", "false");
   var checkboxID = "checkdata" + numberOfDatasetsCreated;
   newCheckBox.setAttribute("id", checkboxID);
 
