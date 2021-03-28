@@ -169,11 +169,11 @@ function updateEvaluationSettingsBandwidth() {
 }
 //function will download data inputed in on a selected datatset as a csv file
 //download will happen when the user clicks the download icon
-function downloadData() {
+function downloadData(index) {
   //setup data as an array of rows
   const rows = [["Data", "Uncertainty"]];
-  var getDataset = datasets[tracker - 1];
-  var getUncert = datasetsUncer[tracker - 1];
+  var getDataset = datasets[index];
+  var getUncert = datasetsUncer[index];
   for (var i = 1; i < getDataset.length + 1; i++) {
     rows.push([getDataset[i], getUncert[i]]);
   }
@@ -185,13 +185,21 @@ function downloadData() {
   });
 
   var encode = encodeURI(csvContent);
-  var fileName = "Data Set " + tracker + ".csv";
+  var fileName = "Data Set " + index + ".csv";
   //create a hidden download link and initiate a click
   var hiddenLink = document.createElement("a");
   hiddenLink.setAttribute("href", encode);
   hiddenLink.setAttribute("download", fileName);
   document.body.appendChild(hiddenLink);
   hiddenLink.click();
+}
+function downloadAllData (){
+  var numData = datasets.length;
+  for (var i = 0; i < numData; i++) {
+    if (datasets[i] !== undefined || datasets[i] !== null){
+      downloadData(i);
+    }
+  }
 }
 //this function will add a new row to table on button click
 //FUNCTION IS CURRENTLY UNTESTED
@@ -1038,8 +1046,8 @@ function populateWeightedMeanGraphInfo(allData, id) {
 }
 
 function exportGraphs() {
-  var graphs = document.getElementById("collapsebottom2");
-  var fileName = "Dataset " + tracker + ".jpeg";
+  var graphs = document.getElementById("graphs");
+  var fileName = "graphs.png";
   domtoimage.toBlob(graphs).then(function (blob) {
     window.saveAs(blob, fileName);
   });
