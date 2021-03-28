@@ -596,7 +596,10 @@ function addNewData() {
   div.appendChild(newDivData);
 }
 
+//edit option for datasets
+//function that makes dataset label editable and auto focuses user on it
 function editLabel(input) {
+  //console.log(datasets.length);
   var iD = input.id;
   var parts = iD.split("t");
   var idNum = Number(parts[1]);
@@ -611,6 +614,7 @@ function editLabel(input) {
   });
 }
 
+//if user clicks out of text box then label becomes uneditable
 function toggleEdit(input) {
   var iD = input.id;
   var parts = iD.split("t");
@@ -620,12 +624,17 @@ function toggleEdit(input) {
   labelID.setAttribute("disabled", "true");
 }
 
+//delete option for datasets
+//function that removes dataset from list on frontend and makes it's data in dataset = null
 function deleteDataset(input) {
+  //delete front end component
   var iD = input.id;
   var parts = iD.split("l");
   var idNum = Number(parts[1]);
   var datasetDiv = document.getElementById("data" + idNum);
   datasetDiv.remove();
+
+  //make data = null in datasets array
 }
 
 //function input is data point values and uncertainties for each data point.
