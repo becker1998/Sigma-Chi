@@ -672,6 +672,9 @@ function deleteDataset(input) {
 //highlights dataset thats currently selected
 function highlightSelection(input) {
   if (highlight == null) {
+    var data1 = document.getElementById("data1");
+    data1.classList.remove("highlighted-dataset");
+    data1.classList.add("datasetBox");
     highlight = input;
     highlight.classList.remove("datasetBox");
     highlight.classList.add("highlighted-dataset");
