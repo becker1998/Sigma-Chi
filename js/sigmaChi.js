@@ -194,11 +194,17 @@ function downloadData(index) {
   hiddenLink.click();
 }
 function downloadAllData (){
-  var numData = datasets.length;
-  for (var i = 0; i < numData; i++) {
-    if (datasets[i] !== undefined || datasets[i] !== null){
-      downloadData(i);
+  var checkedData = getCheckedDatasets();
+  if (checkedData.length == 0) {
+    var numData = datasets.length;
+    for (var i = 0; i < numData; i++) {
+      if (datasets[i] !== undefined || datasets[i] !== null){
+        downloadData(i);
+      }
     }
+  }
+  else{
+    downloadCheckedData();
   }
 }
 function downloadCheckedData (){
