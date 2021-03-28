@@ -17,6 +17,9 @@ var rejectedData = new Array();
 //displayed in the table
 var tracker = 0;
 
+//global var to keep track of which dataset is being selected/highlighted for usability
+var highlight;
+
 //These are the global values in the Evaluations Pop up for backend to access. They are updated when a user selects an option. Default value 0 = No option selected
 var eUncertainty = 2;
 var eRejection = 0;
@@ -196,24 +199,23 @@ function downloadData(index) {
   document.body.appendChild(hiddenLink);
   hiddenLink.click();
 }
-function downloadAllData (){
+function downloadAllData() {
   var checkedData = getCheckedDatasets();
   if (checkedData.length == 0) {
     var numData = datasets.length;
     for (var i = 0; i < numData; i++) {
-      if (datasets[i] !== undefined || datasets[i] !== null){
+      if (datasets[i] !== undefined || datasets[i] !== null) {
         downloadData(i);
       }
     }
-  }
-  else{
+  } else {
     downloadCheckedData();
   }
 }
-function downloadCheckedData (){
+function downloadCheckedData() {
   var checkedData = getCheckedDatasets();
   for (var i = 0; i < checkedData.length; i++) {
-    if (datasets[i] !== undefined || datasets[i] !== null){
+    if (datasets[i] !== undefined || datasets[i] !== null) {
       downloadData(checkedData[i]);
     }
   }
@@ -249,7 +251,7 @@ function addRow() {
   dataInput.setAttribute("id", inpDataID);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "false");
-  dataCol.className = "custom-table-body";
+  dataCol.className = "pt-3-half custom-table-body";
   dataInput.setAttribute("step", "0.01");
   dataInput.className = "table-input-fields";
 
@@ -272,7 +274,7 @@ function addRow() {
   newRow.appendChild(uncCol);
 
   var checkBox = document.createElement("input");
-  checkBox.className = "form-check-input text-center";
+  checkBox.className = "text-center";
   checkBox.setAttribute("type", "checkbox");
   var numCheck = inp + 1;
   var id = "reject" + numCheck;
@@ -413,9 +415,9 @@ function addRowWithData(data, uncert) {
   var dataInput = document.createElement("input");
   var colInput = document.createElement("input");
 
-  idCol.className = "pt-3-half";
-  rejCol.className = "pt-3-half";
-  dataCol.className = "pt-3-half";
+  idCol.className = "pt-3-half custom-table-body";
+  rejCol.className = "pt-3-half custom-table-body";
+  dataCol.className = "pt-3-half custom-table-body";
   dataCol.setAttribute("contenteditable", "false");
   var inpDataId = "dataInput" + (inpVal + 1);
   var inpColId = "colInput" + (inpVal + 1);
@@ -423,15 +425,17 @@ function addRowWithData(data, uncert) {
   dataInput.setAttribute("id", inpDataId);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataInput.setAttribute("step", "0.01");
+  dataInput.className = "table-input-fields";
   if (data !== undefined || data !== null) {
     dataInput.setAttribute("value", data);
   }
-  uncCol.className = "pt-3-half";
+  uncCol.className = "pt-3-half custom-table-body";
   uncCol.setAttribute("contenteditable", "false");
   colInput.setAttribute("type", "number");
   colInput.setAttribute("step", "0.01");
   colInput.setAttribute("id", inpColId);
   colInput.setAttribute("onchange", "onColChange(this)");
+  colInput.className = "table-input-fields";
   if (uncert !== undefined || uncert !== null) {
     colInput.setAttribute("value", uncert);
   }
@@ -562,7 +566,7 @@ function addNewData() {
   var divID = "data" + numberOfDatasetsCreated;
   var onclickFunc = "getData(" + numberOfDatasetsCreated + ")";
   newDivData.setAttribute("id", divID);
-  newDivData.setAttribute("onclick", onclickFunc);
+  newDivData.setAttribute("onclick", onclickFunc + "; highlightSelection(this);");
 
   var newLabel = document.createElement("input");
   var datasetID = "set" + numberOfDatasetsCreated;
@@ -578,7 +582,7 @@ function addNewData() {
   newCheckBox.className = "col-sm-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
-  //newCheckBox.setAttribute("checked", "false");
+  newCheckBox.setAttribute("checked", "true");
   var checkboxID = "checkdata" + numberOfDatasetsCreated;
   newCheckBox.setAttribute("id", checkboxID);
 
@@ -663,6 +667,21 @@ function deleteDataset(input) {
   datasetDiv.remove();
 
   //make data = null in datasets array
+}
+
+//highlights dataset thats currently selected
+function highlightSelection(input) {
+  if (highlight == null) {
+    highlight = input;
+    highlight.classList.remove("datasetBox");
+    highlight.classList.add("highlighted-dataset");
+  } else if (input != highlight) {
+    highlight.classList.remove("highlighted-dataset");
+    highlight.classList.add("datasetBox");
+    highlight = input;
+    highlight.classList.remove("datasetBox");
+    highlight.classList.add("highlighted-dataset");
+  }
 }
 
 //function input is data point values and uncertainties for each data point.
@@ -1168,7 +1187,7 @@ function grapghReducedChiSquared(checked) {
       datasets: [
         {
           data: rChiSquared,
-          label: "Data Set" + checked,
+          label: "Data Set " + checked,
           borderColor: "#3e95cd",
           fill: false,
         },
