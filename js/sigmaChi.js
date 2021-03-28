@@ -185,7 +185,10 @@ function downloadData(index) {
   });
 
   var encode = encodeURI(csvContent);
-  var fileName = "Data Set " + index + ".csv";
+  var setNum = index + 1;
+  var dataId = "set" + setNum;
+  var getFileName = document.getElementById(dataId).value;
+  var fileName = getFileName + ".csv";
   //create a hidden download link and initiate a click
   var hiddenLink = document.createElement("a");
   hiddenLink.setAttribute("href", encode);
