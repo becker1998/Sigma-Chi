@@ -31,9 +31,9 @@
                     Export
                   </button>
                   <ul class="dropdown-menu export-menu mt-2 nopadding" aria-labelledby="exportButton">
-                    <li><a class="dropdown-item p-1 export-items" onclick="exportGraphs()"><b>Datasets</b></a></li>
-                    <li><a class="dropdown-item p-1 export-items"><b>Graphs</b></a></li>
-                    <li><a class="dropdown-item p-1 export-items"><b>Both</b></a></li>
+                    <li><a class="dropdown-item p-1 export-items" onclick="downloadData()"><b>Datasets</b></a></li>
+                    <li><a class="dropdown-item p-1 export-items" onclick="exportGraphs()"><b>Graphs</b></a></li>
+                    <li><a class="dropdown-item p-1 export-items" onclick="downloadData(); exportGraphs();"><b>Both</b></a></li>
                   </ul>
                 </div>
           </div>
@@ -158,10 +158,6 @@
     </div>
     <div id = "tophalf" class="col-sm-8 main-panel nopadding maincol card-body nomargin">
       <div id="table" class="table-editable table-scroll-y mainScrollbar nomargin">
-        <span class="table-add float-left" onclick="downloadData()"><a href="#!" class="text-success"><i
-              class="material-icons">file_download</i></a></span>
-        <span class="table-add float-right" onclick="addRow()"><a href="#!" class="text-success"><i
-              class="material-icons">add_circle</i></a></span>
         <table id="tbl" class="table table-bordered table-responsive-md table-striped text-center ">
           <thead>
             <tr>
@@ -178,7 +174,12 @@
 
     </div>
     <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
-        <img id = "logo" src="logo.png" class="brand">
+          <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
+            <Button onclick="addRow()" class="add-row-btn fontFix align-self-center">+</Button>
+          </div>
+        <div class="col-sm-10 d-flex side-panel nopadding justify-content-center align-items-center">
+            <img id = "logo" src="logo.png" class="brand overflow-hidden">
+        </div>
     </div>
   </div><!-- end second row-->
 </div>
