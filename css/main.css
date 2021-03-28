@@ -16,6 +16,32 @@
   display: block;
 }
 
+.table-headers {
+  background-color: #fff5e2 !important;
+  color: #c79350 !important;
+  border: none !important;
+  box-shadow: 0px 1px 2px 0px #e6b276 !important;
+}
+
+.custom-table-body {
+  background-color: #fff5e22c !important;
+  color: #7e7e7e !important;
+  border: none !important;
+}
+
+.table-input-fields {
+  text-align: center;
+  border-style: none none solid none;
+  border-color: rgba(0, 0, 0, 0.11);
+  background-color: rgba(255, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.514);
+  font-weight: bold;
+}
+
+.table-input-fields:focus {
+  outline: none;
+}
+
 .pt-3-half {
   padding-top: 1.4rem;
   padding-bottom: 0rem;

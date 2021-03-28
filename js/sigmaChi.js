@@ -216,17 +216,19 @@ function addRow() {
   var uncCol = document.createElement("td");
   var colInput = document.createElement("input");
 
-  idCol.className = "pt-3-half";
-  rejCol.className = "pt-3-half";
+  idCol.className = "pt-3-half custom-table-body";
+  rejCol.className = "pt-3-half custom-table-body";
   dataInput.setAttribute("type", "number");
   dataInput.setAttribute("value", "");
   var inpDataID = "dataInput" + (inpVal + 1);
   dataInput.setAttribute("id", inpDataID);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "false");
+  dataCol.className = "custom-table-body";
   dataInput.setAttribute("step", "0.01");
+  dataInput.className = "table-input-fields";
 
-  uncCol.className = "pt-3-half";
+  uncCol.className = "pt-3-half custom-table-body";
   colInput.setAttribute("type", "number");
   colInput.setAttribute("value", "");
   var inpColId = "colInput" + (inpVal + 1);
@@ -234,6 +236,7 @@ function addRow() {
   colInput.setAttribute("onchange", "onColChange(this)");
   colInput.setAttribute("step", "0.01");
   uncCol.setAttribute("contenteditable", "false");
+  colInput.className = "table-input-fields";
 
   dataCol.appendChild(dataInput);
   uncCol.appendChild(colInput);
