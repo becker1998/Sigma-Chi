@@ -189,7 +189,7 @@ label {
   margin-top: 4px !important;
   margin-bottom: 6px !important;
   background-color: #e9ac4a;
-  box-shadow: 0px 4px 0px 0px #cc7e00cb;
+  box-shadow: 0px 4px 0px 0px #cc7e00b2;
   font-family: "Roboto", sans-serif;
   font-weight: 600 !important;
   font-size: 20px;
@@ -197,7 +197,8 @@ label {
 }
 
 .datasetBox:hover {
-  background-color: #f8b345 !important;
+  background-color: #e2a542 !important;
+  box-shadow: 0px 4px 0px 0px #bb7300bd;
   color: white !important;
 }
 
