@@ -23,9 +23,9 @@ var highlight;
 //These are the global values in the Evaluations Pop up for backend to access. They are updated when a user selects an option. Default value 0 = No option selected
 var eUncertainty = 2;
 var eRejection = 0;
-var eData = 0;
-var eWtdAvg = 0;
-var eFunction = 0;
+var eData = 2;
+var eWtdAvg = 2;
+var eFunction = 1;
 var eBandwidth = 0.8333333333333334;
 
 //keeps track of number of datasets created in session for naming purposes.
@@ -936,11 +936,8 @@ function kernelMedian(allData) {
   allData.sort(sortFunction);
   var half = Math.floor(allData.length / 2);
   if (allData.length % 2) {
-    document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
     return allData[half][0];
   } else {
-    document.getElementById("kernelMedian").innerHTML =
-      "Kernel Median: " + (allData[half - 1][0] + allData[half][0]) / 2.0;
     return (allData[half - 1][0] + allData[half][0]) / 2.0;
   }
 }
@@ -1065,6 +1062,7 @@ function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+  document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
   if (rejectedData[id - 1] && rejectedData[id - 1].length) {
     for (i = 0; i < rejectedData[id - 1].length; i++) {
       if (rejectedData[id - 1][i] != -1) {
@@ -1211,6 +1209,7 @@ function graphKernelDensity(checked) {
   //console.log(dataLabels);
   var bandwidth = 0.8333333333333334;
   var kernelData = new Array();
+  
   kernelData = univariate_Kernel_Density(bandwidth, allData, true);
   var kernelContext = document.getElementById("kerDest").getContext("2d");
   var kernelChart = new Chart(kernelContext, {

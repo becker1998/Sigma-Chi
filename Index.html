@@ -81,20 +81,14 @@
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 select-width" id="dataSelection"
                         onchange="updateEvaluationSettingsData();">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option selected value="2">2σ</option>
                       </select>
                     </div>
                     <div class="col-sm-4 mt-1 cursor-fix">Wtd. Avg.</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 mt-1 select-width" id="wtdAvgSelection"
                         onchange="updateEvaluationSettingsWtdAvg();">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option selected value="2">2σ</option>
                       </select>
                     </div>
                   </div>
@@ -104,10 +98,8 @@
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 select-width" id="functionSelection"
                         onchange="updateEvaluationSettingsFunction();">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option selected value="1">Gaussian</option>
+                        <option value="2">Epanechnikov</option>
                       </select>
                     </div>
                     <div class="col-sm-4 mt-1 cursor-fix">Bandwidth</div>
@@ -228,6 +220,7 @@
               Kernel Density Estimation
             </h3>
             <canvas class="graph-size" id="kerDest"></canvas>
+            <p id = "textskewness" class = "text-center"></p>
             <div>
             </div>
           </div>
