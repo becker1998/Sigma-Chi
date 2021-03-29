@@ -670,6 +670,7 @@ function deleteDataset(input) {
   if (datasets[idNum - 1] != undefined) {
     //if dataset has data
     datasets[idNum - 1] = undefined;
+    datasetsUncer[idNum - 1] = undefined;
   }
 }
 
