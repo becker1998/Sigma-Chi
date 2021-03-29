@@ -667,6 +667,10 @@ function deleteDataset(input) {
   datasetDiv.remove();
 
   //make data = null in datasets array
+  if (datasets[idNum - 1] != undefined) {
+    //if dataset has data
+    datasets[idNum - 1] = undefined;
+  }
 }
 
 //highlights dataset thats currently selected
