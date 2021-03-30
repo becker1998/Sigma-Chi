@@ -1178,7 +1178,7 @@ function graphMultipleReducedChiSquared() {
     var tempChi = reduced_Chai_Squared(tempdata, 0);
     console.log("Temp Chi");
     console.log(tempChi);
-    var labelData = "set" + getChecked[i];
+    var labelData = "set" + (getChecked[i] + 1);
     var tempX = {
       data: tempChi,
       label: document.getElementById(labelData).value,
@@ -1363,9 +1363,10 @@ function graphMultipleKernelDensity() {
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var funct = eFunction;
     var tempKer = univariate_Kernel_Density(bandwidth, tempdata, funct);
+    var labelData = "set" + (getChecked[i] + 1);
     var tempX = {
       data: tempKer,
-      label: datasetsName[i],
+      label: document.getElementById(labelData).value,
       borderColor: colours[i],
       fill: false,
     };
