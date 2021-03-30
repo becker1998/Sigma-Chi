@@ -1,5 +1,5 @@
 //Sigma-Chi, written by Connor St. Louis - 2021
-//
+
 //GLOBAL VARS
 
 //2D array storing arrays of each dataset entered
@@ -121,7 +121,6 @@ function appendToReject() {
 function rejectionSpecific() {
   updateEvaluationSettingsRejection();
   updateAllEvalSettings();
-  return false;
 }
 
 //all except rejection
@@ -1163,6 +1162,7 @@ function getMaxDatasetLength(checked) {
   }
   return maxCheck;
 }
+
 function graphMultipleReducedChiSquared() {
   var getChecked = getCheckedDatasets();
   var maxDataset = getMaxDatasetLength(getChecked);
@@ -1178,9 +1178,10 @@ function graphMultipleReducedChiSquared() {
     var tempChi = reduced_Chai_Squared(tempdata, 0);
     console.log("Temp Chi");
     console.log(tempChi);
+    var labelData = "set" + getChecked[i];
     var tempX = {
       data: tempChi,
-      label: datasetsName[i],
+      label: document.getElementById(labelData).value,
       borderColor: colours[i],
       fill: false,
     };
