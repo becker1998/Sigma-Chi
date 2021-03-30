@@ -118,13 +118,28 @@ function appendToReject() {
   }
 }
 
-function updateEvaluationSettings() {
+function rejectionSpecific(){
+  updateEvaluationSettingsRejection();
+  updateAllEvalSettings();
+}
+
+//all except rejection
+function updateAllEvalSettings(){
+  updateEvaluationSettingsUncertainty();
+  updateEvaluationSettingsData();
+  updateEvaluationSettingsWtdAvg();
+  updateEvaluationSettingsFunction();
+  updateEvaluationSettingsBandwidth();
+}
+
+function updateEvaluationSettings(firstGo) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if (checkBox.checked == true) {
+  if ((checkBox.checked == true) && !firstGo) {
     dynamicGraph(dataID);
   }
 }
+
 
 function updateEvaluationSettingsUncertainty() {
   var selectBox = document.getElementById("uncertaintySelection");
@@ -165,7 +180,7 @@ function updateEvaluationSettingsFunction() {
 function updateEvaluationSettingsBandwidth() {
   var selectBox = document.getElementById("bandwidthSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-  eFunction = selectedValue;
+  eBandwidth = selectedValue;
   updateEvaluationSettings();
 }
 //function will download data inputed in on a selected datatset as a csv file
@@ -328,6 +343,7 @@ function getRejectedData(idNum) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -354,6 +370,7 @@ function onDataChange(input) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -378,6 +395,7 @@ function onColChange(input) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -510,6 +528,7 @@ function addCSVTable(data, uncertainty) {
   addingDataset(id, data, uncertainty);
   addNewData();
   var dataID = "data"+id;
+  updateAllEvalSettings();
   dynamicGraph(dataID);
 }
 
@@ -921,11 +940,8 @@ function kernelMedian(allData) {
   allData.sort(sortFunction);
   var half = Math.floor(allData.length / 2);
   if (allData.length % 2) {
-    document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
     return allData[half][0];
   } else {
-    document.getElementById("kernelMedian").innerHTML =
-      "Kernel Median: " + (allData[half - 1][0] + allData[half][0]) / 2.0;
     return (allData[half - 1][0] + allData[half][0]) / 2.0;
   }
 }
@@ -1047,6 +1063,7 @@ function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+  document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
   if (rejectedData[id - 1] && rejectedData[id - 1].length) {
     for (i = 0; i < rejectedData[id - 1].length; i++) {
       if (rejectedData[id - 1][i] != -1) {
@@ -1374,3 +1391,4 @@ function expandBottom() {
 }
 
 center();
+updateEvaluationSettings(true);
