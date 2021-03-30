@@ -1197,11 +1197,14 @@ function getCheckedDatasetsName() {
 function getMaxDatasetLength(checked) {
   var maxCheck = checked[0];
   var first = 0;
-  for (var i = 1; i < checked.length; i++) {
-    if (datasets[checked[i - 1]].length > datasets[first]) {
-      maxCheck = checked[i - 1];
+  if (checked){
+    for (var i = 1; i < checked.length; i++) {
+      if (datasets[checked[i - 1]].length > datasets[first]) {
+        maxCheck = checked[i - 1];
+      }
     }
   }
+
   return maxCheck;
 }
 
