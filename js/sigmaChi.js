@@ -670,12 +670,12 @@ function deleteDataset(input) {
   var parts = iD.split("l");
   var idNum = Number(parts[1]);
   var datasetDiv = document.getElementById("data" + idNum);
+  var checkbox = document.getElementById("checkdata" + idNum);
+  checkbox.checked = false;
+  updateEvaluationSettings(false);
   datasetDiv.remove();
 
-  numberOfDatasetsCreated--;
   //make data = null in datasets array
-}
-function datasetDelete(idNum) {
   datasets[idNum - 1] = undefined;
   datasetsUncer[idNum - 1] = undefined;
   rejectedData[idNum - 1] = undefined;
@@ -1011,6 +1011,7 @@ function dynamicGraph(iD) {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
       graphMultipleKernelDensity();
+
       //check.checked = false;
     }
   } else if (isMultipleCheck() == false) {
