@@ -673,9 +673,14 @@ function deleteDataset(input) {
   var checkbox = document.getElementById("checkdata" + idNum);
   checkbox.checked = false;
   var datasetsIdNum = new Array();
+  var firstTime = true;
   for (var j = 0; j < datasets.length; j++) {
     if (datasets[j] !== undefined) {
       datasetsIdNum.push(j + 1);
+      if (firstTime && ((j + 1) != idNum)){
+        firstTime = false;
+        tracker = j + 1;
+      }
     }
   }
 
