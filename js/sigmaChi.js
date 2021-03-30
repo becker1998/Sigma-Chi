@@ -1181,9 +1181,11 @@ function getCheckedDatasetsName() {
   }
   for (var i = 0; i < datasetsIdNum.length; i++) {
     var iD = "checkdata" + datasetsIdNum[i];
-    if (document.getElementById(iD).checked == true) {
-      var dataID = "Data Set " + (i + 1);
-      checkedArray.push(dataID);
+    if (document.getElementById(iD)){
+      if (document.getElementById(iD).checked == true) {
+        var dataID = "Data Set " + (i + 1);
+        checkedArray.push(dataID);
+      }
     }
   }
   return checkedArray;
