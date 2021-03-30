@@ -118,19 +118,36 @@ function appendToReject() {
   }
 }
 
-function updateEvaluationSettings() {
+
+
+function rejectionSpecific(){
+  updateEvaluationSettingsRejection();
+  updateAllEvalSettings();
+}
+
+//all except rejection
+function updateAllEvalSettings(){
+  updateEvaluationSettingsUncertainty();
+  updateEvaluationSettingsData();
+  updateEvaluationSettingsWtdAvg();
+  updateEvaluationSettingsFunction();
+  updateEvaluationSettingsBandwidth();
+}
+
+function updateEvaluationSettings(firstGo) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if (checkBox.checked == true) {
+  if ((checkBox.checked == true) && !firstGo) {
     dynamicGraph(dataID);
   }
 }
+
 
 function updateEvaluationSettingsUncertainty() {
   var selectBox = document.getElementById("uncertaintySelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eUncertainty = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsRejection() {
@@ -138,35 +155,35 @@ function updateEvaluationSettingsRejection() {
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eRejection = selectedValue;
   appendToReject();
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsData() {
   var selectBox = document.getElementById("dataSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eData = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsWtdAvg() {
   var selectBox = document.getElementById("wtdAvgSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eWtdAvg = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsFunction() {
   var selectBox = document.getElementById("functionSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eFunction = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsBandwidth() {
   var selectBox = document.getElementById("bandwidthSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-  eFunction = selectedValue;
-  updateEvaluationSettings();
+  eBandwidth = selectedValue;
+  updateEvaluationSettings(false);
 }
 //function will download data inputed in on a selected datatset as a csv file
 //download will happen when the user clicks the download icon
@@ -328,6 +345,7 @@ function getRejectedData(idNum) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -354,6 +372,7 @@ function onDataChange(input) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -378,6 +397,7 @@ function onColChange(input) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -510,6 +530,7 @@ function addCSVTable(data, uncertainty) {
   addingDataset(id, data, uncertainty);
   addNewData();
   var dataID = "data" + id;
+  updateAllEvalSettings();
   dynamicGraph(dataID);
 }
 
@@ -924,11 +945,8 @@ function kernelMedian(allData) {
   allData.sort(sortFunction);
   var half = Math.floor(allData.length / 2);
   if (allData.length % 2) {
-    document.getElementById("kernelMedian").innerHTML = "Kernel Median: " + allData[half][0];
     return allData[half][0];
   } else {
-    document.getElementById("kernelMedian").innerHTML =
-      "Kernel Median: " + (allData[half - 1][0] + allData[half][0]) / 2.0;
     return (allData[half - 1][0] + allData[half][0]) / 2.0;
   }
 }
@@ -1395,3 +1413,4 @@ function expandBottom() {
 }
 
 center();
+updateEvaluationSettings(true);
