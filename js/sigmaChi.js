@@ -1355,7 +1355,7 @@ function graphMultipleKernelDensity() {
 
 function center() {
   document.getElementById("screendivider").style.position = "relative";
-  document.getElementById("collapsetop").style.height = "34.9vh";
+  document.getElementById("collapsetop").style.height = "100%";
   document.getElementById("screendivider").style.top = "0vh";
   document.getElementById("tophalf").style.height = "325px";
   document.getElementById("table").style.height = "325px";
