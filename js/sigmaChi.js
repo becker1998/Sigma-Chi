@@ -1076,7 +1076,7 @@ function graph(input) {
     }
   } else if (isMultipleCheck() == false) {
     var checkId = getCheckedID();
-    console.log("checkId");
+    console.log("checkId = " + getCheckedID());
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
     grapghReducedChiSquared(checkId);
