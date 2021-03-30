@@ -217,6 +217,7 @@ label {
 
 .highlighted-dataset:hover {
   background-color: #f39d33 !important;
+  box-shadow: 0px 4px 0px 0px #d47918cc !important;
   color: white !important;
 }
 

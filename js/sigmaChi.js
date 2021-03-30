@@ -1011,6 +1011,7 @@ function dynamicGraph(iD) {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
       graphMultipleKernelDensity();
+
       //check.checked = false;
     }
   } else if (isMultipleCheck() == false) {
