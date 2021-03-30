@@ -301,6 +301,28 @@ select:hover {
   height: 6px;
 }
 
+.bandwidth-fix {
+  border: 1px solid #ffd490 !important;
+  color: #707070 !important;
+  max-height: 25px !important;
+  padding-right: 0px !important;
+}
+
+.bandwidth-fix:focus {
+  border-color: #e9ac4a !important;
+  outline: solid;
+  outline-width: 1px !important;
+  outline-color: #e9ac4a !important;
+}
+
+.bandwidth-fix:active {
+  border-color: #e9ac4a !important;
+}
+
+.bandwidth-fix:hover {
+  border-color: #e9ac4a !important;
+}
+
 .fontFix {
   font-family: "Roboto", sans-serif;
   font-weight: 700 !important;
