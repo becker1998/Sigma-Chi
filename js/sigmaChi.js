@@ -1197,7 +1197,8 @@ function getCheckedDatasetsName() {
 function getMaxDatasetLength(checked) {
   var maxCheck = checked[0];
   var first = 0;
-  if (checked){
+  console.log("getMaxData checked = " + checked);
+  if (checked && checked.length){
     for (var i = 1; i < checked.length; i++) {
       if (datasets[checked[i - 1]].length > datasets[first]) {
         maxCheck = checked[i - 1];
