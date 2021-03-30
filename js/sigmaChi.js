@@ -1142,7 +1142,7 @@ function getCheckedID() {
       check = i;
     }
   }
-  return check;
+  return check + 1;
 }
 //function will return an array of the indexes of the datasets that are clicked
 //to be graphed
