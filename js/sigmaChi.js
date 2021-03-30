@@ -122,6 +122,7 @@ function appendToReject() {
 function rejectionSpecific() {
   updateEvaluationSettingsRejection();
   updateAllEvalSettings();
+  return false;
 }
 
 //all except rejection
@@ -589,7 +590,7 @@ function addNewData() {
   var newCheckBox = document.createElement("input");
   newCheckBox.className = "col-sm-2";
   newCheckBox.setAttribute("type", "checkbox");
-  newCheckBox.setAttribute("onchange", "graph(this)");
+  newCheckBox.setAttribute("onclick", "dynamicGraph(this.id)");
   //newCheckBox.setAttribute("checked", "true");
   var checkboxID = "checkdata" + numberOfDatasetsCreated;
   newCheckBox.setAttribute("id", checkboxID);
@@ -700,25 +701,6 @@ function deleteDataset(input) {
   rejectedData[idNum - 1] = undefined;
 
   console.log("hello");
-}
-
-function chooseGraph(input) {
-  var datasetsIdNum = new Array();
-  console.log("before for");
-  for (var j = 0; j < datasets.length; j++) {
-    console.log("in for");
-    if (datasets[j] !== undefined) {
-      console.log("in if");
-      datasetsIdNum.push(j + 1);
-    }
-  }
-  if (datasetsIdNum.length > 1) {
-    console.log("dynamic");
-    dynamicGraph(input.id);
-  } else {
-    console.log("graph");
-    graph(input);
-  }
 }
 
 //highlights dataset thats currently selected
@@ -1342,18 +1324,14 @@ function getGraphableData(checked) {
   var tempReject = rejectedData[checked - 1];
   var graphableData = new Array();
   if (tempReject == undefined) {
-    if (tempDataset && tempDataset.length) {
-      for (j = 1; j < tempDataset.length; j++) {
-        graphableData[j - 1] = tempDataset[j];
-      }
+    for (j = 1; j < tempDataset.length; j++) {
+      graphableData[j - 1] = tempDataset[j];
     }
     return graphableData;
   } else {
-    if (tempDataset && tempDataset.length) {
-      for (i = 1; i < tempDataset.length; i++) {
-        if (tempReject.includes(i) == false) {
-          graphableData.push(tempDataset[i]);
-        }
+    for (i = 1; i < tempDataset.length; i++) {
+      if (tempReject.includes(i) == false) {
+        graphableData.push(tempDataset[i]);
       }
     }
     return graphableData;
