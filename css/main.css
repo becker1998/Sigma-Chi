@@ -348,6 +348,7 @@ select:hover {
   color: #e4b16f !important;
   border: none !important;
   box-shadow: 0px 1px 2px 0px #e6b276b2 !important;
+  font-size: 24px;
 }
 
 .graph-size {
