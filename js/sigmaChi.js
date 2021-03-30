@@ -120,10 +120,17 @@ function appendToReject() {
   }
 }
 
+function updateAllEvalSettings(){
+  updateEvaluationSettingsUncertainty();
+  updateEvaluationSettingsRejection();
+  updateEvaluationSettingsData();
+  updateEvaluationSettingsWtdAvg();
+  updateEvaluationSettingsFunction();
+}
+
 function updateEvaluationSettings(firstGo) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  document.getElementById("bandwidthValue").innerHTML = eBandwidth;
   if ((checkBox.checked == true) && !firstGo) {
     dynamicGraph(dataID);
   }
@@ -143,6 +150,7 @@ function updateEvaluationSettingsRejection() {
   appendToReject();
   updateEvaluationSettings(false);
 }
+
 
 function updateEvaluationSettingsData() {
   var selectBox = document.getElementById("dataSelection");
