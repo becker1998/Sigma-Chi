@@ -999,9 +999,12 @@ function kernelSkewness(allData, isMode, isPopulation) {
 //will return an array from 1 to the length of the data+1 in a step fashion of 1
 function getLabels(data) {
   var labels = new Array();
-  for (i = 1; i < data.length + 1; i++) {
-    labels.push(i);
+  if (data && data.length){
+    for (i = 1; i < data.length + 1; i++) {
+      labels.push(i);
+    }
   }
+
   return labels;
 }
 
