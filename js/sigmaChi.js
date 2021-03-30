@@ -86,6 +86,7 @@ var colours = [
 ];
 
 function appendToReject() {
+  console.log("appendToReject");
   if (eRejection != 0) {
     var checkId = getCheckedID();
     var allData = Data_Points_With_Uncertainty(
@@ -1017,6 +1018,7 @@ function isMultipleCheck() {
 }
 
 function dynamicGraph(iD) {
+  console.log("dynamicGraph");
   var check = document.getElementById(iD);
   if (check.checked == true) {
     if (isMultipleCheck() == false) {
@@ -1053,6 +1055,7 @@ function dynamicGraph(iD) {
 //function will take in the corresponding checkBox
 //and call the appropriate functions to graph the data
 function graph(input) {
+  console.log("graph()");
   var iD = input.id;
   var check = document.getElementById(iD);
   if (check.checked == true) {
@@ -1196,6 +1199,7 @@ function getMaxDatasetLength(checked) {
 }
 
 function graphMultipleReducedChiSquared() {
+  console.log("graphMultipleReducedChiSquared");
   var getChecked = getCheckedDatasets();
   var maxDataset = getMaxDatasetLength(getChecked);
   var dataLabels = getLabels(datasets[maxDataset]);
@@ -1229,6 +1233,7 @@ function graphMultipleReducedChiSquared() {
 }
 
 function grapghReducedChiSquared(checked) {
+  console.log("grapghReducedChiSquared");
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
@@ -1255,6 +1260,7 @@ function grapghReducedChiSquared(checked) {
 }
 //gets called if only oe dataset is selected to be graphed
 function graphKernelDensity(checked) {
+  console.log("graphKernelDensity");
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
@@ -1333,6 +1339,7 @@ function getGraphableUncertainty(checked) {
 }
 // Call if only one dataset is selected to be graphed
 function graphWeightedMean(checked) {
+  console.log("graphWeightedMean");
   var tempDataset = getGraphableData(checked);
   var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
@@ -1377,6 +1384,7 @@ function graphWeightedMean(checked) {
 //function will graph data when multiple datasets are selected to be plotted
 //uses a powerful external charting library called chart.js
 function graphMultipleKernelDensity() {
+  console.log("graphMultipleKernelDensity");
   //gets an array of the datset numbers that are clicked
   var getChecked = getCheckedDatasets();
   var maxDataset = getMaxDatasetLength(getChecked);
