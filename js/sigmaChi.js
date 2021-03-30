@@ -509,7 +509,7 @@ function addCSVTable(data, uncertainty) {
   var id = numDataSets;
   addingDataset(id, data, uncertainty);
   addNewData();
-  var dataID = "data"+id;
+  var dataID = "data" + id;
   dynamicGraph(dataID);
 }
 
@@ -655,9 +655,9 @@ function deleteDataset(input) {
   numberOfDatasetsCreated--;
   //make data = null in datasets array
 }
-function datasetDelete(idNum){
-  datasets[idNum-1] = undefined;
-  datasetsUncer[idNum-1] = undefined;
+function datasetDelete(idNum) {
+  datasets[idNum - 1] = undefined;
+  datasetsUncer[idNum - 1] = undefined;
   rejectedData[idNum - 1] = undefined;
 }
 
@@ -1154,7 +1154,7 @@ function graphMultipleReducedChiSquared() {
     graphData.push(tempX);
   }
   var multiSqrContext = document.getElementById("rcSqr").getContext("2d");
-  if (window.squareChart){
+  if (window.squareChart) {
     window.squareChart.destroy();
   }
   window.squareChart = new Chart(multiSqrContext, {
@@ -1175,7 +1175,7 @@ function grapghReducedChiSquared(checked) {
   console.log("Reduced Chai Squared");
   console.log(rChiSquared);
   var sqrContext = document.getElementById("rcSqr").getContext("2d");
-  if (window.squareChart){
+  if (window.squareChart) {
     window.squareChart.destroy();
   }
   window.squareChart = new Chart(sqrContext, {
@@ -1206,7 +1206,7 @@ function graphKernelDensity(checked) {
   console.log("Kernel Density");
   console.log(kernelData);
   var kernelContext = document.getElementById("kerDest").getContext("2d");
-  if (window.kernelChart){
+  if (window.kernelChart) {
     window.kernelChart.destroy();
   }
   window.kernelChart = new Chart(kernelContext, {
@@ -1285,7 +1285,7 @@ function graphWeightedMean(checked) {
     weightedMeanRangeData[i] = [allData[i][2], allData[i][1]];
   }
   var weightedMeanChartContext = document.getElementById("wMean").getContext("2d");
-  if (window.weightedMeanChart){
+  if (window.weightedMeanChart) {
     window.weightedMeanChart.destroy();
   }
   window.weightedMeanChart = new Chart(weightedMeanChartContext, {
@@ -1338,7 +1338,7 @@ function graphMultipleKernelDensity() {
     graphData.push(tempX);
   }
   var multiKerContext = document.getElementById("kerDest").getContext("2d");
-  if (window.squareChart){
+  if (window.squareChart) {
     window.squareChart.destroy();
   }
   window.squareChart = new Chart(multiKerContext, {
@@ -1356,9 +1356,9 @@ function center() {
   document.getElementById("screendivider").style.top = "0vh";
   document.getElementById("tophalf").style.height = "325px";
   document.getElementById("table").style.height = "325px";
-  document.getElementById("collapsebottom2").style.height = "620px";
-  document.getElementById("collapsebottom").style.height = "620px";
-  document.getElementById("collapsebottom3").style.height = "620px";
+  document.getElementById("collapsebottom2").style.height = "54.5vh";
+  document.getElementById("collapsebottom").style.height = "54.5vh";
+  document.getElementById("collapsebottom3").style.height = "54.5vh";
   document.getElementById("btn1").style.backgroundColor = "#e07a5f";
   document.getElementById("btn2").style.backgroundColor = "#cd7158";
   document.getElementById("btn3").style.backgroundColor = "#e07a5f";
@@ -1371,9 +1371,9 @@ function expandTop() {
   document.getElementById("collapsebottom2").style.height = "0px";
   document.getElementById("collapsebottom3").style.height = "0px";
   document.getElementById("screendivider").style.top = "0px";
-  document.getElementById("collapsetop").style.height = "945px";
-  document.getElementById("tophalf").style.height = "945px";
-  document.getElementById("table").style.height = "945px";
+  document.getElementById("collapsetop").style.height = "89.3vh";
+  document.getElementById("tophalf").style.height = "89.3vh";
+  document.getElementById("table").style.height = "89.3vh";
   document.getElementById("btn1").style.backgroundColor = "#cd7158";
   document.getElementById("btn2").style.backgroundColor = "#e07a5f";
   document.getElementById("btn3").style.backgroundColor = "#e07a5f";
@@ -1382,9 +1382,9 @@ function expandTop() {
 
 function expandBottom() {
   document.getElementById("collapsetop").style.height = "0px";
-  document.getElementById("collapsebottom2").style.height = "945px";
-  document.getElementById("collapsebottom").style.height = "945px";
-  document.getElementById("collapsebottom3").style.height = "945px";
+  document.getElementById("collapsebottom2").style.height = "89.3vh";
+  document.getElementById("collapsebottom").style.height = "89.3vh";
+  document.getElementById("collapsebottom3").style.height = "89.3vh";
   document.getElementById("btn1").style.backgroundColor = "#e07a5f";
   document.getElementById("btn2").style.backgroundColor = "#e07a5f";
   document.getElementById("btn3").style.backgroundColor = "#cd7158";
