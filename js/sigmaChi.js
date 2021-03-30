@@ -120,10 +120,11 @@ function appendToReject() {
   }
 }
 
-function updateEvaluationSettings() {
+function updateEvaluationSettings(firstGo) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if (checkBox.checked == true) {
+  document.getElementById("bandwidthValue").innerHTML = eBandwidth;
+  if ((checkBox.checked == true) && !firstGo) {
     dynamicGraph(dataID);
   }
 }
@@ -132,7 +133,7 @@ function updateEvaluationSettingsUncertainty() {
   var selectBox = document.getElementById("uncertaintySelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eUncertainty = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsRejection() {
@@ -140,35 +141,35 @@ function updateEvaluationSettingsRejection() {
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eRejection = selectedValue;
   appendToReject();
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsData() {
   var selectBox = document.getElementById("dataSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eData = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsWtdAvg() {
   var selectBox = document.getElementById("wtdAvgSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eWtdAvg = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsFunction() {
   var selectBox = document.getElementById("functionSelection");
   var selectedValue = selectBox.options[selectBox.selectedIndex].value;
   eFunction = selectedValue;
-  updateEvaluationSettings();
+  updateEvaluationSettings(false);
 }
 
 function updateEvaluationSettingsBandwidth() {
-  var selectBox = document.getElementById("bandwidthSelection");
-  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-  eFunction = selectedValue;
-  updateEvaluationSettings();
+  var selectBox = document.getElementById("bandwidthRange");
+  var selectedValue = selectBox.value;
+  eBandwidth = selectedValue;
+  updateEvaluationSettings(false);
 }
 //function will download data inputed in on a selected datatset as a csv file
 //download will happen when the user clicks the download icon
@@ -1207,10 +1208,15 @@ function graphKernelDensity(checked) {
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
   //console.log(dataLabels);
-  var bandwidth = 0.8333333333333334;
+  var bandwidth = eBandwidth;
   var kernelData = new Array();
-  
-  kernelData = univariate_Kernel_Density(bandwidth, allData, true);
+  if (eFunction == 1){
+    kernelData = univariate_Kernel_Density(bandwidth, allData, true);
+  }else if (eFunction == 2){
+    kernelData = univariate_Kernel_Density(bandwidth, allData, false);
+  }else{
+    console.log("Problem reading eFunction " + bandwidth);
+  }
   var kernelContext = document.getElementById("kerDest").getContext("2d");
   var kernelChart = new Chart(kernelContext, {
     type: "line",
@@ -1337,7 +1343,14 @@ function graphMultipleKernelDensity() {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
     var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
-    var tempKer = univariate_Kernel_Density(bandwidth, tempdata, true);
+    if (eFunction == 1){
+      var tempKer = univariate_Kernel_Density(bandwidth, tempdata, true);
+    }else if (eFunction == 2){
+      var tempKer = univariate_Kernel_Density(bandwidth, tempdata, false);
+    }else{
+      console.log("Problem reading eFunction " + bandwidth);
+    }
+
     var tempX = {
       data: tempKer,
       label: datasetsName[i],
@@ -1398,3 +1411,4 @@ function expandBottom() {
 }
 
 center();
+updateEvaluationSettings(true);
