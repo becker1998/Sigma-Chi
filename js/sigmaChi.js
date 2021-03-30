@@ -1109,7 +1109,7 @@ function exportGraphs() {
 
 function getCheckedID() {
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length;
   var check = 0;
   for (var i = 1; i < numData; i++) {
     var iD = "checkdata" + i;
@@ -1123,12 +1123,19 @@ function getCheckedID() {
 //to be graphed
 function getCheckedDatasets() {
   var checkedArray = new Array();
+  var datasetsIdNum = new Array();
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
-  for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length;
+  for (var j = 0; j < datasets.length; j++) {
+    if (datasets[j] !== undefined ){
+      datasetsIdNum.push(j+1);
+    }
+  }
+  for (var i = 0; i < datasetsIdNum.length; i++) {
+    var iD = "checkdata" + datasetsIdNum[i];
+    console.log(iD)
     if (document.getElementById(iD).checked == true) {
-      checkedArray.push(i - 1);
+      checkedArray.push(datasetsIdNum[i]);
     }
   }
   return checkedArray;
@@ -1137,12 +1144,18 @@ function getCheckedDatasets() {
 //it is used to properly label the lines that are plotted for readabillity
 function getCheckedDatasetsName() {
   var checkedArray = new Array();
+  var datasetsIdNum = new Array();
   var navData = document.getElementById("datasets");
   var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
-  for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i;
+  for (var j = 0; j < datasets.length; j++) {
+    if (datasets[j] !== undefined ){
+      datasetsIdNum.push(j+1);
+    }
+  }
+  for (var i = 0; i < datasetsIdNum.length; i++) {
+    var iD = "checkdata" + datasetsIdNum[i];
     if (document.getElementById(iD).checked == true) {
-      var dataID = "Data Set " + i;
+      var dataID = "Data Set " + (i+1);
       checkedArray.push(dataID);
     }
   }
@@ -1153,11 +1166,16 @@ function getCheckedDatasetsName() {
 //this is required to ensure all the data is displayed on the graphs
 //when the user selects multiple datasets to plot
 function getMaxDatasetLength(checked) {
+  console.log("Checked");
+  console.log(checked);
   var maxCheck = checked[0];
   var first = 0;
   for (var i = 1; i < checked.length; i++) {
-    if (datasets[checked[i]].length > datasets[first]) {
-      maxCheck = checked[i];
+    console.log("Datatsets");
+    console.log(datasets);
+    console.log(datasets[checked[i-1]]);
+    if (datasets[checked[i-1]].length > datasets[first]) {
+      maxCheck = checked[i-1];
     }
   }
   return maxCheck;
@@ -1165,20 +1183,26 @@ function getMaxDatasetLength(checked) {
 
 function graphMultipleReducedChiSquared() {
   var getChecked = getCheckedDatasets();
+  console.log("get CHecked");
+  console.log(getChecked);
   var maxDataset = getMaxDatasetLength(getChecked);
+  console.log("Max dataset");
+  console.log(maxDataset);
   var dataLabels = getLabels(datasets[maxDataset]);
   var datasetsName = getCheckedDatasetsName();
   console.log("Squared Labels");
   console.log(dataLabels);
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
-    var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
+    console.log("Graphable Data ");
+    console.log(getChecked[i]);
+    var allData = getGraphableData(Number(getChecked[i]));
+    var allUnc = getGraphableUncertainty(Number(getChecked[i]));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var tempChi = reduced_Chai_Squared(tempdata, 0);
     console.log("Temp Chi");
     console.log(tempChi);
-    var labelData = "set" + (getChecked[i] + 1);
+    var labelData = "set" + getChecked[i];
     var tempX = {
       data: tempChi,
       label: document.getElementById(labelData).value,
@@ -1358,15 +1382,14 @@ function graphMultipleKernelDensity() {
   var bandwidth = eBandwidth;
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
-    var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
+    var allData = getGraphableData(Number(getChecked[i]));
+    var allUnc = getGraphableUncertainty(Number(getChecked[i]));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var funct = eFunction;
     var tempKer = univariate_Kernel_Density(bandwidth, tempdata, funct);
-    var labelData = "set" + (getChecked[i] + 1);
     var tempX = {
       data: tempKer,
-      label: document.getElementById(labelData).value,
+      label: datasetsName[i],
       borderColor: colours[i],
       fill: false,
     };
