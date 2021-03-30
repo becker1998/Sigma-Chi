@@ -1070,6 +1070,8 @@ function populateWeightedMeanGraphInfo(allData, id) {
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
   if (!isNaN(kernelSkewness(allData, false, false).toFixed(2))){
     document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
+  }else{
+    document.getElementById("textskewness").innerHTML = "";
   }
 
   if (rejectedData[id - 1] && rejectedData[id - 1].length) {
