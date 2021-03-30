@@ -1,5 +1,5 @@
 //Sigma-Chi, written by Connor St. Louis - 2021
-
+//
 //GLOBAL VARS
 
 //2D array storing arrays of each dataset entered
