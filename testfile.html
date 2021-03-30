@@ -139,7 +139,7 @@ function chi_squared(data){
   return chi_sqr;
 }
 
-function reduced_Chai_Squared(data, rejected){
+function reduced_Chi_Squared(data, rejected){
   var accepted = data.length - rejected;  //accepted = degrees of freedom
   var reduced_chi_sqr = new Array();
   var chi = chi_squared(data);
@@ -211,7 +211,7 @@ var bandwidth = 0.8333333333333334;
 var kernelDensity = new Array();
 kernelDensity = univariate_Kernel_Density(bandwidth, allData, true);
 var chiSquared = chi_squared(allData);
-var reducedchiSquared = reduced_Chai_Squared(allData, 0);
+var reducedchiSquared = reduced_Chi_Squared(allData, 0);
 document.getElementById("expectedValue").innerHTML += Expected_Value(allData);
 var kernelMedian = kernelMedian(allData);
 var kernelMode = kernelMode(allData);

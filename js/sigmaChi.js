@@ -813,7 +813,7 @@ function chi_squared(data) {
 //fucntion uses Expected_Value(data)
 //function uses chi_squared(data)
 //FUNCTION IS CURRENTLY UNTESTED
-function reduced_Chai_Squared(data, rejected) {
+function reduced_Chi_Squared(data, rejected) {
   var accepted = data.length - rejected; //accepted = degrees of freedom
   var reduced_chi_sqr = new Array();
   var chi = chi_squared(data);
@@ -1175,7 +1175,7 @@ function graphMultipleReducedChiSquared() {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
     var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
-    var tempChi = reduced_Chai_Squared(tempdata, 0);
+    var tempChi = reduced_Chi_Squared(tempdata, 0);
     console.log("Temp Chi");
     console.log(tempChi);
     var tempX = {
@@ -1204,8 +1204,8 @@ function grapghReducedChiSquared(checked) {
   var tempDataUncert = getGraphableUncertainty(checked);
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
-  var rChiSquared = reduced_Chai_Squared(allData, 0);
-  console.log("Reduced Chai Squared");
+  var rChiSquared = reduced_Chi_Squared(allData, 0);
+  console.log("Reduced Chi Squared");
   console.log(rChiSquared);
   var sqrContext = document.getElementById("rcSqr").getContext("2d");
   if (window.squareChart) {
