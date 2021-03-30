@@ -1094,7 +1094,8 @@ function populateWeightedMeanGraphInfo(allData, id) {
   } else {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
-  document.getElementById("textdataset").innerHTML = "Using Data Set " + id;
+  var currentSet = document.getElementById("set"+id).value;
+  document.getElementById("textdataset").innerHTML = "Using: " + currentSet;
 }
 
 function exportGraphs() {
