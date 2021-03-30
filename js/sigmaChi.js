@@ -1075,7 +1075,7 @@ function graph(input) {
       //check.checked = false;
     }
   } else if (isMultipleCheck() == false) {
-    var checkId = getCheckedID();
+    var checkId = getCheckedID() + 1;
     console.log("checkId = " + getCheckedID());
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
@@ -1142,7 +1142,7 @@ function getCheckedID() {
       check = i;
     }
   }
-  return check + 1;
+  return check;
 }
 //function will return an array of the indexes of the datasets that are clicked
 //to be graphed
