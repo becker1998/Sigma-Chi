@@ -1141,9 +1141,12 @@ function getCheckedID() {
   var check = 0;
   for (var i = 1; i < numData; i++) {
     var iD = "checkdata" + i;
-    if (document.getElementById(iD).checked == true) {
-      check = i;
+    if (document.getElementById(iD)){
+      if (document.getElementById(iD).checked == true) {
+        check = i;
+      }
     }
+
   }
   return check;
 }
