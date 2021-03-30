@@ -118,15 +118,13 @@ function appendToReject() {
   }
 }
 
-
-
-function rejectionSpecific(){
+function rejectionSpecific() {
   updateEvaluationSettingsRejection();
   updateAllEvalSettings();
 }
 
 //all except rejection
-function updateAllEvalSettings(){
+function updateAllEvalSettings() {
   updateEvaluationSettingsUncertainty();
   updateEvaluationSettingsData();
   updateEvaluationSettingsWtdAvg();
@@ -137,11 +135,10 @@ function updateAllEvalSettings(){
 function updateEvaluationSettings(firstGo) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
-  if ((checkBox.checked == true) && !firstGo) {
+  if (checkBox.checked == true && !firstGo) {
     dynamicGraph(dataID);
   }
 }
-
 
 function updateEvaluationSettingsUncertainty() {
   var selectBox = document.getElementById("uncertaintySelection");
@@ -180,11 +177,12 @@ function updateEvaluationSettingsFunction() {
 }
 
 function updateEvaluationSettingsBandwidth() {
-  var selectBox = document.getElementById("bandwidthSelection");
-  var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+  var selectBox = document.getElementById("bandwidthRange");
+  var selectedValue = selectBox.value;
   eBandwidth = selectedValue;
   updateEvaluationSettings(false);
 }
+
 //function will download data inputed in on a selected datatset as a csv file
 //download will happen when the user clicks the download icon
 function downloadData(index) {
@@ -214,6 +212,7 @@ function downloadData(index) {
   document.body.appendChild(hiddenLink);
   hiddenLink.click();
 }
+
 function downloadAllData() {
   var checkedData = getCheckedDatasets();
   if (checkedData.length == 0) {
@@ -658,7 +657,7 @@ function toggleEdit(input) {
   var iD = input.id;
   var parts = iD.split("t");
   var idNum = Number(parts[1]);
-
+  updateEvaluationSettings(false);
   var labelID = document.getElementById("set" + idNum);
   labelID.setAttribute("disabled", "true");
 }
@@ -671,12 +670,12 @@ function deleteDataset(input) {
   var parts = iD.split("l");
   var idNum = Number(parts[1]);
   var datasetDiv = document.getElementById("data" + idNum);
+  var checkbox = document.getElementById("checkdata" + idNum);
+  checkbox.checked = false;
+  updateEvaluationSettings(false);
   datasetDiv.remove();
 
-  numberOfDatasetsCreated--;
   //make data = null in datasets array
-}
-function datasetDelete(idNum) {
   datasets[idNum - 1] = undefined;
   datasetsUncer[idNum - 1] = undefined;
   rejectedData[idNum - 1] = undefined;
@@ -987,7 +986,7 @@ function getLabels(data) {
 
 //will check to see if multiple grpahs are selected to be graphed
 //and will return the corresponding boolean value
-function isMUltipleCheck() {
+function isMultipleCheck() {
   var inputs = document.getElementById("datasets");
   var checkboxes = inputs.querySelectorAll("input[type=checkbox]:checked").length;
   if (checkboxes == 1) {
@@ -1000,7 +999,7 @@ function isMUltipleCheck() {
 function dynamicGraph(iD) {
   var check = document.getElementById(iD);
   if (check.checked == true) {
-    if (isMUltipleCheck() == false) {
+    if (isMultipleCheck() == false) {
       var idNum = Number(iD.slice(-1));
       graphWeightedMean(idNum);
       graphKernelDensity(idNum);
@@ -1012,9 +1011,10 @@ function dynamicGraph(iD) {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
       graphMultipleKernelDensity();
+
       //check.checked = false;
     }
-  } else if (isMUltipleCheck() == false) {
+  } else if (isMultipleCheck() == false) {
     var checkId = getCheckedID();
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
@@ -1036,7 +1036,7 @@ function graph(input) {
   var iD = input.id;
   var check = document.getElementById(iD);
   if (check.checked == true) {
-    if (isMUltipleCheck() == false) {
+    if (isMultipleCheck() == false) {
       var idNum = Number(iD.slice(-1));
       graphWeightedMean(idNum);
       graphKernelDensity(idNum);
@@ -1050,7 +1050,7 @@ function graph(input) {
       graphMultipleKernelDensity();
       //check.checked = false;
     }
-  } else if (isMUltipleCheck() == false) {
+  } else if (isMultipleCheck() == false) {
     var checkId = getCheckedID();
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
@@ -1068,7 +1068,12 @@ function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-  document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
+  if (!isNaN(kernelSkewness(allData, false, false).toFixed(2))) {
+    document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
+  } else {
+    document.getElementById("textskewness").innerHTML = "";
+  }
+
   if (rejectedData[id - 1] && rejectedData[id - 1].length) {
     for (i = 0; i < rejectedData[id - 1].length; i++) {
       if (rejectedData[id - 1][i] != -1) {
@@ -1089,7 +1094,9 @@ function populateWeightedMeanGraphInfo(allData, id) {
   } else {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
-  document.getElementById("textdataset").innerHTML = "Using Data Set " + id;
+
+  var currentSet = document.getElementById("set" + id).value;
+  document.getElementById("textdataset").innerHTML = "Using: " + currentSet;
 }
 
 function exportGraphs() {
@@ -1102,7 +1109,7 @@ function exportGraphs() {
 
 function getCheckedID() {
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length;
   var check = 0;
   for (var i = 1; i < numData; i++) {
     var iD = "checkdata" + i;
@@ -1116,12 +1123,19 @@ function getCheckedID() {
 //to be graphed
 function getCheckedDatasets() {
   var checkedArray = new Array();
+  var datasetsIdNum = new Array();
   var navData = document.getElementById("datasets");
-  var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
-  for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i;
+  var numData = navData.querySelectorAll("input[type=checkbox]").length;
+  for (var j = 0; j < datasets.length; j++) {
+    if (datasets[j] !== undefined ){
+      datasetsIdNum.push(j+1);
+    }
+  }
+  for (var i = 0; i < datasetsIdNum.length; i++) {
+    var iD = "checkdata" + datasetsIdNum[i];
+    console.log(iD)
     if (document.getElementById(iD).checked == true) {
-      checkedArray.push(i - 1);
+      checkedArray.push(datasetsIdNum[i]);
     }
   }
   return checkedArray;
@@ -1130,12 +1144,18 @@ function getCheckedDatasets() {
 //it is used to properly label the lines that are plotted for readabillity
 function getCheckedDatasetsName() {
   var checkedArray = new Array();
+  var datasetsIdNum = new Array();
   var navData = document.getElementById("datasets");
   var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
-  for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i;
+  for (var j = 0; j < datasets.length; j++) {
+    if (datasets[j] !== undefined ){
+      datasetsIdNum.push(j+1);
+    }
+  }
+  for (var i = 0; i < datasetsIdNum.length; i++) {
+    var iD = "checkdata" + datasetsIdNum[i];
     if (document.getElementById(iD).checked == true) {
-      var dataID = "Data Set " + i;
+      var dataID = "Data Set " + (i+1);
       checkedArray.push(dataID);
     }
   }
@@ -1146,29 +1166,46 @@ function getCheckedDatasetsName() {
 //this is required to ensure all the data is displayed on the graphs
 //when the user selects multiple datasets to plot
 function getMaxDatasetLength(checked) {
+  console.log("Checked");
+  console.log(checked);
   var maxCheck = checked[0];
   var first = 0;
   for (var i = 1; i < checked.length; i++) {
-    if (datasets[checked[i]].length > datasets[first]) {
-      maxCheck = checked[i];
+    console.log("Datatsets");
+    console.log(datasets);
+    console.log(datasets[checked[i-1]]);
+    if (datasets[checked[i-1]].length > datasets[first]) {
+      maxCheck = checked[i-1];
     }
   }
   return maxCheck;
 }
+
 function graphMultipleReducedChiSquared() {
   var getChecked = getCheckedDatasets();
+  console.log("get CHecked");
+  console.log(getChecked);
   var maxDataset = getMaxDatasetLength(getChecked);
+  console.log("Max dataset");
+  console.log(maxDataset);
   var dataLabels = getLabels(datasets[maxDataset]);
   var datasetsName = getCheckedDatasetsName();
+  console.log("Squared Labels");
+  console.log(dataLabels);
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
-    var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
+    console.log("Graphable Data ");
+    console.log(getChecked[i]);
+    var allData = getGraphableData(Number(getChecked[i]));
+    var allUnc = getGraphableUncertainty(Number(getChecked[i]));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var tempChi = reduced_Chai_Squared(tempdata, 0);
+    console.log("Temp Chi");
+    console.log(tempChi);
+    var labelData = "set" + getChecked[i];
     var tempX = {
       data: tempChi,
-      label: datasetsName[i],
+      label: document.getElementById(labelData).value,
       borderColor: colours[i],
       fill: false,
     };
@@ -1206,7 +1243,7 @@ function grapghReducedChiSquared(checked) {
       datasets: [
         {
           data: rChiSquared,
-          label: "Data Set " + checked,
+          label: document.getElementById("set" + checked).value,
           borderColor: "#3e95cd",
           fill: false,
         },
@@ -1237,7 +1274,7 @@ function graphKernelDensity(checked) {
       datasets: [
         {
           data: kernelData,
-          label: "Data Set " + checked,
+          label: document.getElementById("set" + checked).value,
           borderColor: "#3e95cd",
           fill: false,
         },
@@ -1345,8 +1382,8 @@ function graphMultipleKernelDensity() {
   var bandwidth = eBandwidth;
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
-    var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
+    var allData = getGraphableData(Number(getChecked[i]));
+    var allUnc = getGraphableUncertainty(Number(getChecked[i]));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var funct = eFunction;
     var tempKer = univariate_Kernel_Density(bandwidth, tempdata, funct);
@@ -1359,10 +1396,10 @@ function graphMultipleKernelDensity() {
     graphData.push(tempX);
   }
   var multiKerContext = document.getElementById("kerDest").getContext("2d");
-  if (window.squareChart) {
-    window.squareChart.destroy();
+  if (window.multiKerChart) {
+    window.multiKerChart.destroy();
   }
-  window.squareChart = new Chart(multiKerContext, {
+  window.multiKerChart = new Chart(multiKerContext, {
     type: "line",
     data: {
       labels: dataLabels,
