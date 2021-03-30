@@ -509,6 +509,8 @@ function addCSVTable(data, uncertainty) {
   var id = numDataSets;
   addingDataset(id, data, uncertainty);
   addNewData();
+  var dataID = "data"+id;
+  dynamicGraph(dataID);
 }
 
 //this function adds a dataset to the 2D array of daatsets to keep
@@ -1041,7 +1043,6 @@ function graph(input) {
     populateWeightedMeanGraphInfo(allData, checkId);
   }
 }
-
 function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
