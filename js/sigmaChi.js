@@ -1387,9 +1387,10 @@ function graphMultipleKernelDensity() {
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var funct = eFunction;
     var tempKer = univariate_Kernel_Density(bandwidth, tempdata, funct);
+    var labelData = "set" + getChecked[i];
     var tempX = {
       data: tempKer,
-      label: datasetsName[i],
+      label: document.getElementById(labelData).value,
       borderColor: colours[i],
       fill: false,
     };
