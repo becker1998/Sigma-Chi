@@ -678,18 +678,22 @@ function deleteDataset(input) {
       datasetsIdNum.push(j + 1);
     }
   }
+
   if (datasetsIdNum.length == 2) {
     var check = document.getElementById("checkdata" + idNum);
-    console.log("hello");
+    console.log("==2");
     graph(check);
   }
   datasetDiv.remove();
+
   updateEvaluationSettings(false);
 
   //make data = null in datasets array
   datasets[idNum - 1] = undefined;
   datasetsUncer[idNum - 1] = undefined;
   rejectedData[idNum - 1] = undefined;
+
+  console.log("hello");
 }
 
 //highlights dataset thats currently selected
@@ -1282,6 +1286,7 @@ function setAll(a, v) {
     a[i] = v;
   }
 }
+
 function getGraphableData(checked) {
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
