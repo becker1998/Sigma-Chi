@@ -672,13 +672,28 @@ function deleteDataset(input) {
   var datasetDiv = document.getElementById("data" + idNum);
   var checkbox = document.getElementById("checkdata" + idNum);
   checkbox.checked = false;
-  updateEvaluationSettings(false);
+  var datasetsIdNum = new Array();
+  for (var j = 0; j < datasets.length; j++) {
+    if (datasets[j] !== undefined) {
+      datasetsIdNum.push(j + 1);
+    }
+  }
+
+  if (datasetsIdNum.length == 2) {
+    var check = document.getElementById("checkdata" + idNum);
+    console.log("==2");
+    graph(check);
+  }
   datasetDiv.remove();
+
+  updateEvaluationSettings(false);
 
   //make data = null in datasets array
   datasets[idNum - 1] = undefined;
   datasetsUncer[idNum - 1] = undefined;
   rejectedData[idNum - 1] = undefined;
+
+  console.log("hello");
 }
 
 //highlights dataset thats currently selected
@@ -1127,13 +1142,12 @@ function getCheckedDatasets() {
   var navData = document.getElementById("datasets");
   var numData = navData.querySelectorAll("input[type=checkbox]").length;
   for (var j = 0; j < datasets.length; j++) {
-    if (datasets[j] !== undefined ){
-      datasetsIdNum.push(j+1);
+    if (datasets[j] !== undefined) {
+      datasetsIdNum.push(j + 1);
     }
   }
   for (var i = 0; i < datasetsIdNum.length; i++) {
     var iD = "checkdata" + datasetsIdNum[i];
-    console.log(iD)
     if (document.getElementById(iD).checked == true) {
       checkedArray.push(datasetsIdNum[i]);
     }
@@ -1148,14 +1162,14 @@ function getCheckedDatasetsName() {
   var navData = document.getElementById("datasets");
   var numData = navData.querySelectorAll("input[type=checkbox]").length + 1;
   for (var j = 0; j < datasets.length; j++) {
-    if (datasets[j] !== undefined ){
-      datasetsIdNum.push(j+1);
+    if (datasets[j] !== undefined) {
+      datasetsIdNum.push(j + 1);
     }
   }
   for (var i = 0; i < datasetsIdNum.length; i++) {
     var iD = "checkdata" + datasetsIdNum[i];
     if (document.getElementById(iD).checked == true) {
-      var dataID = "Data Set " + (i+1);
+      var dataID = "Data Set " + (i + 1);
       checkedArray.push(dataID);
     }
   }
@@ -1166,16 +1180,11 @@ function getCheckedDatasetsName() {
 //this is required to ensure all the data is displayed on the graphs
 //when the user selects multiple datasets to plot
 function getMaxDatasetLength(checked) {
-  console.log("Checked");
-  console.log(checked);
   var maxCheck = checked[0];
   var first = 0;
   for (var i = 1; i < checked.length; i++) {
-    console.log("Datatsets");
-    console.log(datasets);
-    console.log(datasets[checked[i-1]]);
-    if (datasets[checked[i-1]].length > datasets[first]) {
-      maxCheck = checked[i-1];
+    if (datasets[checked[i - 1]].length > datasets[first]) {
+      maxCheck = checked[i - 1];
     }
   }
   return maxCheck;
@@ -1183,25 +1192,15 @@ function getMaxDatasetLength(checked) {
 
 function graphMultipleReducedChiSquared() {
   var getChecked = getCheckedDatasets();
-  console.log("get CHecked");
-  console.log(getChecked);
   var maxDataset = getMaxDatasetLength(getChecked);
-  console.log("Max dataset");
-  console.log(maxDataset);
   var dataLabels = getLabels(datasets[maxDataset]);
   var datasetsName = getCheckedDatasetsName();
-  console.log("Squared Labels");
-  console.log(dataLabels);
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
-    console.log("Graphable Data ");
-    console.log(getChecked[i]);
     var allData = getGraphableData(Number(getChecked[i]));
     var allUnc = getGraphableUncertainty(Number(getChecked[i]));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var tempChi = reduced_Chai_Squared(tempdata, 0);
-    console.log("Temp Chi");
-    console.log(tempChi);
     var labelData = "set" + getChecked[i];
     var tempX = {
       data: tempChi,
@@ -1230,8 +1229,6 @@ function grapghReducedChiSquared(checked) {
   var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
   var dataLabels = getLabels(tempDataset);
   var rChiSquared = reduced_Chai_Squared(allData, 0);
-  console.log("Reduced Chai Squared");
-  console.log(rChiSquared);
   var sqrContext = document.getElementById("rcSqr").getContext("2d");
   if (window.squareChart) {
     window.squareChart.destroy();
@@ -1261,8 +1258,6 @@ function graphKernelDensity(checked) {
   var kernelData = new Array();
   var funct = eFunction;
   kernelData = univariate_Kernel_Density(bandwidth, allData, funct);
-  console.log("Kernel Density");
-  console.log(kernelData);
   var kernelContext = document.getElementById("kerDest").getContext("2d");
   if (window.kernelChart) {
     window.kernelChart.destroy();
@@ -1291,6 +1286,7 @@ function setAll(a, v) {
     a[i] = v;
   }
 }
+
 function getGraphableData(checked) {
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
