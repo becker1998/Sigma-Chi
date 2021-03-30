@@ -569,7 +569,7 @@ function addNewData() {
   newCheckBox.className = "col-sm-2";
   newCheckBox.setAttribute("type", "checkbox");
   newCheckBox.setAttribute("onchange", "graph(this)");
-  newCheckBox.setAttribute("checked", "true");
+  //newCheckBox.setAttribute("checked", "true");
   var checkboxID = "checkdata" + numberOfDatasetsCreated;
   newCheckBox.setAttribute("id", checkboxID);
 
@@ -664,6 +664,9 @@ function datasetDelete(idNum) {
 //highlights dataset thats currently selected
 function highlightSelection(input) {
   if (highlight == null) {
+    var data1 = document.getElementById("data1");
+    data1.classList.remove("highlighted-dataset");
+    data1.classList.add("datasetBox");
     highlight = input;
     highlight.classList.remove("datasetBox");
     highlight.classList.add("highlighted-dataset");
