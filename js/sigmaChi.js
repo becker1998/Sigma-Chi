@@ -1167,12 +1167,16 @@ function graphMultipleReducedChiSquared() {
   var maxDataset = getMaxDatasetLength(getChecked);
   var dataLabels = getLabels(datasets[maxDataset]);
   var datasetsName = getCheckedDatasetsName();
+  console.log("Squared Labels");
+  console.log(dataLabels);
   var graphData = new Array();
   for (var i = 0; i < getChecked.length; i++) {
     var allData = getGraphableData(Number(datasetsName[i].slice(-1)));
     var allUnc = getGraphableUncertainty(Number(datasetsName[i].slice(-1)));
     var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
     var tempChi = reduced_Chai_Squared(tempdata, 0);
+    console.log("Temp Chi");
+    console.log(tempChi);
     var tempX = {
       data: tempChi,
       label: datasetsName[i],
@@ -1366,10 +1370,10 @@ function graphMultipleKernelDensity() {
     graphData.push(tempX);
   }
   var multiKerContext = document.getElementById("kerDest").getContext("2d");
-  if (window.squareChart) {
-    window.squareChart.destroy();
+  if (window.multiKerChart) {
+    window.multiKerChart.destroy();
   }
-  window.squareChart = new Chart(multiKerContext, {
+  window.multiKerChart = new Chart(multiKerContext, {
     type: "line",
     data: {
       labels: dataLabels,
