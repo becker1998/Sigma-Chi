@@ -323,6 +323,12 @@ select:hover {
   border-color: #e9ac4a !important;
 }
 
+.eval-refresh {
+  background-color: #3d405b00;
+  border: none;
+  color: #3d405b;
+}
+
 .fontFix {
   font-family: "Roboto", sans-serif;
   font-weight: 700 !important;

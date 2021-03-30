@@ -55,7 +55,12 @@
               <div class="dropdown-menu mt-2 bg-colour-evaluation-settings" aria-labelledby="eval-settings">
                 <form class="form-group container-fluid pl-0 w-100">
                   <div class="form-group row ml-3 mt-1">
-                    <div class="col-sm-12 header-font-evaluation-settings mb-1 cursor-fix"><b>Input Data</b></div>
+                    <div class="col-sm-8 header-font-evaluation-settings mb-1 cursor-fix"><b>Input Data</b></div>
+                    <div class="col-sm-4 header-font-evaluation-settings mb-1 cursor-fix">
+                      <button class="eval-refresh material-icons w-100" onclick="rejectionSpecific()">
+                        refresh
+                      </button>
+                    </div>
                     <div class="col-sm-4 cursor-fix">Uncertainty</div>
                     <div class="col-sm-7">
                       <select class="form-select col-sm-8 select-width" id="uncertaintySelection"
