@@ -678,7 +678,7 @@ function deleteDataset(input) {
   for (var j = 0; j < datasets.length; j++) {
     if (datasets[j] !== undefined) {
       datasetsIdNum.push(j + 1);
-      if (firstTime && ((j + 1) != idNum)){
+      if (firstTime && j + 1 != idNum) {
         firstTime = false;
         tracker = j + 1;
       }
@@ -700,6 +700,25 @@ function deleteDataset(input) {
   rejectedData[idNum - 1] = undefined;
 
   console.log("hello");
+}
+
+function chooseGraph(input) {
+  var datasetsIdNum = new Array();
+  console.log("before for");
+  for (var j = 0; j < datasets.length; j++) {
+    console.log("in for");
+    if (datasets[j] !== undefined) {
+      console.log("in if");
+      datasetsIdNum.push(j + 1);
+    }
+  }
+  if (datasetsIdNum.length > 1) {
+    console.log("dynamic");
+    dynamicGraph(input.id);
+  } else {
+    console.log("graph");
+    graph(input);
+  }
 }
 
 //highlights dataset thats currently selected
@@ -999,7 +1018,7 @@ function kernelSkewness(allData, isMode, isPopulation) {
 //will return an array from 1 to the length of the data+1 in a step fashion of 1
 function getLabels(data) {
   var labels = new Array();
-  if (data && data.length){
+  if (data && data.length) {
     for (i = 1; i < data.length + 1; i++) {
       labels.push(i);
     }
@@ -1141,12 +1160,11 @@ function getCheckedID() {
   var check = 0;
   for (var i = 1; i < numData; i++) {
     var iD = "checkdata" + i;
-    if (document.getElementById(iD)){
+    if (document.getElementById(iD)) {
       if (document.getElementById(iD).checked == true) {
         check = i;
       }
     }
-
   }
   return check;
 }
@@ -1164,12 +1182,11 @@ function getCheckedDatasets() {
   }
   for (var i = 0; i < datasetsIdNum.length; i++) {
     var iD = "checkdata" + datasetsIdNum[i];
-    if (document.getElementById(iD)){
+    if (document.getElementById(iD)) {
       if (document.getElementById(iD).checked == true) {
         checkedArray.push(datasetsIdNum[i]);
       }
     }
-
   }
   return checkedArray;
 }
@@ -1187,7 +1204,7 @@ function getCheckedDatasetsName() {
   }
   for (var i = 0; i < datasetsIdNum.length; i++) {
     var iD = "checkdata" + datasetsIdNum[i];
-    if (document.getElementById(iD)){
+    if (document.getElementById(iD)) {
       if (document.getElementById(iD).checked == true) {
         var dataID = "Data Set " + (i + 1);
         checkedArray.push(dataID);
@@ -1204,15 +1221,14 @@ function getMaxDatasetLength(checked) {
   var maxCheck = checked[0];
   var first = 0;
   console.log("getMaxData checked = " + checked);
-  if (checked && checked.length){
+  if (checked && checked.length) {
     for (var i = 1; i < checked.length; i++) {
       console.log("i = " + i);
-      if (datasets[checked[i - 1]] && datasets[checked[i - 1]].length){
+      if (datasets[checked[i - 1]] && datasets[checked[i - 1]].length) {
         if (datasets[checked[i - 1]].length > datasets[first]) {
           maxCheck = checked[i - 1];
         }
       }
-
     }
   }
 
@@ -1326,14 +1342,18 @@ function getGraphableData(checked) {
   var tempReject = rejectedData[checked - 1];
   var graphableData = new Array();
   if (tempReject == undefined) {
-    for (j = 1; j < tempDataset.length; j++) {
-      graphableData[j - 1] = tempDataset[j];
+    if (tempDataset && tempDataset.length) {
+      for (j = 1; j < tempDataset.length; j++) {
+        graphableData[j - 1] = tempDataset[j];
+      }
     }
     return graphableData;
   } else {
-    for (i = 1; i < tempDataset.length; i++) {
-      if (tempReject.includes(i) == false) {
-        graphableData.push(tempDataset[i]);
+    if (tempDataset && tempDataset.length) {
+      for (i = 1; i < tempDataset.length; i++) {
+        if (tempReject.includes(i) == false) {
+          graphableData.push(tempDataset[i]);
+        }
       }
     }
     return graphableData;
