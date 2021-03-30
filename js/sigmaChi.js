@@ -120,12 +120,18 @@ function appendToReject() {
   }
 }
 
+function rejectionSpecific(){
+  updateEvaluationSettingsRejection();
+  updateAllEvalSettings();  
+}
+
+//all except rejection
 function updateAllEvalSettings(){
   updateEvaluationSettingsUncertainty();
-  updateEvaluationSettingsRejection();
   updateEvaluationSettingsData();
   updateEvaluationSettingsWtdAvg();
   updateEvaluationSettingsFunction();
+  updateEvaluationSettingsBandwidth();
 }
 
 function updateEvaluationSettings(firstGo) {
@@ -348,6 +354,7 @@ function getRejectedData(idNum) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -374,6 +381,7 @@ function onDataChange(input) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
@@ -398,6 +406,7 @@ function onColChange(input) {
   var dataID = "checkdata" + tracker;
   var checkBox = document.getElementById(dataID);
   if (checkBox.checked == true) {
+    updateAllEvalSettings();
     dynamicGraph(dataID);
   }
 }
