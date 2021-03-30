@@ -1293,6 +1293,8 @@ function setAll(a, v) {
 }
 
 function getGraphableData(checked) {
+  console.log(checked - 1);
+  console.log(datasets[checked - 1]);
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
   var graphableData = new Array();
