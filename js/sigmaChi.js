@@ -1068,7 +1068,10 @@ function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
   document.getElementById("textWeightedMean").innerHTML =
     "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
-  document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
+  if (!isNaN(kernelSkewness(allData, false, false).toFixed(2))){
+    document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
+  }
+
   if (rejectedData[id - 1] && rejectedData[id - 1].length) {
     for (i = 0; i < rejectedData[id - 1].length; i++) {
       if (rejectedData[id - 1][i] != -1) {
