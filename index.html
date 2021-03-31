@@ -132,7 +132,7 @@
                     getData() which updates the below table accordingly -->
           <div class="text-center datasetBox d-flex align-items-center highlighted-dataset" id="data1" onclick="getData(1); highlightSelection(this);">
             <input type="text" class="col-sm-8 dataset-names" onfocusout="toggleEdit(this)" id="set1" value="Data Set 1" disabled="true">
-            <input class="col-sm-2" type="checkbox" id="checkdata1" onchange="graph(this)" >
+            <input class="col-sm-2" type="checkbox" id="checkdata1" onclick="forceUpdate(this.id)" >
             <span class="dropdown d-flex align-items-center">
               <button class="col-sm-2 edit-label material-icons w-100" data-toggle="dropdown" aria-expanded="false">
                 edit
@@ -204,9 +204,9 @@
               Weighted Mean
             </h3>
             <canvas class="graph-size" id="wMean"></canvas>
-            <p id = "textWeightedMean" class = "text-center"></p>
-            <p id = "textrejected" class = "text-center"></p>
-            <p id = "textdataset" class = "text-center"></p>
+            <p id = "textWeightedMean" class = "text-center graph-info-text"></p>
+            <p id = "textrejected" class = "text-center graph-info-text"></p>
+            <p id = "textdataset" class = "text-center graph-info-text"></p>
           </div>
           <div class="col-sm-4 nopadding">
             <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
@@ -219,7 +219,7 @@
               Kernel Density Estimation
             </h3>
             <canvas class="graph-size" id="kerDest"></canvas>
-            <p id = "textskewness" class = "text-center"></p>
+            <p id = "textskewness" class = "text-center graph-info-text"></p>
             <div>
             </div>
           </div>
