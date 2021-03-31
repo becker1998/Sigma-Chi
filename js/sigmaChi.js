@@ -997,7 +997,6 @@ function isMultipleCheck() {
 }
 
 function dynamicGraph(iD) {
-  console.log("I'MMMMMMMMMMMMMMMMMMMMM HEEEEEEERRRREEEEEEEEEEEE");
   var check = document.getElementById(iD);
   if (check.checked == true) {
     if (isMultipleCheck() == false) {
@@ -1034,11 +1033,7 @@ function dynamicGraph(iD) {
 //function will take in the corresponding checkBox
 //and call the appropriate functions to graph the data
 function graph(input) {
-  console.log("INPUT ");
-  console.log(input);
-  var iD = input.id;
-  console.log("INPUT ID ");
-  console.log(iD);
+  var iD = input.id;;
   var check = document.getElementById(iD);
   if (check.checked == true) {
     if (isMultipleCheck() == false) {
