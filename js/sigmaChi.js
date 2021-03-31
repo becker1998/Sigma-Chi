@@ -1118,6 +1118,18 @@ function dynamicGraph(iD) {
         eUncertainty
       );
       populateWeightedMeanGraphInfo(allData, checkId);
+    }else {
+      var checkId = getCheckedID();
+      graphWeightedMean(checkId);
+      graphMultipleKernelDensity(checkId);
+      graphMultipleReducedChiSquared(checkId);
+
+      var allData = Data_Points_With_Uncertainty(
+        getGraphableData(checkId),
+        getGraphableUncertainty(checkId),
+        eUncertainty
+      );
+      populateWeightedMeanGraphInfo(allData, checkId);
     }
   }
 }
