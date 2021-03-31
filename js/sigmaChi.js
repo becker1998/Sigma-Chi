@@ -121,6 +121,7 @@ function appendToReject() {
 function rejectionSpecific() {
   updateEvaluationSettingsRejection();
   updateAllEvalSettings();
+  return false;
 }
 
 //all except rejection
