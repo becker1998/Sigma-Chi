@@ -172,6 +172,18 @@ Distributed under the MIT License. See `LICENSE` for more information.
 * Jared Violo - jared.violo@queensu.ca
 * Tyler Beckstead - 15tctb@queensu.ca
 
+Work breakdown:
+
+* Graphs - Christopher, Tyler
+* Front-End - Ryan
+* Back-End - Jared, Connor
+* Documentation - Christopher
+* Presentation - Christopher
+* Communication - Tyler
+* Algorithms - Connor, Tyler
+* Version Control - Jared
+
+
 Project Link: [Sigma-Chi](https://github.com/becker1998/Sigma-Chi)
 
 <!-- ACKNOWLEDGEMENTS -->
