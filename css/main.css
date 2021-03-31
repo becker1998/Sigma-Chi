@@ -432,6 +432,12 @@ select:hover {
   color: #977c66 !important;
 }
 
+.dropdown-edit-options:hover {
+  padding: 0 !important;
+  color: #977c66 !important;
+  background-color: #f3e8c8 !important;
+}
+
 .dataset-names {
   background-color: #3d405b00 !important;
   font-family: "Roboto", sans-serif;
