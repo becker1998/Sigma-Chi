@@ -354,14 +354,22 @@ function getRejectedData(idNum) {
 function onDataChange(input) {
   var newValue = Number(input.value);
   var inputId = input.id;
-  var rowNum = Number(inputId.slice(-1));
+  var rowNum = Number(inputId.match(/\d+$/));
+  //var rowNum = Number(inputId.slice(-1));
   var arr = datasets[tracker - 1];
+  console.log("BEFORE CHANGE DATA");
+  console.log(arr);
+  console.log("ROW NUM");
+  console.log(rowNum);
 
   //determines is the data is already loaded into the gloabl array
   if (Array.isArray(datasets[tracker - 1])) {
     datasets[tracker - 1][0] = rowNum;
     datasets[tracker - 1][rowNum] = newValue;
+    console.log("AFTER CHANGE");
+    console.log(datasets);
   } else {
+    console.log("I'MMMM NOTTTTT an arrayyyyyyy");
     var tempArray = new Array();
     tempArray[0] = rowNum;
     tempArray[rowNum] = newValue;
@@ -380,7 +388,7 @@ function onDataChange(input) {
 function onColChange(input) {
   var newValue = Number(input.value);
   var inputId = input.id;
-  var rowNum = Number(inputId.slice(-1));
+  var rowNum = Number(inputId.match(/\d+$/));
   var arr = datasetsUncer[tracker - 1];
 
   if (Array.isArray(arr)) {
@@ -484,6 +492,8 @@ function checkRejectedData(id) {
 //function will instantiate the table
 function addTableBody(input) {
   var data = datasets[input - 1];
+  console.log("TABLE BODY DATATSETS");
+  console.log(data);
   var uncert = datasetsUncer[input - 1];
   var maxLength = Math.max(data.length, uncert.length);
   var getBody = document.getElementById("tblBody");
