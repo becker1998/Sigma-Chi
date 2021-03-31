@@ -222,7 +222,7 @@ function downloadData(index) {
   });
 
   var encode = encodeURI(csvContent);
-  var setNum = index + 1;
+  var setNum = index;
   var dataId = "set" + setNum;
   var getFileName = document.getElementById(dataId).value;
   var fileName = getFileName + ".csv";
@@ -882,10 +882,12 @@ function reduced_Chi_Squared(data, rejected) {
 }
 
 function gaussian(t) {
+  console.log("using gaussian");
   return (1.0 / Math.sqrt(2 * Math.PI)) * Math.pow(Math.E, -Math.pow(t, 2.0) / 2.0);
 }
 
 function epanechnikov(t) {
+  console.log("using epanechnikov");
   return Math.max(0.0, ((3.0 / 4.0) * (1.0 - (1.0 / 5.0) * Math.pow(t, 2.0))) / Math.sqrt(5));
 }
 
@@ -1357,7 +1359,12 @@ function graphKernelDensity(checked) {
   var bandwidth = eBandwidth;
   var kernelData = new Array();
   var funct = eFunction;
-  kernelData = univariate_Kernel_Density(bandwidth, allData, funct);
+  console.log("efunction = " + funct);
+  if (funct == 1){
+      kernelData = univariate_Kernel_Density(bandwidth, allData, true);
+  }else{
+    kernelData = univariate_Kernel_Density(bandwidth, allData, false);
+  }
   var kernelContext = document.getElementById("kerDest").getContext("2d");
   if (window.kernelChart) {
     window.kernelChart.destroy();
