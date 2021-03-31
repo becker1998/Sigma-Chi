@@ -249,12 +249,10 @@ function downloadAllData() {
 }
 
 function downloadCheckedData() {
-  if (checkedData && checkedData.length) {
-    var checkedData = getCheckedDatasets();
-    for (var i = 0; i < checkedData.length; i++) {
-      if (datasets[i] !== undefined || datasets[i] !== null) {
-        downloadData(checkedData[i]);
-      }
+  var checkedData = getCheckedDatasets();
+  for (var i = 0; i < checkedData.length; i++) {
+    if (datasets[i] !== undefined || datasets[i] !== null) {
+      downloadData(checkedData[i]);
     }
   }
 }
