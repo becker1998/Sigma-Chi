@@ -236,7 +236,6 @@ function downloadData(index) {
 
 function downloadAllData() {
   var checkedData = getCheckedDatasets();
-  if (checkedData && checkedData.length) {
     if (checkedData.length == 0) {
       var numData = datasets.length;
       for (var i = 0; i < numData; i++) {
@@ -247,7 +246,6 @@ function downloadAllData() {
     } else {
       downloadCheckedData();
     }
-  }
 }
 
 function downloadCheckedData() {
