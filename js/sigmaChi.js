@@ -156,6 +156,7 @@ function updateEvaluationSettings(firstGo) {
 function forceUpdate(id) {
   console.log("forceUpdate");
   var dataID = "checkdata" + tracker;
+  dynamicGraph(id);
   updateEvaluationSettings(false);
 }
 
