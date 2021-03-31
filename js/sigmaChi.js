@@ -358,7 +358,7 @@ function onDataChange(input) {
   var arr = datasets[tracker - 1];
 
   //determines is the data is already loaded into the gloabl array
-  if (Array.isArray(arr)) {
+  if (Array.isArray(datasets[tracker - 1])) {
     datasets[tracker - 1][0] = rowNum;
     datasets[tracker - 1][rowNum] = newValue;
   } else {
@@ -997,6 +997,7 @@ function isMultipleCheck() {
 }
 
 function dynamicGraph(iD) {
+  console.log("I'MMMMMMMMMMMMMMMMMMMMM HEEEEEEERRRREEEEEEEEEEEE");
   var check = document.getElementById(iD);
   if (check.checked == true) {
     if (isMultipleCheck() == false) {
@@ -1033,7 +1034,11 @@ function dynamicGraph(iD) {
 //function will take in the corresponding checkBox
 //and call the appropriate functions to graph the data
 function graph(input) {
+  console.log("INPUT ");
+  console.log(input);
   var iD = input.id;
+  console.log("INPUT ID ");
+  console.log(iD);
   var check = document.getElementById(iD);
   if (check.checked == true) {
     if (isMultipleCheck() == false) {
@@ -1048,9 +1053,20 @@ function graph(input) {
       //alert("Please only select on dataset to graph");
       graphMultipleReducedChiSquared();
       graphMultipleKernelDensity();
-      //check.checked = false;
     }
   } else if (isMultipleCheck() == false) {
+    var checkId = getCheckedID();
+    graphWeightedMean(checkId);
+    graphKernelDensity(checkId);
+    grapghReducedChiSquared(checkId);
+
+    var allData = Data_Points_With_Uncertainty(
+      getGraphableData(checkId),
+      getGraphableUncertainty(checkId),
+      eUncertainty
+    );
+    populateWeightedMeanGraphInfo(allData, checkId);
+  }else{
     var checkId = getCheckedID();
     graphWeightedMean(checkId);
     graphKernelDensity(checkId);
@@ -1111,10 +1127,12 @@ function getCheckedID() {
   var navData = document.getElementById("datasets");
   var numData = navData.querySelectorAll("input[type=checkbox]").length;
   var check = 0;
-  for (var i = 1; i < numData; i++) {
-    var iD = "checkdata" + i;
-    if (document.getElementById(iD).checked == true) {
-      check = i;
+  for (var i = 0; i < datasets.length; i++) {
+    if (datasets[i] !== undefined){
+      var iD = "checkdata" + (i+1);
+      if (document.getElementById(iD).checked == true) {
+        check = i+1;
+      }
     }
   }
   return check;
@@ -1298,6 +1316,10 @@ function setAll(a, v) {
   }
 }
 function getGraphableData(checked) {
+  console.log("check dataset");
+  console.log(checked);
+  console.log("check datasets actual");
+  console.log(datasets);
   var tempDataset = datasets[checked - 1];
   var tempReject = rejectedData[checked - 1];
   var graphableData = new Array();

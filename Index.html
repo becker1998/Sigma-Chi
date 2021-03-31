@@ -57,7 +57,7 @@
                   <div class="form-group row ml-3 mt-1">
                     <div class="col-sm-8 header-font-evaluation-settings mb-1 cursor-fix"><b>Input Data</b></div>
                     <div class="col-sm-4 header-font-evaluation-settings mb-1 cursor-fix">
-                      <button class="eval-refresh material-icons w-100" onclick="return rejectionSpecific()">
+                      <button class="eval-refresh material-icons w-100" onclick="rejectionSpecific()">
                         refresh
                       </button>
                     </div>
@@ -109,7 +109,7 @@
                     </div>
                     <div class="col-sm-4 mt-1 cursor-fix">Bandwidth</div>
                     <div class="col-sm-7 mt-1">
-                      <input type="number" class="form-select col-sm-8 select-width bandwidth-fix align-items-center" min="0" max="100000" value="0.833333333334" step = "0.1" id="bandwidthRange" onchange="updateEvaluationSettingsBandwidth();">
+                      <input type="number" class="form-select col-sm-8 select-width bandwidth-fix align-items-center" min="0" max="10" value="0.833333333334" step = "0.1" id="bandwidthRange" onchange="updateEvaluationSettingsBandwidth();">
                     </div>
                   </div>
               </div>
@@ -132,7 +132,7 @@
                     getData() which updates the below table accordingly -->
           <div class="text-center datasetBox d-flex align-items-center highlighted-dataset" id="data1" onclick="getData(1); highlightSelection(this);">
             <input type="text" class="col-sm-8 dataset-names" onfocusout="toggleEdit(this)" id="set1" value="Data Set 1" disabled="true">
-            <input class="col-sm-2" type="checkbox" id="checkdata1" onclick="dynamicGraph(this.id)" >
+            <input class="col-sm-2" type="checkbox" id="checkdata1" onchange="graph(this)" >
             <span class="dropdown d-flex align-items-center">
               <button class="col-sm-2 edit-label material-icons w-100" data-toggle="dropdown" aria-expanded="false">
                 edit
@@ -204,9 +204,9 @@
               Weighted Mean
             </h3>
             <canvas class="graph-size" id="wMean"></canvas>
-            <p id = "textWeightedMean" class = "text-center graph-info-text mt-1"></p>
-            <p id = "textrejected" class = "text-center graph-info-text"></p>
-            <p id = "textdataset" class = "text-center graph-info-text"></p>
+            <p id = "textWeightedMean" class = "text-center"></p>
+            <p id = "textrejected" class = "text-center"></p>
+            <p id = "textdataset" class = "text-center"></p>
           </div>
           <div class="col-sm-4 nopadding">
             <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
@@ -219,7 +219,7 @@
               Kernel Density Estimation
             </h3>
             <canvas class="graph-size" id="kerDest"></canvas>
-            <p id = "textskewness" class = "text-center graph-info-text mt-1"></p>
+            <p id = "textskewness" class = "text-center"></p>
             <div>
             </div>
           </div>
