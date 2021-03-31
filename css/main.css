@@ -222,7 +222,7 @@ label {
 }
 
 .graph-info-text {
-  color: rgb(139, 139, 139);
+  color: rgb(175, 175, 175);
   font-family: "Roboto", sans-serif;
   font-weight: 400 !important;
   font-size: 18px;
@@ -430,6 +430,12 @@ select:hover {
 .dropdown-edit-options {
   padding: 0 !important;
   color: #977c66 !important;
+}
+
+.dropdown-edit-options:hover {
+  padding: 0 !important;
+  color: #977c66 !important;
+  background-color: #f3e8c8 !important;
 }
 
 .dataset-names {
