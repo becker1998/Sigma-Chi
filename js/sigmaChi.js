@@ -154,7 +154,8 @@ function updateEvaluationSettings(firstGo) {
 }
 
 function forceUpdate(id) {
-  dynamicGraph(id);
+  var dataID = "checkdata" + tracker;
+  dynamicGraph(dataID);
   updateEvaluationSettings(false);
 }
 
