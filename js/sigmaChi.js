@@ -898,7 +898,7 @@ function sumKernel(bandwidth, allData, formulaGaussian, i) {
   if (allData && allData.length) {
     for (w = 0; w < allData.length; w++) {
       t = (i - allData[w][0]) / bandwidth;
-      if (formulaGaussian) {
+      if (formulaGaussian == 1) {
         sumKernel += gaussian(t);
       } else {
         sumKernel += epanechnikov(t);
