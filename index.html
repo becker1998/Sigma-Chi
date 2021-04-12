@@ -42,7 +42,7 @@
               <button id = "btn1" class=" btn1 btn-lg fontFix" onclick="expandTop()">Data</button>
             </div>
             <div>
-              <button id = "btn2" class=" btn1 btn-lg fontFix" onclick="center()">Split</button>
+              <button id = "btn2" class=" btn1 btn-lg fontFix" onclick="center()">Parallel</button>
             </div>
             <div>
               <button id = "btn3" class=" btn1 btn-lg fontFix" onclick="expandBottom()">Graphs</button>
@@ -121,59 +121,59 @@
   </div>
   <div class="header-underline w-100"></div>
   <div class="container-fluid">
-  <div id = "collapsetop" class="row d-flex collapsetop">
-    <div class="col-sm-2  d-flex flex-column
-            side-panel nopadding sidecol ">
-      <nav class="navbar d-flex align-items-start flex-column">
-        <div id="datasets" class="col align-self-center navbar-nav card-body table-scroll-y scrollbar
-                  nomargin">
-          <!-- DataSets are written into here from addNewData() -->
-          <!-- Datasets are stored into a div to and on onclick will invoke
-                    getData() which updates the below table accordingly -->
-          <div class="text-center datasetBox d-flex align-items-center highlighted-dataset" id="data1" onclick="getData(1); highlightSelection(this);">
-            <input type="text" class="col-sm-8 dataset-names" onfocusout="toggleEdit(this)" id="set1" value="Data Set 1" disabled="true">
-            <input class="col-sm-2" type="checkbox" id="checkdata1" onclick="forceUpdate(this.id)" >
-            <span class="dropdown d-flex align-items-center">
-              <button class="col-sm-2 edit-label material-icons w-100" data-toggle="dropdown" aria-expanded="false">
-                edit
-              </button>
-              <ul class="dropdown-menu edit-dropdown dropdown-menu-right" aria-labelledby="edit1">
-                <li><a class="dropdown-item dropdown-edit-options cursor-fix" id="edit1" onclick="editLabel(this)"><b>Rename</b></a></li>
-                <li><a class="dropdown-item dropdown-edit-options cursor-fix" id="del1" onclick="deleteDataset(this)"><b>Delete</b></a></li>
-              </ul>
-            </span>
+    <div id = "collapsetop" class="row d-flex collapsetop">
+      <div class="col-sm-2  d-flex flex-column
+              side-panel nopadding sidecol ">
+        <nav class="navbar d-flex align-items-start flex-column">
+          <div id="datasets" class="col align-self-center navbar-nav card-body table-scroll-y scrollbar
+                    nomargin">
+            <!-- DataSets are written into here from addNewData() -->
+            <!-- Datasets are stored into a div to and on onclick will invoke
+                      getData() which updates the below table accordingly -->
+            <div class="text-center datasetBox d-flex align-items-center highlighted-dataset" id="data1" onclick="getData(1); highlightSelection(this);">
+              <input type="text" class="col-sm-8 dataset-names" onfocusout="toggleEdit(this)" id="set1" value="Data Set 1" disabled="true">
+              <input class="col-sm-2" type="checkbox" id="checkdata1" onclick="forceUpdate(this.id)" >
+              <span class="dropdown d-flex align-items-center">
+                <button class="col-sm-2 edit-label material-icons w-100" data-toggle="dropdown" aria-expanded="false">
+                  edit
+                </button>
+                <ul class="dropdown-menu edit-dropdown dropdown-menu-right" aria-labelledby="edit1">
+                  <li><a class="dropdown-item dropdown-edit-options cursor-fix" id="edit1" onclick="editLabel(this)"><b>Rename</b></a></li>
+                  <li><a class="dropdown-item dropdown-edit-options cursor-fix" id="del1" onclick="deleteDataset(this)"><b>Delete</b></a></li>
+                </ul>
+              </span>
+            </div>
           </div>
-        </div>
-      </nav>
-      <Button onclick="addNewData()" class="add fontFix align-self-center">+</Button>
-    </div>
-    <div id = "tophalf" class="col-sm-8 main-panel nopadding maincol card-body nomargin">
-      <div id="table" class="table-editable table-scroll-y mainScrollbar nomargin">
-        <table id="tbl" class="table table-responsive-md table-striped text-center">
-          <thead>
-            <tr>
-              <th class="text-center table-headers">#</th>
-              <th class="text-center table-headers pr-0 pl-0">Reject</th>
-              <th class="text-center table-headers">Data</th>
-              <th class="text-center table-headers">Uncertainty</th>
-            </tr>
-          <tbody id="tblBody">
-          </tbody>
-          </thead>
-        </table>
+        </nav>
+        <Button onclick="addNewData()" class="add fontFix align-self-center">+</Button>
       </div>
-
-    </div>
-    <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
-          <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
-            <Button onclick="addRow()" class="add-row-btn fontFix align-self-center">+</Button>
-          </div>
-        <div class="col-sm-10 d-flex side-panel nopadding justify-content-center align-items-center">
-            <img id = "logo" src="images/logo.png" class="brand overflow-hidden">
+      <div id = "tophalf" class="col-sm-8 main-panel nopadding maincol card-body nomargin">
+        <div id="table" class="table-editable table-scroll-y mainScrollbar nomargin">
+          <table id="tbl" class="table table-responsive-md table-striped text-center">
+            <thead>
+              <tr>
+                <th class="text-center table-headers">#</th>
+                <th class="text-center table-headers pr-0 pl-0">Reject</th>
+                <th class="text-center table-headers">Data</th>
+                <th class="text-center table-headers">Uncertainty</th>
+              </tr>
+            <tbody id="tblBody">
+            </tbody>
+            </thead>
+          </table>
         </div>
-    </div>
-  </div><!-- end second row-->
-</div>
+
+      </div>
+      <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
+            <div class="col-sm-2 d-flex side-panel nopadding justify-content-center align-items-center">
+              <Button onclick="addRow()" class="add-row-btn fontFix align-self-center">+</Button>
+            </div>
+          <div class="col-sm-10 d-flex side-panel nopadding justify-content-center align-items-center">
+              <img id = "logo" src="images/logo.png" class="brand overflow-hidden">
+          </div>
+      </div>
+    </div><!-- end second row-->
+  </div>
 
   </div><!-- end TOP SCREEN -->
 
