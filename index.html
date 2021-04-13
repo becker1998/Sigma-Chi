@@ -199,30 +199,30 @@
       <!-- MAIN GRAPH AREA -->
       <div id = "collapsebottom2" class="col-sm-10 bottom-panel nopadding maincol card-body nomargin">
         <div id="graphs" class="bottom-graphs mainScrollbar nomargin d-flex flex-row">
-          <div class="col-sm-4 nopadding">
-            <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
-              Weighted Mean
-            </h3>
-            <canvas class="graph-size" id="wMean"></canvas>
-            <p id = "textWeightedMean" class = "text-center graph-info-text mt-1"></p>
-            <p id = "textrejected" class = "text-center graph-info-text"></p>
-            <p id = "textdataset" class = "text-center graph-info-text"></p>
-          </div>
-          <div class="col-sm-4 nopadding">
-            <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
-              Reduced Chi Squared
-            </h3>
-            <canvas class="graph-size" id="rcSqr"></canvas>
-          </div>
-          <div class="col-sm-4 nopadding">
-            <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
-              Kernel Density Estimation
-            </h3>
-            <canvas class="graph-size" id="kerDest"></canvas>
-            <p id = "textskewness" class = "text-center graph-info-text mt-1"></p>
-            <div>
+          <div class="row-fluid">
+            <div class="col-sm-12 nopadding">
+              <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
+                Weighted Mean
+              </h3>
+              <canvas class="graph-size" id="wMean"></canvas>
+              <p id = "textWeightedMean" class = "text-center"></p>
+              <p id = "textrejected" class = "text-center"></p>
+              <p id = "textdataset" class = "text-center"></p>
+              <p id = "textReducedChi" class = "text-center"></p>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <h3 class="card-header graph-header text-center font-weight-bold text-uppercase pr-2 pl-2">
+                  Kernel Density Estimation
+                </h3>
+                <canvas class="graph-size" id="kerDest"></canvas>
+                <p id = "textskewness" class = "text-center"></p>
+                <div>
+                </div>
+              </div>
             </div>
           </div>
+
           <!-- GRAPH AREA END-->
 
 

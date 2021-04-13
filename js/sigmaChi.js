@@ -1091,7 +1091,6 @@ function dynamicGraph(iD) {
         var idNum = Number(iD.slice(-1));
         graphWeightedMean(idNum);
         graphKernelDensity(idNum);
-        grapghReducedChiSquared(idNum);
 
         var allData = Data_Points_With_Uncertainty(
           getGraphableData(idNum),
@@ -1101,7 +1100,6 @@ function dynamicGraph(iD) {
         populateWeightedMeanGraphInfo(allData, idNum);
       } else {
         //alert("Please only select on dataset to graph");
-        graphMultipleReducedChiSquared();
         graphMultipleKernelDensity();
 
         //check.checked = false;
@@ -1110,7 +1108,6 @@ function dynamicGraph(iD) {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
       graphKernelDensity(checkId);
-      grapghReducedChiSquared(checkId);
 
       var allData = Data_Points_With_Uncertainty(
         getGraphableData(checkId),
@@ -1122,7 +1119,6 @@ function dynamicGraph(iD) {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
       graphMultipleKernelDensity(checkId);
-      graphMultipleReducedChiSquared(checkId);
 
       var allData = Data_Points_With_Uncertainty(
         getGraphableData(checkId),
@@ -1146,7 +1142,6 @@ function graph(input) {
         var idNum = Number(iD.slice(-1));
         graphWeightedMean(idNum);
         graphKernelDensity(idNum);
-        grapghReducedChiSquared(idNum);
 
         var allData = Data_Points_With_Uncertainty(
           getGraphableData(idNum),
@@ -1156,14 +1151,12 @@ function graph(input) {
         populateWeightedMeanGraphInfo(allData, idNum);
       } else {
         //alert("Please only select on dataset to graph");
-        graphMultipleReducedChiSquared();
         graphMultipleKernelDensity();
       }
     } else if (isMultipleCheck() == false) {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
-      graphKernelDensity(checkId);
-      grapghReducedChiSquared(checkId);
+      graphKernelDensity(checkId);;
 
       var allData = Data_Points_With_Uncertainty(
         getGraphableData(checkId),
@@ -1175,7 +1168,6 @@ function graph(input) {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
       graphKernelDensity(checkId);
-      grapghReducedChiSquared(checkId);
 
       var allData = Data_Points_With_Uncertainty(
         getGraphableData(checkId),
@@ -1188,8 +1180,11 @@ function graph(input) {
 }
 function populateWeightedMeanGraphInfo(allData, id) {
   var count = 0;
+  var mean = weighted_Mean(allData).toFixed(2);
+  var meanArray = new Array(mean);
+
   document.getElementById("textWeightedMean").innerHTML =
-    "Weighted Mean: " + weighted_Mean(allData).toFixed(2) + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
+    "Weighted Mean: " + mean + " +/- " + weighted_Mean_Uncertainty(allData).toFixed(2);
   if (!isNaN(kernelSkewness(allData, false, false).toFixed(2))) {
     document.getElementById("textskewness").innerHTML = "Skewness: " + kernelSkewness(allData, false, false).toFixed(2);
   } else {
@@ -1217,6 +1212,9 @@ function populateWeightedMeanGraphInfo(allData, id) {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
 
+  var reducedCSqrArray = reduced_Chi_Squared(meanArray,count);
+  var overallRedcuedCSqr = reducedCSqrArray[0];
+  document.getElementById("textReducedChi").innerHTML = "Reduced Chai Square: " + overallRedcuedCSqr;
   var currentSet = document.getElementById("set" + id).value;
   document.getElementById("textdataset").innerHTML = "Using: " + currentSet;
 }
@@ -1303,65 +1301,6 @@ function getMaxDatasetLength(checked) {
     }
   }
   return maxCheck;
-}
-
-function graphMultipleReducedChiSquared() {
-  var getChecked = getCheckedDatasets();
-  var maxDataset = getMaxDatasetLength(getChecked);
-  var dataLabels = getLabels(datasets[maxDataset]);
-  var datasetsName = getCheckedDatasetsName();
-  var graphData = new Array();
-  for (var i = 0; i < getChecked.length; i++) {
-    var allData = getGraphableData(Number(getChecked[i]));
-    var allUnc = getGraphableUncertainty(Number(getChecked[i]));
-    var tempdata = Data_Points_With_Uncertainty(allData, allUnc, eUncertainty);
-    var tempChi = reduced_Chi_Squared(tempdata, 0);
-    var labelData = "set" + getChecked[i];
-    var tempX = {
-      data: tempChi,
-      label: document.getElementById(labelData).value,
-      borderColor: colours[i],
-      fill: false,
-    };
-    graphData.push(tempX);
-  }
-  var multiSqrContext = document.getElementById("rcSqr").getContext("2d");
-  if (window.squareChart) {
-    window.squareChart.destroy();
-  }
-  window.squareChart = new Chart(multiSqrContext, {
-    type: "line",
-    data: {
-      labels: dataLabels,
-      datasets: graphData,
-    },
-  });
-}
-
-function grapghReducedChiSquared(checked) {
-  var tempDataset = getGraphableData(checked);
-  var tempDataUncert = getGraphableUncertainty(checked);
-  var allData = Data_Points_With_Uncertainty(tempDataset, tempDataUncert, eUncertainty);
-  var dataLabels = getLabels(tempDataset);
-  var rChiSquared = reduced_Chi_Squared(allData, 0);
-  var sqrContext = document.getElementById("rcSqr").getContext("2d");
-  if (window.squareChart) {
-    window.squareChart.destroy();
-  }
-  window.squareChart = new Chart(sqrContext, {
-    type: "line",
-    data: {
-      labels: dataLabels,
-      datasets: [
-        {
-          data: rChiSquared,
-          label: document.getElementById("set" + checked).value,
-          borderColor: "#3e95cd",
-          fill: false,
-        },
-      ],
-    },
-  });
 }
 //gets called if only oe dataset is selected to be graphed
 function graphKernelDensity(checked) {
