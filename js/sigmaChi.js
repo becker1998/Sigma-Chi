@@ -288,11 +288,11 @@ function addRow() {
   dataInput.setAttribute("id", inpDataID);
   dataInput.setAttribute("onchange", "onDataChange(this)");
   dataCol.setAttribute("contenteditable", "false");
-  dataCol.className = "pt-3-half custom-table-body";
+  dataCol.className = "pt-3-half custom-table-body nopadding cell-fix";
   dataInput.setAttribute("step", "0.01");
   dataInput.className = "table-input-fields";
 
-  uncCol.className = "pt-3-half custom-table-body";
+  uncCol.className = "pt-3-half custom-table-body nopadding cell-fix";
   colInput.setAttribute("type", "number");
   colInput.setAttribute("value", "");
   var inpColId = "colInput" + (inpVal + 1);
@@ -458,7 +458,7 @@ function addRowWithData(data, uncert) {
 
   idCol.className = "pt-3-half custom-table-body";
   rejCol.className = "pt-3-half custom-table-body";
-  dataCol.className = "pt-3-half custom-table-body";
+  dataCol.className = "pt-3-half custom-table-body nopadding cell-fix";
   dataCol.setAttribute("contenteditable", "false");
   var inpDataId = "dataInput" + (inpVal + 1);
   var inpColId = "colInput" + (inpVal + 1);
@@ -470,7 +470,7 @@ function addRowWithData(data, uncert) {
   if (data !== undefined || data !== null) {
     dataInput.setAttribute("value", data);
   }
-  uncCol.className = "pt-3-half custom-table-body";
+  uncCol.className = "pt-3-half custom-table-body nopadding cell-fix";
   uncCol.setAttribute("contenteditable", "false");
   colInput.setAttribute("type", "number");
   colInput.setAttribute("step", "0.01");
@@ -490,7 +490,7 @@ function addRowWithData(data, uncert) {
   newRow.appendChild(uncCol);
 
   var checkBox = document.createElement("input");
-  checkBox.className = "form-check-input text-center";
+  checkBox.className = "text-center";
   checkBox.setAttribute("type", "checkbox");
   var numCheck = inp + 1;
   var id = "reject" + numCheck;
@@ -1115,7 +1115,7 @@ function dynamicGraph(iD) {
         eUncertainty
       );
       populateWeightedMeanGraphInfo(allData, checkId);
-    }else {
+    } else {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
       graphMultipleKernelDensity(checkId);
@@ -1156,7 +1156,7 @@ function graph(input) {
     } else if (isMultipleCheck() == false) {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
-      graphKernelDensity(checkId);;
+      graphKernelDensity(checkId);
 
       var allData = Data_Points_With_Uncertainty(
         getGraphableData(checkId),
@@ -1212,9 +1212,9 @@ function populateWeightedMeanGraphInfo(allData, id) {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
 
-  var reducedCSqrArray = reduced_Chi_Squared(meanArray,count);
+  var reducedCSqrArray = reduced_Chi_Squared(meanArray, count);
   var overallRedcuedCSqr = reducedCSqrArray[0];
-  document.getElementById("textReducedChi").innerHTML = "Reduced Chai Square: " + overallRedcuedCSqr;
+  document.getElementById("textReducedChi").innerHTML = "Reduced Chi Square: " + overallRedcuedCSqr;
   var currentSet = document.getElementById("set" + id).value;
   document.getElementById("textdataset").innerHTML = "Using: " + currentSet;
 }
@@ -1312,9 +1312,9 @@ function graphKernelDensity(checked) {
   var kernelData = new Array();
   var funct = eFunction;
   console.log("efunction = " + funct);
-  if (funct == 1){
-      kernelData = univariate_Kernel_Density(bandwidth, allData, true);
-  }else{
+  if (funct == 1) {
+    kernelData = univariate_Kernel_Density(bandwidth, allData, true);
+  } else {
     kernelData = univariate_Kernel_Density(bandwidth, allData, false);
   }
   var kernelContext = document.getElementById("kerDest").getContext("2d");
@@ -1467,8 +1467,6 @@ function center() {
   document.getElementById("screendivider").style.position = "relative";
   document.getElementById("collapsetop").style.height = "100%";
   document.getElementById("screendivider").style.top = "0vh";
-  document.getElementById("tophalf").style.height = "325px";
-  document.getElementById("table").style.height = "325px";
   document.getElementById("collapsebottom2").style.height = "54.5vh";
   document.getElementById("collapsebottom").style.height = "54.5vh";
   document.getElementById("collapsebottom3").style.height = "54.5vh";
