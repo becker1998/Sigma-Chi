@@ -153,6 +153,20 @@ function updateEvaluationSettings(firstGo) {
   }
 }
 
+$('#paster').click(function () {
+  navigator.clipboard.readText().then(text => {
+    // use text as a variable, here text = 'clipboard text'
+    var values = text.split(/\s+/);
+    var data = new Array();
+    var uncert = new Array();
+    for (var i = 0; i < values.length; i += 2) {
+      data.push(values[i]);
+      uncert.push(values[i + 1]);
+    }
+    addCSVTable(data, uncert);
+  });
+});
+
 function forceUpdate(id) {
   console.log("forceUpdate");
   var dataID = "checkdata" + tracker;
@@ -381,6 +395,7 @@ function getRejectedData(idNum) {
 //the the data column of the table and will update the table with the new change
 //input is the html element being passed in after change is made
 function onDataChange(input) {
+  console.log("Changed");
   var newValue = Number(input.value);
   var inputId = input.id;
   var rowNum = Number(inputId.match(/\d+$/));
@@ -1118,7 +1133,7 @@ function dynamicGraph(iD) {
         eUncertainty
       );
       populateWeightedMeanGraphInfo(allData, checkId);
-    }else {
+    } else {
       var checkId = getCheckedID();
       graphWeightedMean(checkId);
       graphMultipleKernelDensity(checkId);
@@ -1373,9 +1388,9 @@ function graphKernelDensity(checked) {
   var kernelData = new Array();
   var funct = eFunction;
   console.log("efunction = " + funct);
-  if (funct == 1){
-      kernelData = univariate_Kernel_Density(bandwidth, allData, true);
-  }else{
+  if (funct == 1) {
+    kernelData = univariate_Kernel_Density(bandwidth, allData, true);
+  } else {
     kernelData = univariate_Kernel_Density(bandwidth, allData, false);
   }
   var kernelContext = document.getElementById("kerDest").getContext("2d");
