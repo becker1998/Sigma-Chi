@@ -1334,6 +1334,13 @@ function graphKernelDensity(checked) {
         },
       ],
     },
+    options: {
+      elements: {
+        point: {
+          pointStyle: 'line'
+        }
+      }
+    }
   });
 }
 
@@ -1411,6 +1418,7 @@ function graphWeightedMean(checked) {
           borderColor: "#3e95cd",
           lineThickness: weighteMeanArea,
           fill: false,
+          pointStyle: 'line',
         },
         {
           data: weightedMeanRangeData,
