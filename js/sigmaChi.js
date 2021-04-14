@@ -1337,7 +1337,12 @@ function graphKernelDensity(checked) {
     options: {
       elements: {
         point: {
-          pointStyle: 'line'
+          radius: 0,
+          pointStyle: 'circle',
+          borderWidth: 0,
+          hitRadius: 0,
+          hoverRadius: 4,
+          hoverBorderWidth: 1,
         }
       }
     }
@@ -1468,6 +1473,18 @@ function graphMultipleKernelDensity() {
       labels: dataLabels,
       datasets: graphData,
     },
+    options: {
+      elements: {
+        point: {
+          radius: 0,
+          pointStyle: 'circle',
+          borderWidth: 0,
+          hitRadius: 0,
+          hoverRadius: 4,
+          hoverBorderWidth: 1,
+        }
+      }
+    }
   });
 }
 
