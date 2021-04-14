@@ -153,8 +153,8 @@ function updateEvaluationSettings(firstGo) {
   }
 }
 
-$('#paster').click(function () {
-  navigator.clipboard.readText().then(text => {
+$("#paster").click(function () {
+  navigator.clipboard.readText().then((text) => {
     // use text as a variable, here text = 'clipboard text'
     var values = text.split(/\s+/);
     var data = new Array();
@@ -619,7 +619,7 @@ function getData(input) {
 }
 //function will add new labels that represent additional DataSets
 function addNewData() {
-  console.log('New data added.');
+  console.log("New data added.");
   numberOfDatasetsCreated++; //alternative to numLabels, needed to track total since we can now delete sets.
   var div = document.getElementById("datasets");
 
@@ -1356,14 +1356,14 @@ function graphKernelDensity(checked) {
       elements: {
         point: {
           radius: 0,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           borderWidth: 0,
           hitRadius: 0,
           hoverRadius: 4,
           hoverBorderWidth: 1,
-        }
-      }
-    }
+        },
+      },
+    },
   });
 }
 
@@ -1441,7 +1441,7 @@ function graphWeightedMean(checked) {
           borderColor: "#3e95cd",
           lineThickness: weighteMeanArea,
           fill: false,
-          pointStyle: 'line',
+          pointStyle: "line",
         },
         {
           data: weightedMeanRangeData,
@@ -1495,55 +1495,14 @@ function graphMultipleKernelDensity() {
       elements: {
         point: {
           radius: 0,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           borderWidth: 0,
           hitRadius: 0,
           hoverRadius: 4,
           hoverBorderWidth: 1,
-        }
-      }
-    }
+        },
+      },
+    },
   });
 }
-
-function center() {
-  document.getElementById("screendivider").style.position = "relative";
-  document.getElementById("collapsetop").style.height = "100%";
-  document.getElementById("screendivider").style.top = "0vh";
-  document.getElementById("collapsebottom2").style.height = "54.5vh";
-  document.getElementById("collapsebottom").style.height = "54.5vh";
-  document.getElementById("collapsebottom3").style.height = "54.5vh";
-  document.getElementById("btn1").style.backgroundColor = "#e07a5f";
-  document.getElementById("btn2").style.backgroundColor = "#cd7158";
-  document.getElementById("btn3").style.backgroundColor = "#e07a5f";
-  return;
-}
-
-function expandTop() {
-  document.getElementById("screendivider").style.position = "relative";
-  document.getElementById("collapsebottom").style.height = "0px";
-  document.getElementById("collapsebottom2").style.height = "0px";
-  document.getElementById("collapsebottom3").style.height = "0px";
-  document.getElementById("screendivider").style.top = "0px";
-  document.getElementById("collapsetop").style.height = "89.3vh";
-  document.getElementById("tophalf").style.height = "89.3vh";
-  document.getElementById("table").style.height = "89.3vh";
-  document.getElementById("btn1").style.backgroundColor = "#cd7158";
-  document.getElementById("btn2").style.backgroundColor = "#e07a5f";
-  document.getElementById("btn3").style.backgroundColor = "#e07a5f";
-  return;
-}
-
-function expandBottom() {
-  document.getElementById("collapsetop").style.height = "0px";
-  document.getElementById("collapsebottom2").style.height = "89.3vh";
-  document.getElementById("collapsebottom").style.height = "89.3vh";
-  document.getElementById("collapsebottom3").style.height = "89.3vh";
-  document.getElementById("btn1").style.backgroundColor = "#e07a5f";
-  document.getElementById("btn2").style.backgroundColor = "#e07a5f";
-  document.getElementById("btn3").style.backgroundColor = "#cd7158";
-  return;
-}
-
-center();
 updateEvaluationSettings(true);
