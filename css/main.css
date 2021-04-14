@@ -27,19 +27,26 @@
   background-color: #fff5e22c !important;
   color: #7e7e7e !important;
   border: none !important;
+  box-shadow: 0 0 1px rgb(0, 0, 0) inset !important;
 }
 
 .table-input-fields {
   text-align: center;
   border-style: none none solid none;
-  border-color: rgba(0, 0, 0, 0.11);
+  border-color: rgba(0, 0, 0, 0);
   background-color: rgba(255, 0, 0, 0);
   color: rgba(0, 0, 0, 0.514);
   font-weight: bold;
+  width: 100% !important;
+  height: 48px !important;
 }
 
 .table-input-fields:focus {
   outline: none;
+}
+
+.cell-fix {
+  vertical-align: bottom !important;
 }
 
 .pt-3-half {
@@ -68,12 +75,16 @@
   height: 5000px;
 }
 
+#table {
+  height: 100%;
+}
+
 .main-panel {
   background-color: #fffcf2;
   margin-bottom: 0rem;
   margin-right: 0rem;
   width: 75%;
-  height: 310px;
+  height: 91.9vh;
 }
 
 .bottom-panel {
@@ -92,7 +103,7 @@
   background-color: #fffcf2;
   margin-bottom: 0rem;
   margin-right: 0rem;
-  width: 100%;
+  width: 100% !important;
   height: 54vh;
 
   /*height: 650px !important; removed due to problems*/
@@ -136,13 +147,15 @@
 .top-divider {
   margin-bottom: 0rem;
   background-color: #e9ac4a;
-  height: 18px;
+  height: 91.9vh !important;
+  width: 12px !important;
 }
 
 .bottom-divider {
   margin-bottom: 0rem;
   background-color: #cc7e00;
-  height: 5px;
+  height: 100% !important;
+  width: 5px !important;
 }
 
 .data-btn {
@@ -249,16 +262,16 @@ label {
 }
 
 .add-row-btn {
-  background-color: #c79e5c !important;
-  color: white !important;
+  background-color: #c5c2bd !important;
+  color: rgb(129, 129, 129) !important;
   border: none;
   width: 100%;
-  height: 200px !important;
+  height: 30px !important;
 }
 
 .add-row-btn:hover {
-  background-color: #bb8d43 !important;
-  color: white !important;
+  background-color: #afaca8 !important;
+  color: rgb(109, 109, 109) !important;
   width: 100%;
 }
 
@@ -356,7 +369,7 @@ select:hover {
   background-color: #fff5e2 !important;
   color: #e4b16f !important;
   border: none !important;
-  box-shadow: 0px 1px 2px 0px #e6b276b2 !important;
+  box-shadow: 0px 1px 2px 0px #e6b276b2, 0px -1px 1px 0px #f1cca1b2 !important;
   font-size: 24px;
 }
 
