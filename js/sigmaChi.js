@@ -160,8 +160,8 @@ $('#paster').click(function () {
     var data = new Array();
     var uncert = new Array();
     for (var i = 0; i < values.length; i += 2) {
-      data.push(values[i]);
-      uncert.push(values[i + 1]);
+      data.push(Number(values[i]));
+      uncert.push(Number(values[i + 1]));
     }
     addCSVTable(data, uncert);
   });
@@ -563,6 +563,8 @@ function dataFile(input) {
       glData.push(array[0]);
       glUncer.push(array[1]);
     }
+    console.log(glData);
+    console.log(glUncer);
     addCSVTable(glData, glUncer);
   };
 
@@ -617,6 +619,7 @@ function getData(input) {
 }
 //function will add new labels that represent additional DataSets
 function addNewData() {
+  console.log('New data added.');
   numberOfDatasetsCreated++; //alternative to numLabels, needed to track total since we can now delete sets.
   var div = document.getElementById("datasets");
 
