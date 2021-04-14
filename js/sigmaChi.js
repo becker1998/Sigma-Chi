@@ -1,4 +1,4 @@
-//Sigma-Chi, written by Connor St. Louis - 2021
+//Sigma-Chi
 
 //GLOBAL VARS
 
