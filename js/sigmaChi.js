@@ -785,7 +785,7 @@ function Data_Points_With_Uncertainty(data, uncertainties, twosigma) {
         var uncertaintyMax = data[i] + uncertainties[i];
         var uncertaintyMin = data[i] - uncertainties[i];
       }
-      dataWithUncertainties[i] = new Array(data[i], uncertaintyMax, uncertaintyMin);
+      dataWithUncertainties[i] = new Array(data[i], uncertaintyMax, uncertaintyMin, uncertainties[i]);
     }
   }
   return dataWithUncertainties;
@@ -866,38 +866,17 @@ function Expected_Value(data) {
   }
   return avg;
 }
-//function reutrns the chi_squared of a dataset
-//function uses Expected_Value(data)
-//FUNCTION IS CURRENTLY UNTESTED
-function chi_squared(data) {
-  var chi = 0; //place holder for the chi-square value
-  chi_sqr = new Array();
-  var numerator = 0;
-  var ev = Expected_Value(data); //expected value for data
-  if (data.length) {
-    for (i = 0; i < data.length; i++) {
-      numerator = Math.pow(data[i][0], ev);
-      chi_sqr[i] = numerator / ev;
-    }
-  }
-  return chi_sqr;
-}
 
 //function will calculate the reduced chi squared of a dataset
 //rejected = number of rejected datapoints
 //fucntion uses Expected_Value(data)
 //function uses chi_squared(data)
-//FUNCTION IS CURRENTLY UNTESTED
-function reduced_Chi_Squared(data, rejected) {
-  var accepted = data.length - rejected; //accepted = degrees of freedom
-  var reduced_chi_sqr = new Array();
-  if (data && data.length) {
-    var chi = chi_squared(data);
-    for (i = 0; i < data.length; i++) {
-      reduced_chi_sqr[i] = chi[i] / accepted;
-    }
+function mswd(data, uncertainties, mean) {
+  var total = 0.0;
+  for (let i = 0; i < data.length; i++) {
+    total += Math.pow(data[i] - mean, 2) / Math.pow(uncertainties[i], 2);
   }
-  return reduced_chi_sqr;
+  return 1 / (data.length - 1) * total;
 }
 
 function gaussian(t) {
@@ -1230,9 +1209,15 @@ function populateWeightedMeanGraphInfo(allData, id) {
     document.getElementById("textrejected").innerHTML = "Wtd by uncertainties (0 of " + allData.length + " rejected)";
   }
 
-  var reducedCSqrArray = reduced_Chi_Squared(meanArray, count);
-  var overallRedcuedCSqr = reducedCSqrArray[0];
-  document.getElementById("textReducedChi").innerHTML = "Reduced Chi Square: " + overallRedcuedCSqr;
+  console.log(allData);
+  var uncertainties = new Array();
+  var data = new Array();
+  for (let i = 0; i < allData.length; i++) {
+    data.push(allData[i][0]);
+    uncertainties.push(allData[i][1] - allData[i][0]);
+  }
+  console.log(uncertainties);
+  document.getElementById("textMswd").innerHTML = "MSWD: " + mswd(data, uncertainties, mean).toFixed(2);
   var currentSet = document.getElementById("set" + id).value;
   document.getElementById("textdataset").innerHTML = "Using: " + currentSet;
 }
